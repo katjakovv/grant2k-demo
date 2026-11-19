@@ -346,13 +346,11 @@ button.shade-dealer{border:0}
 #copy-status{display:inline-block;margin-left:10px;font-size:14px;color:var(--muted)}
 
 
-.colour-result:not(:empty){container-type:inline-size;grid-template-columns:minmax(0,1fr)}
-@container (min-width:540px){
-  .colour-result .selected-shade{grid-column:1;grid-row:1;display:grid;gap:0;align-self:center}
-  .colour-result .change-shade{justify-self:start;min-height:32px}
-  .colour-result .shade-stores{grid-column:2;grid-row:1;align-self:center;justify-content:flex-end}
-  .colour-result .shade-dealer{grid-column:1 / span 2}
-}
+.colour-result:not(:empty){grid-template-columns:minmax(0,1fr)}
+.colour-result .selected-shade{min-width:0}
+.colour-result .shade-stores{justify-content:flex-start}
+.colour-result .shade-stores > *{max-width:100%;min-width:0;overflow-wrap:anywhere}
+.colour-result .shade-stores img{flex-shrink:0}
 #dealer-contacts,.demo-caption,#dealer-send-status{color:var(--muted);font:400 14px/1.45 Okta,Arial,sans-serif}
 #dealer-contacts{margin-top:8px;overflow-wrap:anywhere}
 #dealer-request select{cursor:pointer;color:var(--ink)}
@@ -521,6 +519,16 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
   .palette-hit:nth-of-type(n+13) { --y:65.09% }
   .palette-hit:nth-of-type(n+17) { --y:81.76% }
 }
+</style>
+<style>
+.product-buy{margin-bottom:28px}
+.shop-actions,.shop-icons{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-width:0}
+.shop-actions .dealer-action,.shop-icons .shop-icon{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 14px;border:1px solid var(--ink);border-radius:9px;background:var(--ink);color:white;font:600 15px/1.3 Okta,Arial,sans-serif}
+.shop-icons .shop-icon{min-width:44px;gap:6px;padding:7px;background:white;border-color:var(--line);color:var(--ink);text-decoration:none}
+.shop-icon img{width:26px;height:26px;object-fit:contain}
+.shop-icon img[src*="market-vi."]{transform:scale(1.25)}
+.shop-icons button:disabled{opacity:.55;cursor:default}
+.shop-icons a:hover{border-color:var(--ink)}
 </style>
 </head><body data-design-id="g0001"><a data-design-id="g0002" class="skip" href="#main">К содержанию</a>
 <header data-design-id="g0003" class="header"><div data-design-id="g0004" class="wrap nav-inner"><a data-design-id="g0005" class="wordmark" href="#main" aria-label="GRANT 2K — в начало"><img data-design-id="g0006" src="assets/grant2k-logo.svg?v=white-1" alt="GRANT 2K" width="164" height="26"></a><button data-design-id="g0007" class="menu-toggle" aria-expanded="false" aria-controls="nav">Меню</button><nav data-design-id="g0008" id="nav" aria-label="Основное меню"><a data-design-id="g0009" href="#applications">Применение</a><a data-design-id="g0010" href="#catalog">Каталог</a><a data-design-id="g0011" href="#how">Как покрасить</a><a data-design-id="g0012" href="#faq">Вопросы</a><a data-design-id="g0013" href="#buy">Где купить</a></nav><button data-design-id="g0014" class="btn nav-quiz" data-quiz>Подобрать покрытие</button></div></header>
@@ -4182,6 +4190,33 @@ $('#copy-request').onclick=async()=>{
     status.textContent=document.execCommand('copy')?'Скопировано':'Текст выделен. Выберите «Копировать».';
   }
 };
+function storeActions(product,colour){
+  const shade=colour?[colour.code && 'RAL '+colour.code,colour.name].filter(Boolean).join(' · '):'';
+  const icons=[];
+  for(const {key,name} of marketplaces){
+    const offers=colour?colour.items.map(item=>({url:key==='vi'?item.url:item.ozonUrl,pack:item.pack})).filter(item=>item.url):[{url:product[key]}];
+    if(!offers.length)offers.push({});
+    for(const offer of offers){
+      const pack=offers.length>1?offer.pack:'';
+      const description=[name,product.name,shade,pack,!offer.url?'Ссылка готовится':''].filter(Boolean).join(' · ');
+      const attrs='class="shop-icon" aria-label="'+esc(description)+'" title="'+esc(description)+'"';
+      const content=marketIcon(key)+(pack?'<span>'+esc(pack)+'</span>':'');
+      icons.push(offer.url?'<a '+attrs+' href="'+esc(offer.url)+'" target="_blank" rel="noopener">'+content+'</a>':'<button type="button" disabled '+attrs+'>'+content+'</button>');
+    }
+  }
+  return `<div class="shop-actions"><button type="button" class="dealer-action" data-dealer-product data-shade="${esc(shade)}">${shade?'Запросить этот цвет у дилера':'Запросить у дилера'}</button><div class="shop-icons">${icons.join('')}</div></div>`;
+}
+function openProductRequest(product,shade,custom=false){
+  const dialog=$('#dealer-request');
+  $('#copy-status').textContent='';
+  showDealerContact();
+  const name=product.kind+' '+(product.id==='mat'?'ИП 222 матовая':product.name);
+  const question=custom?'Можно ли заколеровать ГРАНТ 2К — '+name+' в '+shade+'?':
+    shade?'Можно ли заказать ГРАНТ 2К — '+name+', цвет '+shade+'?':
+    'Хочу заказать ГРАНТ 2К — '+name+'. '+(product.id==='211'?'Есть ли светло-серый грунт в наличии?':'Какие оттенки есть в наличии?');
+  dialog.querySelector('.request-copy').textContent='Здравствуйте!\n'+question+' Подскажите, пожалуйста, доступную фасовку, цену и срок поставки.';
+  openDialog(dialog);
+}
 function bindColourPicker(panel, product) {
   const colours = productColours[product.id];
   const state = colourStates.get(product.id) || {query:'', selected:null, other:false};
@@ -4217,7 +4252,9 @@ function bindColourPicker(panel, product) {
     list.hidden=state.other || !!state.selected || (!state.query && document.activeElement!==input);
     list.innerHTML=matches.map(c=>`<button type="button" data-index="${colours.indexOf(c)}">${swatch(c)}<span>${esc(label(c))}</span></button>`).join('') || '<p>Такого оттенка в палитре нет. Для колеровки выберите «Нужен свой оттенок RAL».</p>';
     result.replaceChildren();
-    if(!state.selected || state.other)return;
+    if(!state.selected || state.other){
+      return;
+    }
     const colour=state.selected;
     const heading=document.createElement('strong');heading.innerHTML=swatch(colour)+esc(label(colour));
     const change=document.createElement('button');
@@ -4227,35 +4264,7 @@ function bindColourPicker(panel, product) {
     };
     const row=document.createElement('div');row.className='selected-shade';
     row.append(heading,change);result.append(row);
-    const stores=document.createElement('div');
-    stores.className='shade-stores';
-    for(const {key,name} of marketplaces){
-      const offers=colour.items.filter(item=>key==='vi'?item.url:item.ozonUrl);
-      for(const item of offers){
-        const link=document.createElement('a');
-        link.href=key==='vi'?item.url:item.ozonUrl;
-        link.target='_blank';link.rel='noopener';
-        link.innerHTML=marketIcon(key);
-        const caption=document.createElement('span');
-        caption.textContent=offers.length>1?name+' · '+item.pack:name;
-        link.append(caption);
-        link.setAttribute('aria-label',[name,product.name,label(colour),item.pack].join(' · '));
-        stores.append(link);
-      }
-    }
-    if(stores.childElementCount)result.append(stores);
-    const request=document.createElement('button');
-    request.type='button';request.className='shade-dealer';request.textContent='Запросить у дилера';
-    request.onclick=()=>previewRequest(label(colour));
-    result.append(request);
-  }
-  function previewRequest(shade){
-    const dialog=$('#dealer-request');
-    $('#copy-status').textContent='';
-    showDealerContact();
-    const name=product.kind+' '+(product.id==='mat'?'ИП 222':product.name);
-    dialog.querySelector('.request-copy').textContent='Здравствуйте!\nМожно ли заказать ГРАНТ 2К — '+name+', цвет '+shade+'? Подскажите, пожалуйста, доступную фасовку, цену и срок поставки.';
-    openDialog(dialog);
+    result.insertAdjacentHTML('beforeend', storeActions(product,colour));
   }
   const ral=dealer.elements.ral;
   ral.value=state.customRal || '';
@@ -4266,13 +4275,13 @@ function bindColourPicker(panel, product) {
     if(!/^(?:\d{4}|\d{3} \d{2} \d{2})$/.test(code)){
       ral.setCustomValidity('Введите номер RAL, например 7035 или 240 40 35.');ral.reportValidity();return;
     }
-    previewRequest('RAL '+code);
+    openProductRequest(product,'RAL '+code,true);
   };
   input.oninput=()=>{state.query=input.value;state.selected=null;state.other=false;render()};
   input.onfocus=()=>{if(state.selected || state.other){state.query='';state.selected=null;state.other=false}render()};
   function selectColour(colour){
     state.selected=colour;state.query=label(colour);state.other=false;render();
-    result.querySelector('a')?.focus({preventScroll:true});
+    result.querySelector('[data-dealer-product]')?.focus({preventScroll:true});
     result.scrollIntoView({block:'nearest',behavior:'instant'});
   }
   list.onclick=e=>{
@@ -4295,8 +4304,11 @@ function technicalGroups(product) {
     `<details class="tech-group"><summary><span>${title}</span><span class="tech-action"><span class="expand">Раскрыть</span><span class="collapse">Свернуть</span></span></summary><dl>${groups.get(title).join('')}</dl></details>`
   ).join('');
 }
-function renderDetail(){const old=$('#product-detail');if(old)old.remove();$$('.product-card').forEach(b=>b.setAttribute('aria-expanded',b.dataset.product===selected));if(!selected)return;const p=products.find(x=>x.id===selected),panel=document.createElement('article');panel.id='product-detail';panel.className='product-detail';panel.setAttribute('aria-label',p.name+' — подробности');panel.innerHTML=`<div class="detail-top"><h3>${esc(p.name)}</h3><button class="close-inline" id="close-product">Закрыть ×</button></div><div class="detail-grid"><div><img class="detail-image" src="${p.image}" alt="Упаковка ${esc(p.name)}"></div><div><p>${esc(p.description)}</p><p>${esc(p.use)}</p><dl class="specs" aria-label="Основные характеристики"><div><dt>Фасовка комплекта</dt><dd>${esc(p.pack)}</dd></div><div><dt>${p.id==='211'?'Цвет':'Палитра'}</dt><dd>${esc(p.colors)}</dd></div><div><dt>Основания</dt><dd>${esc(productSpecs[p.id][0])}</dd></div></dl><section aria-labelledby="tech-heading"><h4 id="tech-heading">Технические характеристики</h4><div class="tech-groups">${technicalGroups(p)}</div></section><section class="product-docs" aria-label="Документы"><a class="doc-download" href="${esc(p.pdf)}" download aria-label="Скачать техническое описание ${esc(p.name)} в PDF"><span class="doc-format">PDF</span><span class="doc-name"><strong>Техническое описание</strong><small>${esc(p.name)}</small></span><span class="doc-action">Скачать</span></a></section>${p.id==='211'?purchaseLinks(p):`<section class="colour-picker"><h4>Выберите цвет</h4><label>Название или номер RAL<input type="search" autocomplete="off" placeholder="Например, серый или 7035"></label><div class="colour-options" aria-label="Доступные оттенки"></div><div class="colour-result" aria-live="polite"></div><div class="colour-actions"><button type="button" class="show-colours" aria-haspopup="dialog" aria-controls="palette-viewer">Посмотреть цвета</button><button type="button" class="other-colour" aria-controls="custom-ral">Нужен свой оттенок RAL</button></div><form id="custom-ral" class="dealer-colour" hidden><label>Номер RAL<input name="ral" placeholder="Например, 7035" required maxlength="24"></label><button type="submit" class="shade-dealer">Выбрать дилера</button></form></section>`}</div></div>`;
-const cards=$$('.product-card'),cols=getComputedStyle($('#catalog-grid')).gridTemplateColumns.split(' ').length,ix=cards.findIndex(b=>b.dataset.product===selected),end=Math.min(cards.length-1,Math.floor(ix/cols)*cols+cols-1);cards[end].after(panel);$('#close-product').onclick=()=>{const id=selected;selected=null;renderDetail();$(`[data-product="${id}"]`).focus()};bindPhotos(panel);bindDemos(panel);if(p.id!=='211')bindColourPicker(panel,p)}
+function renderDetail(){const old=$('#product-detail');if(old)old.remove();$$('.product-card').forEach(b=>b.setAttribute('aria-expanded',b.dataset.product===selected));if(!selected)return;const p=products.find(x=>x.id===selected),panel=document.createElement('article');panel.id='product-detail';panel.className='product-detail';panel.setAttribute('aria-label',p.name+' — подробности');panel.innerHTML=`<div class="detail-top"><h3>${esc(p.name)}</h3><button class="close-inline" id="close-product">Закрыть ×</button></div><div class="detail-grid"><div><img class="detail-image" src="${p.image}" alt="Упаковка ${esc(p.name)}"></div><div><p>${esc(p.description)}</p><p>${esc(p.use)}</p><dl class="specs" aria-label="Основные характеристики"><div><dt>Фасовка комплекта</dt><dd>${esc(p.pack)}</dd></div><div><dt>${p.id==='211'?'Цвет':'Палитра'}</dt><dd>${esc(p.colors)}</dd></div><div><dt>Основания</dt><dd>${esc(productSpecs[p.id][0])}</dd></div></dl><section class="product-buy"><h4>Где купить</h4>${storeActions(p)}</section><section aria-labelledby="tech-heading"><h4 id="tech-heading">Технические характеристики</h4><div class="tech-groups">${technicalGroups(p)}</div></section><section class="product-docs" aria-label="Документы"><a class="doc-download" href="${esc(p.pdf)}" download aria-label="Скачать техническое описание ${esc(p.name)} в PDF"><span class="doc-format">PDF</span><span class="doc-name"><strong>Техническое описание</strong><small>${esc(p.name)}</small></span><span class="doc-action">Скачать</span></a></section>${p.id==='211'?'':`<section class="colour-picker"><h4>Выберите цвет</h4><label>Название или номер RAL<input type="search" autocomplete="off" placeholder="Например, серый или 7035"></label><div class="colour-options" aria-label="Доступные оттенки"></div><div class="colour-result" aria-live="polite"></div><div class="colour-actions"><button type="button" class="show-colours" aria-haspopup="dialog" aria-controls="palette-viewer">Посмотреть цвета</button><button type="button" class="other-colour" aria-controls="custom-ral">Нужен свой оттенок RAL</button></div><form id="custom-ral" class="dealer-colour" hidden><label>Номер RAL<input name="ral" placeholder="Например, 7035" required maxlength="24"></label><button type="submit" class="shade-dealer">Уточнить колеровку у дилера</button></form></section>`}</div></div>`;
+const cards=$$('.product-card'),cols=getComputedStyle($('#catalog-grid')).gridTemplateColumns.split(' ').length,ix=cards.findIndex(b=>b.dataset.product===selected),end=Math.min(cards.length-1,Math.floor(ix/cols)*cols+cols-1);cards[end].after(panel);$('#close-product').onclick=()=>{const id=selected;selected=null;renderDetail();$(`[data-product="${id}"]`).focus()};panel.addEventListener('click',event=>{
+  const button=event.target.closest('[data-dealer-product]');
+  if(button)openProductRequest(p,button.dataset.shade);
+});bindPhotos(panel);bindDemos(panel);if(p.id!=='211')bindColourPicker(panel,p)}
 $$('.filter').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;selected=null;$$('.filter').forEach(x=>x.setAttribute('aria-pressed',x===b));catalog()});let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(selected)renderDetail()},150)});catalog();
 function openProduct(id){filter='Все';selected=id;$$('.filter').forEach(b=>b.setAttribute('aria-pressed',b.dataset.filter==='Все'));catalog();requestAnimationFrame(()=>jump($(`[data-product="${id}"]`)))}
 // Quiz follows the supplied matrix. No hammer option for outdoor equipment.
