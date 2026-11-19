@@ -138,7 +138,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#nav').classList
 // Hero carousel: a manual selection resets the five-second interval.
 let heroIndex=2,paused=motion(),heroTimer;
 $('#dots').innerHTML=products.map((p,i)=>`<button class="dot" data-slide="${i}" aria-label="Показать ${esc(p.name)}" aria-pressed="${i===heroIndex}"></button>`).join('');
-function hero(){const p=products[heroIndex];$('.hero-crop').dataset.product=p.id;$('#hero-image').src=`assets/hero-pack-${p.id}.png`;$('#hero-image').alt=`Комплект ${p.name}: упаковки продукта`;$('#hero-caption').textContent=p.name+' · '+p.kind;$$('.dot').forEach((b,i)=>b.setAttribute('aria-pressed',i===heroIndex))}
+function hero(){const p=products[heroIndex];$('.hero-crop').dataset.product=p.id;$('#hero-image').src=`assets/hero-pack-${p.id}.png?v=2`;$('#hero-image').alt=`Комплект ${p.name}: упаковки продукта`;$('#hero-caption').textContent=p.name+' · '+p.kind;$$('.dot').forEach((b,i)=>b.setAttribute('aria-pressed',i===heroIndex))}
 function timer(){clearInterval(heroTimer);if(!paused)heroTimer=setInterval(()=>{if(!document.hidden&&!$('dialog[open]')){heroIndex=(heroIndex+1)%products.length;hero()}},5000)}
 function slide(i){heroIndex=(i+products.length)%products.length;hero();timer()}
 $('#prev').onclick=()=>slide(heroIndex-1);$('#next').onclick=()=>slide(heroIndex+1);$$('.dot').forEach(b=>b.onclick=()=>slide(+b.dataset.slide));hero();timer();
