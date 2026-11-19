@@ -61,6 +61,8 @@
     "phone|[data-design-id=\"g0028\"]|border-color": "#000000",
     "phone|[data-design-id=\"g0048\"]|margin-top": "20px",
     "phone|[data-design-id=\"g0049\"]|padding-bottom": "55px",
-    "phone|[data-design-id=\"g0049\"]|padding-top": "20px"
+    "phone|[data-design-id=\"g0049\"]|padding-top": "20px",
+    "all|[data-design-id=\"g0007\"]|background-color": "#ffffff",
+    "all|[data-design-id=\"g0008\"]|background-color": "#2f385a"
   }
 }
