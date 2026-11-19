@@ -182,6 +182,195 @@
 @media(min-width:1101px){
   #benefits .benefit-grid{grid-auto-rows:1fr}
 }
+</style><style>
+.product-card .surfaces{display:block;margin:8px 0;line-height:1.45;font-size:15px}
+.product-detail,.detail-grid>*,.specs>*,.product-card{min-width:0}
+.product-detail .specs{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;padding:18px 20px;background:#f4f5f8;border-radius:12px;margin:22px 0}
+.product-detail .specs>div:last-child{grid-column:1/-1;border-top:1px solid var(--line);padding-top:12px}
+.product-detail .specs dt,.tech-group dt{font-size:14px;color:var(--muted)}
+.product-detail .specs dd{margin:3px 0 0;line-height:1.35;font-weight:600}
+.colour-picker{margin:24px 0 12px}
+.colour-picker h4{font-size:20px;margin:0 0 12px}
+.colour-picker label{display:grid;gap:5px;font-size:14px}
+.colour-picker input{font:inherit;font-size:16px;border:1px solid #9ba3b7;border-radius:8px;padding:11px;width:100%}
+.colour-options{max-height:170px;overflow:auto;border:1px solid var(--line);border-radius:8px;margin:4px 0}
+.colour-swatch{display:inline-block;width:28px;height:28px;flex:0 0 28px;border-radius:6px;border:1px solid #0002}
+.colour-result strong{display:flex;align-items:center;gap:10px}
+.colour-options button{display:flex;align-items:center;gap:10px;text-align:left;width:100%;padding:9px 12px;border:0;background:white;color:var(--ink)}
+.colour-options button:hover,.colour-options button:focus-visible{background:#eef0f5}
+.colour-options p{padding:10px}
+.colour-result:not(:empty){display:grid;gap:8px;background:#eef0f5;border-radius:10px;padding:14px;margin:8px 0}
+.colour-result a,.dealer-colour a{font-weight:600}
+.colour-chart summary,.other-colour{cursor:pointer}
+.product-docs{margin:26px 0}
+.doc-download{display:flex;align-items:center;gap:14px;padding:16px;border-radius:12px;background:#eef0f5;color:var(--ink);text-decoration:none}
+.doc-download:hover,.doc-download:focus-visible{background:#e2e6ef}
+.doc-format{padding:9px 6px;border:1px solid #9ba3b7;border-radius:4px;background:white;font-size:12px;letter-spacing:.04em;font-weight:700}
+.doc-name{display:grid;gap:2px;min-width:0;line-height:1.35}
+.doc-name small{color:#535e76}
+.doc-action{margin-left:auto;white-space:nowrap;font-weight:650;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:640px){.doc-download{display:grid;grid-template-columns:auto 1fr;padding:14px;gap:6px 12px}.doc-format{grid-row:span 2}.doc-action{grid-column:2;margin:0;font-size:14px}}
+#tech-heading{margin:26px 0 12px;font-size:20px;line-height:1.3;color:var(--ink)}
+.tech-groups{display:grid;gap:10px;margin:0 0 28px}
+.tech-group{border:1px solid #cdd2dd;border-radius:12px;background:white}
+.tech-group summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;padding:12px 16px;cursor:pointer;list-style:none;font-size:17px;line-height:1.35;font-weight:650;border-radius:11px}
+.tech-group summary::-webkit-details-marker{display:none}
+.tech-group summary:hover,.tech-group[open] summary{background:#f1f3f8}
+.tech-group summary:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.tech-action{display:inline-flex;gap:8px;align-items:center;flex-shrink:0;border-radius:7px;background:var(--ink);color:white;font-size:13px;line-height:1.3;font-weight:600;padding:7px 10px}
+.tech-action::after{content:'';width:6px;height:6px;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:translateY(-2px) rotate(45deg)}
+.tech-action .collapse,.tech-group[open] .expand{display:none}
+.tech-group[open] .collapse{display:inline}
+.tech-group[open] .tech-action::after{transform:translateY(2px) rotate(225deg)}
+.tech-group dl{margin:0;padding:0 16px}
+.tech-group dl>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:16px;padding:13px 0;align-items:baseline}
+.tech-group dl>div+div{border-top:1px solid var(--line)}
+.tech-group dd{font-size:15px;line-height:1.5;margin:0;overflow-wrap:anywhere}
+@media(max-width:640px){.tech-group summary{font-size:16px;padding:10px;gap:8px}.tech-action{font-size:12px;padding:6px 8px}.tech-group dl{padding:0 12px}.tech-group dt{font-weight:600}}
+@media(max-width:640px){.product-detail .detail-grid{grid-template-columns:minmax(0,1fr)}.product-detail .specs{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:14px}.tech-group dl>div{grid-template-columns:1fr;gap:2px}.product-detail .purchase-links{flex-wrap:wrap}}
+
+
+/* KVIL product and dealer surfaces */
+:root{
+  --kvil-surface:#f2f2f7;
+  --kvil-card-radius:16px;
+  --kvil-card-shadow:0 2px 8px rgba(47,56,90,.07);
+  --kvil-page-wash:repeating-linear-gradient(90deg,rgba(47,56,90,.022) 0 1px,transparent 1px 18.2%),linear-gradient(90deg,#e4e4f0,#e8e6ee 35%,#ece8ec 60%,#efe9ea);
+}
+#catalog{background-image:var(--kvil-page-wash)}
+.product-card,.product-detail{
+  border-radius:var(--kvil-card-radius);background-color:white;box-shadow:var(--kvil-card-shadow);color:var(--ink)
+}
+.product-detail .specs,.doc-download,.colour-result:not(:empty){background:var(--kvil-surface);border-radius:12px}
+.product-detail #tech-heading,.product-detail .colour-picker h4{
+  font:600 20px/1.3 Okta,Arial,sans-serif;letter-spacing:0;margin:24px 0 12px;color:var(--ink)
+}
+.tech-group summary,.doc-name strong,.colour-result strong,.colour-chart summary,.other-colour{
+  font-family:Okta,Arial,sans-serif;font-weight:600;color:var(--ink)
+}
+.colour-chart summary,.other-colour,.doc-action{font-size:16px;line-height:1.4}
+.product-detail .note,.product-card .note,.product-detail .specs dt,.tech-group dt,.doc-name small{color:var(--muted)}
+.tech-group,.colour-options,.colour-picker input{border-color:var(--line)}
+.tech-group summary:hover,.doc-download:hover,.colour-options button:hover{background:var(--kvil-surface)}
+.product-detail :is(summary,button,a,input):focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media(max-width:640px){.product-detail #tech-heading,.product-detail .colour-picker h4{font-size:19px}}
+
+
+#catalog .product-card{container-type:inline-size;padding:clamp(20px,2.3vw,30px)}
+#catalog .product-card h3{font:600 clamp(14px,5.1cqi,20px)/1.25 Okta,Arial,sans-serif;letter-spacing:-.02em}
+#catalog .product-card .surfaces{margin:6px 0 0;font-size:clamp(14px,4.1cqi,16px)}
+
+
+.product-detail #tech-heading,.product-detail .colour-picker h4{padding-left:12px;border-left:4px solid var(--orange);margin-top:32px}
+.product-detail .tech-group[open] summary{background:#fff3ec}
+.product-detail .tech-group dt{color:#964018;font-weight:600}
+.product-detail .doc-download{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center}
+.product-detail .doc-format{grid-row:auto}
+.product-detail .doc-action{grid-column:3;grid-row:1;justify-self:end;padding:8px 15px;border-radius:8px;background:var(--orange);color:#212538;font:600 15px/1.35 Okta,Arial,sans-serif;text-decoration:none}
+@media(max-width:480px){.product-detail .doc-download{grid-template-columns:minmax(0,1fr) auto;gap:4px 8px;padding:12px}.product-detail .doc-format{grid-column:1;justify-self:start;border:0;background:transparent;padding:0;font-size:11px}.product-detail .doc-name{grid-column:1;grid-row:2}.product-detail .doc-action{grid-column:2;grid-row:1/span 2;padding:8px 10px}}
+
+
+.colour-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.colour-actions button{min-height:44px;padding:10px 16px;border:1px solid var(--ink);border-radius:9px;font:600 16px/1.3 Okta,Arial,sans-serif}
+.colour-actions .show-colours{background:var(--ink);color:#fff}
+.colour-actions .other-colour{background:white;color:var(--ink)}
+.colour-actions .other-colour[aria-expanded=true]{background:var(--kvil-surface)}
+.colour-picker .colour-chart,.colour-picker .dealer-colour{margin-top:12px}
+@media(max-width:600px){.colour-actions{display:grid}}
+
+
+#palette-viewer{width:min(820px,calc(100% - 24px));max-height:96dvh;padding:16px;border:0;border-radius:16px;color:var(--ink)}
+.palette-bar,.palette-controls{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.palette-bar .modal-close,.palette-controls button{position:static;width:auto;height:auto;min-height:42px;padding:8px 14px;border:0;border-radius:8px;background:var(--kvil-surface);color:var(--ink);font:600 15px Okta,Arial,sans-serif}
+.palette-scroll{height:min(65dvh,calc(100vw - 60px));overflow-y:auto;overscroll-behavior:contain;scroll-snap-type:y proximity;margin:10px 0;background:white}
+.palette-scroll img{display:block;width:100%;height:100%;object-fit:contain;scroll-snap-align:start}
+.palette-controls button:disabled{opacity:.45}
+#palette-viewer .note{margin:8px 0 0;font-size:13px}
+.product-detail .doc-action{background:#fff;color:var(--ink);border:1px solid #a9b0c1}
+.doc-download:hover .doc-action,.doc-download:focus-visible .doc-action{background:var(--ink);color:white}
+
+
+.palette-page{container-type:size;width:100%;height:100%;display:grid;place-items:center;scroll-snap-align:start}
+.palette-sheet{position:relative;width:min(100cqw,100cqh);aspect-ratio:1}
+.palette-sheet img{width:100%;height:100%;clip-path:inset(10% 0 8%)}
+.palette-sheet .palette-hit{position:absolute;display:block;min-height:0;min-width:0;padding:0;border:0;border-radius:4px;background:transparent;cursor:pointer;transform:none}
+.palette-sheet .palette-hit:hover,.palette-sheet .palette-hit:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+
+
+.palette-sheet .palette-hit[aria-current=true]{outline:3px solid var(--ink);outline-offset:0;box-shadow:inset 0 0 0 2px white}
+.palette-hit[aria-current=true]::after{content:'✓';position:absolute;right:2px;top:2px;display:grid;place-items:center;width:19px;height:19px;border:1px solid white;border-radius:50%;background:var(--ink);color:white;font:600 14px/1 Arial,sans-serif}
+
+
+.shade-stores{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0}
+.shade-stores a{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:7px 12px;border:1px solid var(--line);border-radius:9px;background:white;text-decoration:none;line-height:1.25}
+.shade-stores img{width:24px;height:24px;object-fit:contain}
+.shade-stores a:hover{border-color:var(--ink)}
+.shade-dealer{justify-self:start;display:inline-flex;align-items:center;min-height:44px;border-radius:9px;background:var(--ink);color:white;text-decoration:none;padding:8px 16px;font-size:16px}
+
+
+#dealer-request{width:min(480px,calc(100% - 28px));padding:clamp(18px,4vw,28px);border:0;border-radius:16px;color:var(--ink)}
+#dealer-request .modal-head{margin:0 0 22px;align-items:center}
+#dealer-request h3{font:600 22px/1.25 Okta,Arial,sans-serif}
+#dealer-request .request-label{display:block;margin:0 0 6px;color:var(--muted);font:400 14px/1.4 Okta,Arial,sans-serif}
+#dealer-request select{width:100%;padding:10px 12px;border:1px solid var(--line);background:white;border-radius:8px;font:400 16px/1.4 Okta,Arial,sans-serif;color:var(--muted);opacity:1}
+#dealer-request .request-letter{margin:22px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+#dealer-request .request-copy{margin:0;font:400 16px/1.55 Okta,Arial,sans-serif;white-space:pre-line}
+#dealer-request>button{margin:22px 0 0;padding:10px 16px;border:0;border-radius:8px;font:400 15px/1.4 Okta,Arial,sans-serif}
+.colour-result:not(:empty){gap:12px;padding:16px}
+.colour-result .shade-stores{gap:8px;margin:0}
+.colour-result .shade-stores a,.colour-actions button,.colour-picker .shade-dealer,.colour-chart summary{font-family:Okta,Arial,sans-serif;font-weight:400}
+.colour-result .shade-dealer{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;color:var(--ink);justify-self:stretch;justify-content:flex-start;padding:12px 0 0;text-decoration:underline;text-underline-offset:3px}
+#custom-ral .shade-dealer{margin-top:8px}
+button.shade-dealer{border:0}
+
+
+.selected-shade{display:flex;align-items:center;justify-content:space-between;gap:8px 14px;flex-wrap:wrap}
+.selected-shade strong{min-width:0}
+.change-shade{min-height:44px;padding:4px 0;border:0;background:transparent;color:var(--ink);font:400 15px/1.35 Okta,Arial,sans-serif;text-decoration:underline;text-underline-offset:3px}
+
+
+.product-detail .tech-group{border:2px solid #cdd2dd;background:white}
+.product-detail .tech-group[open]{border-color:var(--orange)}
+.product-detail .tech-group[open] summary,.product-detail .tech-group summary{background:white;color:var(--ink)}
+.product-detail .tech-group dt{color:var(--muted);font-weight:400}
+.product-detail .tech-action{border:1.5px solid #b1b8ce;background:transparent;color:var(--ink)}
+.product-detail .tech-group[open] .tech-action{border-color:var(--ink)}
+.colour-result button.shade-dealer{justify-self:start;justify-content:center;border:1.5px solid var(--ink);border-radius:9px;background:white;color:var(--ink);padding:9px 16px;text-decoration:none;min-height:44px}
+.colour-result button.shade-dealer:hover{background:var(--ink);color:white}
+#dealer-request{border-top:4px solid var(--orange)}
+#dealer-request .request-recipient{background:var(--kvil-surface);padding:14px;border-radius:10px}
+#dealer-request .request-letter{padding:20px 0 0;margin:18px 0 0;border-top:1px solid var(--line)}
+#request-copy-label{font:600 18px/1.35 Okta,Arial,sans-serif;margin:0 0 12px}
+#dealer-request .request-copy{user-select:text;-webkit-user-select:text}
+#copy-request{margin-top:16px;padding:9px 15px;min-height:44px;background:var(--ink);color:white;border:0;border-radius:9px}
+#copy-status{display:inline-block;margin-left:10px;font-size:14px;color:var(--muted)}
+
+
+.colour-result:not(:empty){container-type:inline-size;grid-template-columns:minmax(0,1fr)}
+@container (min-width:540px){
+  .colour-result .selected-shade{grid-column:1;grid-row:1;display:grid;gap:0;align-self:center}
+  .colour-result .change-shade{justify-self:start;min-height:32px}
+  .colour-result .shade-stores{grid-column:2;grid-row:1;align-self:center;justify-content:flex-end}
+  .colour-result .shade-dealer{grid-column:1 / span 2}
+}
+#dealer-contacts,.demo-caption,#dealer-send-status{color:var(--muted);font:400 14px/1.45 Okta,Arial,sans-serif}
+#dealer-contacts{margin-top:8px;overflow-wrap:anywhere}
+#dealer-request select{cursor:pointer;color:var(--ink)}
+#request-city{appearance:none;-webkit-appearance:none}
+#dealer-request #request-city{padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3 6 5 5 5-5' fill='none' stroke='%232f385a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-size:16px 16px;background-position:right 12px center;background-repeat:no-repeat}
+@media(forced-colors:active){#dealer-request #request-city{appearance:auto;background-image:none}}
+#dealer-request .request-letter{background:#f7f7fa;border:1px solid var(--line);border-radius:12px;padding:12px 16px 16px}
+.letter-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+.letter-bar h4{margin:0}
+#copy-request{background:transparent;color:var(--ink);margin:0;display:grid;place-items:center;width:44px;height:44px;padding:0}
+#copy-request:hover{background:var(--soft)}
+.copy-glyph{position:relative;display:block;width:13px;height:16px;border:1.6px solid currentColor;border-radius:3px;margin:3px 0 0 3px}
+.copy-glyph::before{content:'';position:absolute;left:-5px;top:-5px;width:10px;height:12px;border:solid currentColor;border-width:1.6px 0 0 1.6px;border-radius:3px 0 0 0}
+#copy-status:not(:empty){margin:8px 0 0}
+#copy-status:empty,#dealer-send-status:empty{display:none}
+#dealer-request .demo-caption{margin:16px 0 6px}
+#dealer-request #send-demo-request{background:var(--orange);color:white;font-weight:600;margin:0;min-height:44px}
+#dealer-send-status{margin-top:8px}
 </style></head><body data-design-id="g0001"><a data-design-id="g0002" class="skip" href="#main">К содержанию</a>
 <header data-design-id="g0003" class="header"><div data-design-id="g0004" class="wrap nav-inner"><a data-design-id="g0005" class="wordmark" href="#main" aria-label="GRANT 2K — в начало"><img data-design-id="g0006" src="assets/grant2k-logo.svg?v=white-1" alt="GRANT 2K" width="164" height="26"></a><button data-design-id="g0007" class="menu-toggle" aria-expanded="false" aria-controls="nav">Меню</button><nav data-design-id="g0008" id="nav" aria-label="Основное меню"><a data-design-id="g0009" href="#applications">Применение</a><a data-design-id="g0010" href="#catalog">Каталог</a><a data-design-id="g0011" href="#how">Как покрасить</a><a data-design-id="g0012" href="#faq">Вопросы</a><a data-design-id="g0013" href="#buy">Где купить</a></nav><button data-design-id="g0014" class="btn nav-quiz" data-quiz>Подобрать покрытие</button></div></header>
 <main data-design-id="g0015" id="main"><section data-design-id="g0016" class="hero"><div data-design-id="g0017" class="wrap"><div data-design-id="g0018" class="hero-grid"><div data-design-id="g0019" class="hero-copy"><h1 data-design-id="g0020"><span data-design-id="g0021">Долговечная защита</span> <span data-design-id="g0022">металла</span> <span data-design-id="g0023">от коррозии</span></h1><div data-design-id="g0024" class="hero-bottom"><div data-design-id="g0025" class="hero-fact"><strong data-design-id="g0026">100%</strong><span data-design-id="g0027">антикоррозия</span></div><div data-design-id="g0028" class="hero-fact"><strong data-design-id="g0029">от 15 лет</strong><span data-design-id="g0030">службы покрытия</span></div></div><p data-design-id="g0031">Двухкомпонентная краска по металлу для тех, кто не хочет перекрашивать через год-два, <strong data-design-id="g0032">проверено испытаниями</strong>, а не только отзывами.</p><div data-design-id="g0033" class="actions"><a data-design-id="g0034" class="btn" href="#buy">Купить онлайн <span data-design-id="g0035" aria-hidden="true">↗</span></a><a data-design-id="g0036" class="btn light" href="#dealers">Купить оптом <span data-design-id="g0037" aria-hidden="true">↓</span></a></div></div><div data-design-id="g0038" class="hero-product"><div data-design-id="g0039" class="hero-stage"><div data-design-id="g0040" class="hero-crop" data-product="222"><img data-design-id="g0041" id="hero-image" src="assets/hero-pack-222.png" alt="Комплект ИП 222: коробка, основа и отвердитель" fetchpriority="high"></div></div><div class="hero-meta"><div data-design-id="g0042" class="product-caption" id="hero-caption">ИП 222 · Полуглянцевая грунт-эмаль</div><div data-design-id="g0043" class="carousel-controls"><button data-design-id="g0044" class="circle" id="prev" aria-label="Предыдущий продукт">‹</button><div data-design-id="g0045" class="dots" id="dots"></div><button data-design-id="g0046" class="circle" id="next" aria-label="Следующий продукт">›</button></div></div></div></div></div><p data-design-id="g0048" class="hero-tagline">Долговечность без компромиссов</p></section>
@@ -196,7 +385,3458 @@
 <dialog id="benefit-docs" aria-labelledby="benefit-docs-title"><div class="modal-head"><span>ГРАНТ 2К</span><button class="modal-close" data-close aria-label="Закрыть">×</button></div><div class="modal-body"><h2 id="benefit-docs-title">Технические описания</h2><ul><li><a href="assets/211.pdf" target="_blank" rel="noopener">Грунт УниЭпокс 211 · PDF ↗</a></li><li><a href="assets/232.pdf" target="_blank" rel="noopener">Эмаль PUR 232 · PDF ↗</a></li><li><a href="assets/222.pdf" target="_blank" rel="noopener">Грунт-эмаль УР-2К ИП 222 · PDF ↗</a></li><li><a href="assets/mat.pdf" target="_blank" rel="noopener">Матовая грунт-эмаль · PDF ↗</a></li><li><a href="assets/kovka.pdf" target="_blank" rel="noopener">Грунт-эмаль «Ковка» · PDF ↗</a></li></ul></div></dialog>
 <dialog data-design-id="g0244" id="quiz" aria-labelledby="quiz-title"><div data-design-id="g0245" class="modal-head"><span data-design-id="g0246" id="quiz-progress">Подбор покрытия</span><button data-design-id="g0247" class="modal-close" data-close aria-label="Закрыть подбор">×</button></div><div data-design-id="g0248" class="modal-body" id="quiz-body"></div></dialog>
 <dialog data-design-id="g0249" id="info" aria-labelledby="info-title"><div data-design-id="g0250" class="modal-head"><span data-design-id="g0251">ГРАНТ 2К</span><button data-design-id="g0252" class="modal-close" data-close aria-label="Закрыть окно">×</button></div><div data-design-id="g0253" class="modal-body" id="info-body"></div></dialog>
+<dialog id="dealer-request" aria-labelledby="dealer-request-title">
+<div class="modal-head"><h3 id="dealer-request-title">Запрос дилеру</h3><button class="modal-close" data-close aria-label="Закрыть">×</button></div>
+<div class="request-recipient"><label class="request-label" for="request-city">Выберите дилера</label><select id="request-city"><option value="a" data-phone="01">Дилер А</option><option value="b" data-phone="02">Дилер Б</option><option value="c" data-phone="03">Дилер С</option></select><div id="dealer-contacts"></div></div>
+<section class="request-letter" aria-labelledby="request-copy-label"><div class="letter-bar"><h4 id="request-copy-label">Текст запроса</h4><button type="button" id="copy-request" title="Скопировать текст" aria-label="Скопировать текст"><span class="copy-glyph" aria-hidden="true"></span></button></div><p class="request-copy"></p><span id="copy-status" role="status"></span></section>
+<p class="demo-caption">Демонстрационные контакты. Отправка тестовая.</p><button id="send-demo-request" type="button">Отправить дилеру</button><p id="dealer-send-status" role="status"></p></dialog>
+<dialog id="palette-viewer" aria-labelledby="palette-title">
+<div class="palette-bar"><strong id="palette-title"></strong><button class="modal-close" data-close>Закрыть</button></div>
+<div class="palette-scroll" tabindex="0" aria-label="Листы палитры"></div>
+<div class="palette-controls"><button type="button" data-prev>Назад</button><button type="button" data-next>Далее</button></div>
+<p class="note">Нажмите на оттенок, чтобы выбрать его. Цвет на экране может отличаться от выкраса.</p></dialog>
 <dialog data-design-id="g0254" id="lightbox" class="lightbox" aria-labelledby="photo-caption"><div data-design-id="g0255" class="modal-head"><span data-design-id="g0256" id="photo-caption">Фотография</span><button data-design-id="g0257" class="modal-close" data-close aria-label="Закрыть фотографию">×</button></div><img data-design-id="g0258" id="large-photo" src="assets/truck.webp" alt=""></dialog>
+<script type="application/json" id="product-colours">{
+  "232": [
+    {
+      "code": "1001",
+      "name": "Бежевый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417141968",
+          "url": ""
+        }
+      ],
+      "hex": "#d0b084"
+    },
+    {
+      "code": "1003",
+      "name": "Сигнальный желтый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417141975",
+          "url": ""
+        }
+      ],
+      "hex": "#f9a800"
+    },
+    {
+      "code": "1005",
+      "name": "Желтый мед",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417141982",
+          "url": ""
+        }
+      ],
+      "hex": "#cb8e00"
+    },
+    {
+      "code": "1013",
+      "name": "Белая устрица",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417141999",
+          "url": ""
+        },
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417110292",
+          "url": ""
+        }
+      ],
+      "hex": "#e3d9c6"
+    },
+    {
+      "code": "1014",
+      "name": "Слоновая кость",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142002",
+          "url": ""
+        }
+      ],
+      "hex": "#ddc49a"
+    },
+    {
+      "code": "1015",
+      "name": "Св. слоновая кость",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142019",
+          "url": ""
+        }
+      ],
+      "hex": "#e6d2b5"
+    },
+    {
+      "code": "1017",
+      "name": "Желтый шафран",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142026",
+          "url": ""
+        }
+      ],
+      "hex": "#f6a950"
+    },
+    {
+      "code": "1018",
+      "name": "Желтый цинк",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417110384",
+          "url": ""
+        }
+      ],
+      "hex": "#faca30"
+    },
+    {
+      "code": "1021",
+      "name": "Желтый рапс",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142040",
+          "url": ""
+        }
+      ],
+      "hex": "#f6b600"
+    },
+    {
+      "code": "1023",
+      "name": "Дорожный желтый",
+      "items": [
+        {
+          "pack": "комплект 2,21 кг",
+          "ean": "4690417142057",
+          "url": ""
+        }
+      ],
+      "hex": "#f7b500"
+    },
+    {
+      "code": "1028",
+      "name": "Желтая дыня",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142064",
+          "url": ""
+        }
+      ],
+      "hex": "#ff9b00"
+    },
+    {
+      "code": "1033",
+      "name": "Желтый георгин",
+      "items": [
+        {
+          "pack": "комплект 2,21 кг",
+          "ean": "4690417142071",
+          "url": ""
+        }
+      ],
+      "hex": "#f99a1c"
+    },
+    {
+      "code": "1037",
+      "name": "Желтое солнце",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142088",
+          "url": ""
+        }
+      ],
+      "hex": "#f09200"
+    },
+    {
+      "code": "2000",
+      "name": "Желто-оранжевый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142095",
+          "url": ""
+        }
+      ],
+      "hex": "#da6e00"
+    },
+    {
+      "code": "2002",
+      "name": "Алый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142101",
+          "url": ""
+        }
+      ],
+      "hex": "#bf3922"
+    },
+    {
+      "code": "2004",
+      "name": "Ярко-оранжевый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142118",
+          "url": ""
+        }
+      ],
+      "hex": "#e25303"
+    },
+    {
+      "code": "2008",
+      "name": "Светлый красно-оранжевый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142125",
+          "url": ""
+        }
+      ],
+      "hex": "#ed6b21"
+    },
+    {
+      "code": "2009",
+      "name": "Дорожный оранжевый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142132",
+          "url": ""
+        }
+      ],
+      "hex": "#de5307"
+    },
+    {
+      "code": "3000",
+      "name": "Огненно-красный",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142149",
+          "url": ""
+        }
+      ],
+      "hex": "#a72920"
+    },
+    {
+      "code": "3001",
+      "name": "Сигнальный красный",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142156",
+          "url": ""
+        }
+      ],
+      "hex": "#9b2423"
+    },
+    {
+      "code": "3002",
+      "name": "Карминно-красный",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142163",
+          "url": "https://www.vseinstrumenti.ru/product/emal-hardmax-pur-232-grant-2k-pro-ral-3002-karminno-krasnyj-gl-komplekt-2-04-kg-4690417142163-20274638/"
+        },
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417110308",
+          "url": ""
+        }
+      ],
+      "hex": "#9b2321"
+    },
+    {
+      "code": "3003",
+      "name": "Рубиново-красный",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142170",
+          "url": ""
+        }
+      ],
+      "hex": "#861a22"
+    },
+    {
+      "code": "3005",
+      "name": "Красное вино",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142187",
+          "url": ""
+        }
+      ],
+      "hex": "#59191f"
+    },
+    {
+      "code": "3009",
+      "name": "Оксидно-красный",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142194",
+          "url": ""
+        }
+      ],
+      "hex": "#6d342d"
+    },
+    {
+      "code": "3011",
+      "name": "Красно-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142200",
+          "url": ""
+        }
+      ],
+      "hex": "#792423"
+    },
+    {
+      "code": "3012",
+      "name": "Бежево-красный",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142217",
+          "url": ""
+        }
+      ],
+      "hex": "#c6846d"
+    },
+    {
+      "code": "3020",
+      "name": "Сигнально-красный",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142224",
+          "url": ""
+        }
+      ],
+      "hex": "#bb1e10"
+    },
+    {
+      "code": "3028",
+      "name": "Чистый красный",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142231",
+          "url": ""
+        }
+      ],
+      "hex": "#cc2c24"
+    },
+    {
+      "code": "4005",
+      "name": "Лилово-голубой",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142248",
+          "url": ""
+        }
+      ],
+      "hex": "#76689a"
+    },
+    {
+      "code": "5002",
+      "name": "Ультрамариновый синий",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142255",
+          "url": ""
+        }
+      ],
+      "hex": "#00387b"
+    },
+    {
+      "code": "5003",
+      "name": "Синий сапфир",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142262",
+          "url": ""
+        }
+      ],
+      "hex": "#1f3855"
+    },
+    {
+      "code": "5005",
+      "name": "Сигнальный синий",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417110315",
+          "url": ""
+        },
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142279",
+          "url": ""
+        }
+      ],
+      "hex": "#005387"
+    },
+    {
+      "code": "5010",
+      "name": "Синий",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142286",
+          "url": ""
+        }
+      ],
+      "hex": "#004f7c"
+    },
+    {
+      "code": "5011",
+      "name": "Темно-синий",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142293",
+          "url": ""
+        }
+      ],
+      "hex": "#1a2b3c"
+    },
+    {
+      "code": "5012",
+      "name": "Светло-голубой",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142309",
+          "url": ""
+        }
+      ],
+      "hex": "#0089b6"
+    },
+    {
+      "code": "5015",
+      "name": "Небесно-голубой",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142316",
+          "url": ""
+        }
+      ],
+      "hex": "#007cb0"
+    },
+    {
+      "code": "5017",
+      "name": "Сигнально-голубой",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142323",
+          "url": ""
+        }
+      ],
+      "hex": "#005b8c"
+    },
+    {
+      "code": "5018",
+      "name": "Голубая бирюза",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142330",
+          "url": ""
+        }
+      ],
+      "hex": "#058b8c"
+    },
+    {
+      "code": "5019",
+      "name": "Голубой капри",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142347",
+          "url": ""
+        }
+      ],
+      "hex": "#005e83"
+    },
+    {
+      "code": "5021",
+      "name": "Синяя вода",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142354",
+          "url": ""
+        }
+      ],
+      "hex": "#007577"
+    },
+    {
+      "code": "6001",
+      "name": "Изумрудно-зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142378",
+          "url": ""
+        }
+      ],
+      "hex": "#366735"
+    },
+    {
+      "code": "6002",
+      "name": "Зеленая листва",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142385",
+          "url": ""
+        }
+      ],
+      "hex": "#325928"
+    },
+    {
+      "code": "6003",
+      "name": "Зеленая олива",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417143351",
+          "url": ""
+        }
+      ],
+      "hex": "#50533c"
+    },
+    {
+      "code": "6005",
+      "name": "Зеленый мох",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142392",
+          "url": ""
+        },
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417110322",
+          "url": ""
+        }
+      ],
+      "hex": "#114232"
+    },
+    {
+      "code": "6010",
+      "name": "Зеленая трава",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142408",
+          "url": ""
+        }
+      ],
+      "hex": "#4d6f39"
+    },
+    {
+      "code": "6016",
+      "name": "Зеленая бирюза",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142415",
+          "url": ""
+        }
+      ],
+      "hex": "#00694c"
+    },
+    {
+      "code": "6018",
+      "name": "Желто-зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142422",
+          "url": ""
+        }
+      ],
+      "hex": "#61993b"
+    },
+    {
+      "code": "6029",
+      "name": "Зеленая мята",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142439",
+          "url": ""
+        }
+      ],
+      "hex": "#006f3d"
+    },
+    {
+      "code": "7001",
+      "name": "Серебристо-серый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142446",
+          "url": ""
+        }
+      ],
+      "hex": "#8c969d"
+    },
+    {
+      "code": "7004",
+      "name": "Сигнально-серый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142453",
+          "url": ""
+        }
+      ],
+      "hex": "#9b9b9b"
+    },
+    {
+      "code": "7010",
+      "name": "Серый брезент",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142460",
+          "url": "https://www.vseinstrumenti.ru/product/emal-hardmax-pur-232-grant-2k-pro-ral-7010-seryj-brezent-gl-komplekt-2-04-kg-4690417142460-20270630/"
+        }
+      ],
+      "hex": "#585c56"
+    },
+    {
+      "code": "7011",
+      "name": "Серое железо",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142477",
+          "url": ""
+        },
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417110339",
+          "url": ""
+        }
+      ],
+      "hex": "#52595d"
+    },
+    {
+      "code": "7012",
+      "name": "Серый базальт",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142484",
+          "url": ""
+        }
+      ],
+      "hex": "#575d5e"
+    },
+    {
+      "code": "7015",
+      "name": "Серый шифер",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142491",
+          "url": ""
+        }
+      ],
+      "hex": "#4f5358"
+    },
+    {
+      "code": "7021",
+      "name": "Серо-черный",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417139330",
+          "url": ""
+        }
+      ],
+      "hex": "#2f3234"
+    },
+    {
+      "code": "7024",
+      "name": "Серый графит",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417139347",
+          "url": ""
+        }
+      ],
+      "hex": "#45494e"
+    },
+    {
+      "code": "7026",
+      "name": "Серый гранит",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142507",
+          "url": ""
+        }
+      ],
+      "hex": "#374345"
+    },
+    {
+      "code": "7032",
+      "name": "Кремнисто-серый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142514",
+          "url": ""
+        }
+      ],
+      "hex": "#b5b0a1"
+    },
+    {
+      "code": "7035",
+      "name": "Светло-серый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142521",
+          "url": ""
+        }
+      ],
+      "hex": "#c5c7c4"
+    },
+    {
+      "code": "7036",
+      "name": "Платиново-серый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142538",
+          "url": ""
+        }
+      ],
+      "hex": "#979392"
+    },
+    {
+      "code": "7038",
+      "name": "Серый агат",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142545",
+          "url": ""
+        }
+      ],
+      "hex": "#b0b0a9"
+    },
+    {
+      "code": "7040",
+      "name": "Оконный серый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417110506",
+          "url": ""
+        },
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417138517",
+          "url": ""
+        }
+      ],
+      "hex": "#989ea1"
+    },
+    {
+      "code": "8008",
+      "name": "Оливково-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142552",
+          "url": ""
+        }
+      ],
+      "hex": "#724a25"
+    },
+    {
+      "code": "8014",
+      "name": "Коричневая серпия",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142569",
+          "url": ""
+        }
+      ],
+      "hex": "#4a3526"
+    },
+    {
+      "code": "8016",
+      "name": "Коричневый махагон",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142576",
+          "url": ""
+        }
+      ],
+      "hex": "#4c2b20"
+    },
+    {
+      "code": "8017",
+      "name": "Шоколадно-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417110346",
+          "url": ""
+        }
+      ],
+      "hex": "#442f29"
+    },
+    {
+      "code": "8019",
+      "name": "Серо-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142583",
+          "url": ""
+        }
+      ],
+      "hex": "#3d3635"
+    },
+    {
+      "code": "9001",
+      "name": "Кремовый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142590",
+          "url": ""
+        }
+      ],
+      "hex": "#e9e0d2"
+    },
+    {
+      "code": "9002",
+      "name": "Серо-белый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142606",
+          "url": ""
+        }
+      ],
+      "hex": "#d7d5cb"
+    },
+    {
+      "code": "9003",
+      "name": "Сигнальный белый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417138531",
+          "url": ""
+        },
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417110513",
+          "url": ""
+        }
+      ],
+      "hex": "#ecece7"
+    },
+    {
+      "code": "9004",
+      "name": "Сигнально-черный",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417138548",
+          "url": ""
+        }
+      ],
+      "hex": "#2b2b2c"
+    },
+    {
+      "code": "9005",
+      "name": "Глубоко-черный",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142613",
+          "url": ""
+        },
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417110353",
+          "url": ""
+        }
+      ],
+      "hex": "#0e0e10"
+    },
+    {
+      "code": "9006",
+      "name": "Белый алюминий",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142620",
+          "url": ""
+        }
+      ],
+      "hex": "#a1a1a0"
+    },
+    {
+      "code": "9010",
+      "name": "Чистый белый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142637",
+          "url": ""
+        }
+      ],
+      "hex": "#f1ece1"
+    },
+    {
+      "code": "9011",
+      "name": "Черный графит",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142644",
+          "url": ""
+        }
+      ],
+      "hex": "#27292b"
+    },
+    {
+      "code": "9016",
+      "name": "Сигнальный белый",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142651",
+          "url": ""
+        }
+      ],
+      "hex": "#f1f0ea"
+    },
+    {
+      "code": "9018",
+      "name": "Белый папирус",
+      "items": [
+        {
+          "pack": "комплект 2,04 кг",
+          "ean": "4690417142668",
+          "url": ""
+        }
+      ],
+      "hex": "#c8cbc4"
+    }
+  ],
+  "211": [
+    {
+      "code": "",
+      "name": "светло-серый",
+      "items": [
+        {
+          "pack": "комплект 2,74 кг",
+          "ean": "4690417110278",
+          "url": "https://www.vseinstrumenti.ru/product/grunt-epoksidnyj-hardmax-uniepoks-211-grant-2k-pro-svetlo-seryj-komplekt-2-74-kg-4690417110278-14639315/"
+        },
+        {
+          "pack": "комплект 2,74 кг",
+          "ean": "4690417138579",
+          "url": "https://www.vseinstrumenti.ru/product/grunt-hardmax-uniepoks-211-grant-2k-pro-sv-ser-komplekt-2-74-kg-4690417138579-20274740/"
+        }
+      ],
+      "hex": "#bfc1bf"
+    }
+  ],
+  "222": [
+    {
+      "code": "1000",
+      "name": "Зеленовато-бежевый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140664",
+          "url": ""
+        }
+      ],
+      "hex": "#cdba88"
+    },
+    {
+      "code": "1001",
+      "name": "Бежевый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140671",
+          "url": ""
+        }
+      ],
+      "hex": "#d0b084"
+    },
+    {
+      "code": "1002",
+      "name": "Желтый песок",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140688",
+          "url": ""
+        }
+      ],
+      "hex": "#d2aa6d"
+    },
+    {
+      "code": "1003",
+      "name": "Сигнальный желтый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140695",
+          "url": ""
+        }
+      ],
+      "hex": "#f9a800"
+    },
+    {
+      "code": "1004",
+      "name": "Золотисто-желтый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140701",
+          "url": ""
+        }
+      ],
+      "hex": "#e49e00"
+    },
+    {
+      "code": "1006",
+      "name": "Желтый маис",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140718",
+          "url": ""
+        }
+      ],
+      "hex": "#e29000"
+    },
+    {
+      "code": "1007",
+      "name": "Желтый нарцисс",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140725",
+          "url": ""
+        }
+      ],
+      "hex": "#e88c00"
+    },
+    {
+      "code": "1011",
+      "name": "Бежево-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140732",
+          "url": ""
+        }
+      ],
+      "hex": "#af804f"
+    },
+    {
+      "code": "1012",
+      "name": "Лимонно-желтый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140749",
+          "url": ""
+        }
+      ],
+      "hex": "#ddaf27"
+    },
+    {
+      "code": "1013",
+      "name": "Белая устрица",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140756",
+          "url": ""
+        }
+      ],
+      "hex": "#e3d9c6"
+    },
+    {
+      "code": "1014",
+      "name": "Слоновая кость",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140763",
+          "url": ""
+        }
+      ],
+      "hex": "#ddc49a"
+    },
+    {
+      "code": "1015",
+      "name": "Св. слоновая кость",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140770",
+          "url": ""
+        }
+      ],
+      "hex": "#e6d2b5"
+    },
+    {
+      "code": "1018",
+      "name": "Желтый цинк",
+      "items": [
+        {
+          "pack": "комплект 2,38 кг",
+          "ean": "4690417140787",
+          "url": ""
+        }
+      ],
+      "hex": "#faca30"
+    },
+    {
+      "code": "1019",
+      "name": "Серо-бежевый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140794",
+          "url": ""
+        }
+      ],
+      "hex": "#a48f7a"
+    },
+    {
+      "code": "1020",
+      "name": "Оливково-желтый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140800",
+          "url": ""
+        }
+      ],
+      "hex": "#a08f65"
+    },
+    {
+      "code": "1021",
+      "name": "Желтый рапс",
+      "items": [
+        {
+          "pack": "комплект 2,38 кг",
+          "ean": "4690417140817",
+          "url": ""
+        }
+      ],
+      "hex": "#f6b600"
+    },
+    {
+      "code": "1023",
+      "name": "Дорожный желтый",
+      "items": [
+        {
+          "pack": "комплект 2,38 кг",
+          "ean": "4690417140824",
+          "url": ""
+        }
+      ],
+      "hex": "#f7b500"
+    },
+    {
+      "code": "1027",
+      "name": "Карри",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140831",
+          "url": ""
+        }
+      ],
+      "hex": "#a77f0e"
+    },
+    {
+      "code": "1028",
+      "name": "Желтая дыня",
+      "items": [
+        {
+          "pack": "комплект 2,38 кг",
+          "ean": "4690417140848",
+          "url": ""
+        }
+      ],
+      "hex": "#ff9b00"
+    },
+    {
+      "code": "1033",
+      "name": "Желтый георгин",
+      "items": [
+        {
+          "pack": "комплект 2,38 кг",
+          "ean": "4690417140855",
+          "url": ""
+        }
+      ],
+      "hex": "#f99a1c"
+    },
+    {
+      "code": "1034",
+      "name": "Пастельный желтый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140862",
+          "url": ""
+        }
+      ],
+      "hex": "#eb9c52"
+    },
+    {
+      "code": "1037",
+      "name": "Желтое солнце",
+      "items": [
+        {
+          "pack": "комплект 2,38 кг",
+          "ean": "4690417140879",
+          "url": ""
+        }
+      ],
+      "hex": "#f09200"
+    },
+    {
+      "code": "2002",
+      "name": "Алый",
+      "items": [
+        {
+          "pack": "комплект 2,38 кг",
+          "ean": "4690417140893",
+          "url": ""
+        }
+      ],
+      "hex": "#bf3922"
+    },
+    {
+      "code": "2004",
+      "name": "Ярко-оранжевый",
+      "items": [
+        {
+          "pack": "комплект 2,38 кг",
+          "ean": "4690417140916",
+          "url": ""
+        }
+      ],
+      "hex": "#e25303"
+    },
+    {
+      "code": "2008",
+      "name": "Светлый красно-оранжевый",
+      "items": [
+        {
+          "pack": "комплект 2,38 кг",
+          "ean": "4690417140923",
+          "url": ""
+        }
+      ],
+      "hex": "#ed6b21"
+    },
+    {
+      "code": "2009",
+      "name": "Дорожный оранжевый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417139262",
+          "url": ""
+        }
+      ],
+      "hex": "#de5307"
+    },
+    {
+      "code": "2010",
+      "name": "Сигнально-оранжевый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417139729",
+          "url": ""
+        }
+      ],
+      "hex": "#d05d28"
+    },
+    {
+      "code": "2011",
+      "name": "Глубокий оранжевый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140930",
+          "url": ""
+        }
+      ],
+      "hex": "#e26e0e"
+    },
+    {
+      "code": "3000",
+      "name": "Огненно-красный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140947",
+          "url": ""
+        }
+      ],
+      "hex": "#a72920"
+    },
+    {
+      "code": "3001",
+      "name": "Сигнальный красный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140954",
+          "url": ""
+        }
+      ],
+      "hex": "#9b2423"
+    },
+    {
+      "code": "3002",
+      "name": "Карминно-красный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140961",
+          "url": ""
+        }
+      ],
+      "hex": "#9b2321"
+    },
+    {
+      "code": "3003",
+      "name": "Рубиново-красный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140978",
+          "url": ""
+        }
+      ],
+      "hex": "#861a22"
+    },
+    {
+      "code": "3004",
+      "name": "Пурпурно-красный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140985",
+          "url": ""
+        }
+      ],
+      "hex": "#6b1c23"
+    },
+    {
+      "code": "3005",
+      "name": "Красное вино",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417140992",
+          "url": ""
+        }
+      ],
+      "hex": "#59191f"
+    },
+    {
+      "code": "3009",
+      "name": "Оксидно-красный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141005",
+          "url": ""
+        }
+      ],
+      "hex": "#6d342d"
+    },
+    {
+      "code": "3011",
+      "name": "Красно-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417139279",
+          "url": ""
+        }
+      ],
+      "hex": "#792423"
+    },
+    {
+      "code": "3012",
+      "name": "Бежево-красный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141012",
+          "url": ""
+        }
+      ],
+      "hex": "#c6846d"
+    },
+    {
+      "code": "3014",
+      "name": "Розовый антик",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141029",
+          "url": ""
+        }
+      ],
+      "hex": "#cb7375"
+    },
+    {
+      "code": "3015",
+      "name": "Светло-розовый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141036",
+          "url": ""
+        }
+      ],
+      "hex": "#d8a0a6"
+    },
+    {
+      "code": "3020",
+      "name": "Сигнально-красный",
+      "items": [
+        {
+          "pack": "комплект 2,38 кг",
+          "ean": "4690417141043",
+          "url": ""
+        }
+      ],
+      "hex": "#bb1e10"
+    },
+    {
+      "code": "3028",
+      "name": "Чистый красный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141050",
+          "url": ""
+        }
+      ],
+      "hex": "#cc2c24"
+    },
+    {
+      "code": "3031",
+      "name": "Красный восток",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141067",
+          "url": ""
+        }
+      ],
+      "hex": "#a63437"
+    },
+    {
+      "code": "4005",
+      "name": "Лилово-голубой",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141074",
+          "url": ""
+        }
+      ],
+      "hex": "#76689a"
+    },
+    {
+      "code": "4007",
+      "name": "Пурпурно-фиолетовый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141081",
+          "url": ""
+        }
+      ],
+      "hex": "#47243c"
+    },
+    {
+      "code": "5000",
+      "name": "Фиолетово-синий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141098",
+          "url": ""
+        }
+      ],
+      "hex": "#314f6f"
+    },
+    {
+      "code": "5001",
+      "name": "Темно-синий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141104",
+          "url": ""
+        }
+      ],
+      "hex": "#0f4c64"
+    },
+    {
+      "code": "5002",
+      "name": "Ультрамариновый синий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141111",
+          "url": ""
+        }
+      ],
+      "hex": "#00387b"
+    },
+    {
+      "code": "5003",
+      "name": "Синий сапфир",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141128",
+          "url": ""
+        }
+      ],
+      "hex": "#1f3855"
+    },
+    {
+      "code": "5004",
+      "name": "Черно-синий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141135",
+          "url": ""
+        }
+      ],
+      "hex": "#191e28"
+    },
+    {
+      "code": "5005",
+      "name": "Сигнально-синий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141142",
+          "url": ""
+        }
+      ],
+      "hex": "#005387"
+    },
+    {
+      "code": "5008",
+      "name": "Серо-синий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141159",
+          "url": ""
+        }
+      ],
+      "hex": "#2b3a44"
+    },
+    {
+      "code": "5010",
+      "name": "Синий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417139286",
+          "url": ""
+        }
+      ],
+      "hex": "#004f7c"
+    },
+    {
+      "code": "5012",
+      "name": "Светло-голубой",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141166",
+          "url": ""
+        }
+      ],
+      "hex": "#0089b6"
+    },
+    {
+      "code": "5013",
+      "name": "Синий кобальт",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141173",
+          "url": ""
+        }
+      ],
+      "hex": "#193153"
+    },
+    {
+      "code": "5015",
+      "name": "Небесно-голубой",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141180",
+          "url": ""
+        }
+      ],
+      "hex": "#007cb0"
+    },
+    {
+      "code": "5017",
+      "name": "Сигнально-голубой",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141197",
+          "url": ""
+        }
+      ],
+      "hex": "#005b8c"
+    },
+    {
+      "code": "5019",
+      "name": "Голубой капри",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141210",
+          "url": ""
+        }
+      ],
+      "hex": "#005e83"
+    },
+    {
+      "code": "5021",
+      "name": "Синяя вода",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141227",
+          "url": ""
+        }
+      ],
+      "hex": "#007577"
+    },
+    {
+      "code": "5022",
+      "name": "Синяя ночь",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141234",
+          "url": ""
+        }
+      ],
+      "hex": "#222d5a"
+    },
+    {
+      "code": "5023",
+      "name": "Синяя даль",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141241",
+          "url": ""
+        }
+      ],
+      "hex": "#42698c"
+    },
+    {
+      "code": "5024",
+      "name": "Пастельно-голубой",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141258",
+          "url": ""
+        }
+      ],
+      "hex": "#6093ac"
+    },
+    {
+      "code": "6001",
+      "name": "Изумрудно-зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141265",
+          "url": ""
+        }
+      ],
+      "hex": "#366735"
+    },
+    {
+      "code": "6002",
+      "name": "Зеленая листва",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141272",
+          "url": ""
+        }
+      ],
+      "hex": "#325928"
+    },
+    {
+      "code": "6003",
+      "name": "Зеленая олива",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417139736",
+          "url": ""
+        }
+      ],
+      "hex": "#50533c"
+    },
+    {
+      "code": "6005",
+      "name": "Зеленый мох",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141289",
+          "url": ""
+        }
+      ],
+      "hex": "#114232"
+    },
+    {
+      "code": "6007",
+      "name": "Бутылочный зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141296",
+          "url": ""
+        }
+      ],
+      "hex": "#2c3222"
+    },
+    {
+      "code": "6010",
+      "name": "Зеленая трава",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141302",
+          "url": ""
+        }
+      ],
+      "hex": "#4d6f39"
+    },
+    {
+      "code": "6012",
+      "name": "Черно-зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141319",
+          "url": ""
+        }
+      ],
+      "hex": "#303d3a"
+    },
+    {
+      "code": "6014",
+      "name": "Желто-оливковый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141326",
+          "url": ""
+        }
+      ],
+      "hex": "#474135"
+    },
+    {
+      "code": "6016",
+      "name": "Зеленая бирюза",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141333",
+          "url": ""
+        }
+      ],
+      "hex": "#00694c"
+    },
+    {
+      "code": "6017",
+      "name": "Зеленый май",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141340",
+          "url": ""
+        }
+      ],
+      "hex": "#587f40"
+    },
+    {
+      "code": "6018",
+      "name": "Желто-зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141357",
+          "url": ""
+        }
+      ],
+      "hex": "#61993b"
+    },
+    {
+      "code": "6019",
+      "name": "Бело-зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141364",
+          "url": ""
+        }
+      ],
+      "hex": "#b9ceac"
+    },
+    {
+      "code": "6021",
+      "name": "Бледно-зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141371",
+          "url": ""
+        }
+      ],
+      "hex": "#8a9977"
+    },
+    {
+      "code": "6025",
+      "name": "Зеленый папоротник",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141395",
+          "url": ""
+        }
+      ],
+      "hex": "#5e6e3b"
+    },
+    {
+      "code": "6026",
+      "name": "Зеленый опал",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141401",
+          "url": ""
+        }
+      ],
+      "hex": "#005f4e"
+    },
+    {
+      "code": "6027",
+      "name": "Светло-зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141418",
+          "url": ""
+        }
+      ],
+      "hex": "#7ebab5"
+    },
+    {
+      "code": "6032",
+      "name": "Сигнальный зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141432",
+          "url": ""
+        }
+      ],
+      "hex": "#237f52"
+    },
+    {
+      "code": "6033",
+      "name": "Бирюзовая мята",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141449",
+          "url": ""
+        }
+      ],
+      "hex": "#46877f"
+    },
+    {
+      "code": "6034",
+      "name": "Пастельно-бирюзовый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141456",
+          "url": ""
+        }
+      ],
+      "hex": "#7aacac"
+    },
+    {
+      "code": "6037",
+      "name": "Чистый зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141463",
+          "url": ""
+        }
+      ],
+      "hex": "#008b29"
+    },
+    {
+      "code": "6039",
+      "name": "Зеленое волокно",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141470",
+          "url": ""
+        }
+      ],
+      "hex": "#a2c345"
+    },
+    {
+      "code": "7000",
+      "name": "Серая белка",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141487",
+          "url": ""
+        }
+      ],
+      "hex": "#7a888e"
+    },
+    {
+      "code": "7001",
+      "name": "Серебристо-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141494",
+          "url": ""
+        }
+      ],
+      "hex": "#8c969d"
+    },
+    {
+      "code": "7002",
+      "name": "Оливково-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141500",
+          "url": ""
+        }
+      ],
+      "hex": "#817863"
+    },
+    {
+      "code": "7004",
+      "name": "Сигнально-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417139293",
+          "url": ""
+        }
+      ],
+      "hex": "#9b9b9b"
+    },
+    {
+      "code": "7005",
+      "name": "Серая мышь",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141517",
+          "url": ""
+        }
+      ],
+      "hex": "#6c6e6b"
+    },
+    {
+      "code": "7008",
+      "name": "Серый хаки",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141524",
+          "url": ""
+        }
+      ],
+      "hex": "#745e3d"
+    },
+    {
+      "code": "7011",
+      "name": "Серое железо",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141531",
+          "url": ""
+        }
+      ],
+      "hex": "#52595d"
+    },
+    {
+      "code": "7012",
+      "name": "Серый базальт",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141548",
+          "url": ""
+        }
+      ],
+      "hex": "#575d5e"
+    },
+    {
+      "code": "7015",
+      "name": "Серый шифер",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141555",
+          "url": ""
+        }
+      ],
+      "hex": "#4f5358"
+    },
+    {
+      "code": "7016",
+      "name": "Серый антрацит",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141562",
+          "url": ""
+        }
+      ],
+      "hex": "#383e42"
+    },
+    {
+      "code": "7021",
+      "name": "Серо-черный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141579",
+          "url": ""
+        }
+      ],
+      "hex": "#2f3234"
+    },
+    {
+      "code": "7022",
+      "name": "Серая тень",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141586",
+          "url": ""
+        }
+      ],
+      "hex": "#4c4a44"
+    },
+    {
+      "code": "7023",
+      "name": "Серый бетон",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141593",
+          "url": ""
+        }
+      ],
+      "hex": "#808076"
+    },
+    {
+      "code": "7024",
+      "name": "Серый графит",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417139309",
+          "url": ""
+        }
+      ],
+      "hex": "#45494e"
+    },
+    {
+      "code": "7026",
+      "name": "Серый гранит",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141609",
+          "url": ""
+        }
+      ],
+      "hex": "#374345"
+    },
+    {
+      "code": "7031",
+      "name": "Голубовато-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141616",
+          "url": ""
+        }
+      ],
+      "hex": "#5b686d"
+    },
+    {
+      "code": "7032",
+      "name": "Кремнисто-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141623",
+          "url": ""
+        }
+      ],
+      "hex": "#b5b0a1"
+    },
+    {
+      "code": "7035",
+      "name": "Светло-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417139316",
+          "url": ""
+        }
+      ],
+      "hex": "#c5c7c4"
+    },
+    {
+      "code": "7036",
+      "name": "Платиново-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141630",
+          "url": ""
+        }
+      ],
+      "hex": "#979392"
+    },
+    {
+      "code": "7037",
+      "name": "Серая пыль",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141647",
+          "url": ""
+        }
+      ],
+      "hex": "#7a7b7a"
+    },
+    {
+      "code": "7038",
+      "name": "Серый агат",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141654",
+          "url": ""
+        }
+      ],
+      "hex": "#b0b0a9"
+    },
+    {
+      "code": "7040",
+      "name": "Оконный серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417138609",
+          "url": ""
+        }
+      ],
+      "hex": "#989ea1"
+    },
+    {
+      "code": "7042",
+      "name": "Сигнально-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141661",
+          "url": ""
+        }
+      ],
+      "hex": "#8e9291"
+    },
+    {
+      "code": "7043",
+      "name": "Сигнальный серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141678",
+          "url": ""
+        }
+      ],
+      "hex": "#4f5250"
+    },
+    {
+      "code": "7044",
+      "name": "Серый шелк",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141685",
+          "url": ""
+        }
+      ],
+      "hex": "#b7b3a8"
+    },
+    {
+      "code": "7045",
+      "name": "Теле-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141692",
+          "url": ""
+        }
+      ],
+      "hex": "#8d9295"
+    },
+    {
+      "code": "7046",
+      "name": "Теле-серый-2",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141708",
+          "url": ""
+        }
+      ],
+      "hex": "#7f868a"
+    },
+    {
+      "code": "7047",
+      "name": "Теле-серый-4",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141715",
+          "url": ""
+        }
+      ],
+      "hex": "#c8c8c7"
+    },
+    {
+      "code": "8000",
+      "name": "Зеленовато-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141722",
+          "url": ""
+        }
+      ],
+      "hex": "#89693e"
+    },
+    {
+      "code": "8002",
+      "name": "Сигнальный коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141739",
+          "url": ""
+        }
+      ],
+      "hex": "#794d3e"
+    },
+    {
+      "code": "8004",
+      "name": "Медно-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141746",
+          "url": ""
+        }
+      ],
+      "hex": "#8d4931"
+    },
+    {
+      "code": "8008",
+      "name": "Оливково-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141753",
+          "url": ""
+        }
+      ],
+      "hex": "#724a25"
+    },
+    {
+      "code": "8011",
+      "name": "Коричневый орех",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141760",
+          "url": ""
+        }
+      ],
+      "hex": "#5a3826"
+    },
+    {
+      "code": "8012",
+      "name": "Красно-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141777",
+          "url": ""
+        }
+      ],
+      "hex": "#66332b"
+    },
+    {
+      "code": "8014",
+      "name": "Коричневая сепия",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141784",
+          "url": ""
+        }
+      ],
+      "hex": "#4a3526"
+    },
+    {
+      "code": "8017",
+      "name": "Шоколадно-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417138616",
+          "url": ""
+        }
+      ],
+      "hex": "#442f29"
+    },
+    {
+      "code": "8019",
+      "name": "Серо-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141791",
+          "url": ""
+        }
+      ],
+      "hex": "#3d3635"
+    },
+    {
+      "code": "8022",
+      "name": "Черно-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141807",
+          "url": ""
+        }
+      ],
+      "hex": "#1a1718"
+    },
+    {
+      "code": "8023",
+      "name": "Оранжево-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141814",
+          "url": ""
+        }
+      ],
+      "hex": "#a45729"
+    },
+    {
+      "code": "8024",
+      "name": "Бежево-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141821",
+          "url": ""
+        }
+      ],
+      "hex": "#795038"
+    },
+    {
+      "code": "8025",
+      "name": "Светло-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141838",
+          "url": ""
+        }
+      ],
+      "hex": "#755847"
+    },
+    {
+      "code": "9001",
+      "name": "Кремовый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141845",
+          "url": ""
+        }
+      ],
+      "hex": "#e9e0d2"
+    },
+    {
+      "code": "9002",
+      "name": "Серо-белый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141852",
+          "url": ""
+        }
+      ],
+      "hex": "#d7d5cb"
+    },
+    {
+      "code": "9003",
+      "name": "Сигнальный белый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417138623",
+          "url": "https://www.vseinstrumenti.ru/product/grunt-emal-hardmax-ur-2k-ip-222-grant-2k-pro-ral-9003-signalnyj-belyj-p-gl-komplekt-2-19-kg-4690417138623-20261072/"
+        }
+      ],
+      "hex": "#ecece7"
+    },
+    {
+      "code": "9004",
+      "name": "Сигнальный черный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417138630",
+          "url": ""
+        }
+      ],
+      "hex": "#2b2b2c"
+    },
+    {
+      "code": "9005",
+      "name": "Глубоко-черный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141869",
+          "url": ""
+        }
+      ],
+      "hex": "#0e0e10"
+    },
+    {
+      "code": "9006",
+      "name": "Белый алюминий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141876",
+          "url": ""
+        }
+      ],
+      "hex": "#a1a1a0"
+    },
+    {
+      "code": "9010",
+      "name": "Чистый белый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141883",
+          "url": ""
+        }
+      ],
+      "hex": "#f1ece1"
+    },
+    {
+      "code": "9011",
+      "name": "Черный графит",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417139323",
+          "url": ""
+        }
+      ],
+      "hex": "#27292b"
+    },
+    {
+      "code": "9016",
+      "name": "Сигнальный белый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141890",
+          "url": ""
+        }
+      ],
+      "hex": "#f1f0ea"
+    },
+    {
+      "code": "9017",
+      "name": "Сигнальный черный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141906",
+          "url": ""
+        }
+      ],
+      "hex": "#2a292a"
+    },
+    {
+      "code": "9018",
+      "name": "Белый папирус",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417141913",
+          "url": ""
+        }
+      ],
+      "hex": "#c8cbc4"
+    }
+  ],
+  "mat": [
+    {
+      "code": "1001",
+      "name": "Бежевый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142729",
+          "url": ""
+        }
+      ],
+      "hex": "#d0b084"
+    },
+    {
+      "code": "1003",
+      "name": "Сигнальный желтый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142736",
+          "url": ""
+        }
+      ],
+      "hex": "#f9a800"
+    },
+    {
+      "code": "1006",
+      "name": "Желтый маис",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143313",
+          "url": ""
+        }
+      ],
+      "hex": "#e29000"
+    },
+    {
+      "code": "1014",
+      "name": "Слоновая кость",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142743",
+          "url": ""
+        }
+      ],
+      "hex": "#ddc49a"
+    },
+    {
+      "code": "1015",
+      "name": "Св. слоновая кость",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142767",
+          "url": ""
+        }
+      ],
+      "hex": "#e6d2b5"
+    },
+    {
+      "code": "1021",
+      "name": "Желтый рапс",
+      "items": [
+        {
+          "pack": "комплект 2,38 кг",
+          "ean": "4690417142781",
+          "url": ""
+        }
+      ],
+      "hex": "#f6b600"
+    },
+    {
+      "code": "1023",
+      "name": "Дорожный желтый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142798",
+          "url": ""
+        }
+      ],
+      "hex": "#f7b500"
+    },
+    {
+      "code": "1028",
+      "name": "Желтая дыня",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142804",
+          "url": ""
+        }
+      ],
+      "hex": "#ff9b00"
+    },
+    {
+      "code": "2004",
+      "name": "Ярко-оранжевый",
+      "items": [
+        {
+          "pack": "комплект 2,38 кг",
+          "ean": "4690417142811",
+          "url": ""
+        }
+      ],
+      "hex": "#e25303"
+    },
+    {
+      "code": "2009",
+      "name": "Дорожный оранжевый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142828",
+          "url": ""
+        }
+      ],
+      "hex": "#de5307"
+    },
+    {
+      "code": "2010",
+      "name": "Сигнально-оранжевый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142835",
+          "url": ""
+        }
+      ],
+      "hex": "#d05d28"
+    },
+    {
+      "code": "3001",
+      "name": "Сигнальный красный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142842",
+          "url": ""
+        }
+      ],
+      "hex": "#9b2423"
+    },
+    {
+      "code": "3003",
+      "name": "Рубиново-красный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142859",
+          "url": ""
+        }
+      ],
+      "hex": "#861a22"
+    },
+    {
+      "code": "3005",
+      "name": "Красное вино",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142866",
+          "url": ""
+        }
+      ],
+      "hex": "#59191f"
+    },
+    {
+      "code": "3016",
+      "name": "Кораллово-красный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142873",
+          "url": ""
+        }
+      ],
+      "hex": "#a63d2f"
+    },
+    {
+      "code": "3020",
+      "name": "Сигнально-красный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142880",
+          "url": ""
+        }
+      ],
+      "hex": "#bb1e10"
+    },
+    {
+      "code": "5000",
+      "name": "Фиолетово-синий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142897",
+          "url": ""
+        }
+      ],
+      "hex": "#314f6f"
+    },
+    {
+      "code": "5002",
+      "name": "Ультрамариновый синий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143320",
+          "url": ""
+        }
+      ],
+      "hex": "#00387b"
+    },
+    {
+      "code": "5005",
+      "name": "Сигнально-синий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142903",
+          "url": ""
+        }
+      ],
+      "hex": "#005387"
+    },
+    {
+      "code": "5008",
+      "name": "Серо-синий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142910",
+          "url": ""
+        }
+      ],
+      "hex": "#2b3a44"
+    },
+    {
+      "code": "5010",
+      "name": "Синий",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142927",
+          "url": ""
+        }
+      ],
+      "hex": "#004f7c"
+    },
+    {
+      "code": "5012",
+      "name": "Светло-голубой",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142934",
+          "url": ""
+        }
+      ],
+      "hex": "#0089b6"
+    },
+    {
+      "code": "5015",
+      "name": "Небесно-голубой",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142941",
+          "url": ""
+        }
+      ],
+      "hex": "#007cb0"
+    },
+    {
+      "code": "5022",
+      "name": "Синяя ночь",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142958",
+          "url": ""
+        }
+      ],
+      "hex": "#222d5a"
+    },
+    {
+      "code": "6001",
+      "name": "Изумрудно-зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142965",
+          "url": ""
+        }
+      ],
+      "hex": "#366735"
+    },
+    {
+      "code": "6002",
+      "name": "Зеленая листва",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142972",
+          "url": ""
+        }
+      ],
+      "hex": "#325928"
+    },
+    {
+      "code": "6005",
+      "name": "Зеленый мох",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142989",
+          "url": ""
+        }
+      ],
+      "hex": "#114232"
+    },
+    {
+      "code": "6007",
+      "name": "Бутылочный зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417142996",
+          "url": ""
+        }
+      ],
+      "hex": "#2c3222"
+    },
+    {
+      "code": "6010",
+      "name": "Зеленая трава",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143009",
+          "url": ""
+        }
+      ],
+      "hex": "#4d6f39"
+    },
+    {
+      "code": "6016",
+      "name": "Зеленая бирюза",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143016",
+          "url": ""
+        }
+      ],
+      "hex": "#00694c"
+    },
+    {
+      "code": "6017",
+      "name": "Зеленый май",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143023",
+          "url": ""
+        }
+      ],
+      "hex": "#587f40"
+    },
+    {
+      "code": "6024",
+      "name": "Сигнальный зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143030",
+          "url": ""
+        }
+      ],
+      "hex": "#008351"
+    },
+    {
+      "code": "6029",
+      "name": "Зеленая мята",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143047",
+          "url": ""
+        }
+      ],
+      "hex": "#006f3d"
+    },
+    {
+      "code": "6032",
+      "name": "Сигнальный зеленый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143054",
+          "url": ""
+        }
+      ],
+      "hex": "#237f52"
+    },
+    {
+      "code": "7000",
+      "name": "Серая белка",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143061",
+          "url": ""
+        }
+      ],
+      "hex": "#7a888e"
+    },
+    {
+      "code": "7004",
+      "name": "Сигнально-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143078",
+          "url": ""
+        }
+      ],
+      "hex": "#9b9b9b"
+    },
+    {
+      "code": "7012",
+      "name": "Серый базальт",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143085",
+          "url": ""
+        }
+      ],
+      "hex": "#575d5e"
+    },
+    {
+      "code": "7016",
+      "name": "Серый антрацит",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417139354",
+          "url": ""
+        }
+      ],
+      "hex": "#383e42"
+    },
+    {
+      "code": "7024",
+      "name": "Серый графит",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143092",
+          "url": ""
+        }
+      ],
+      "hex": "#45494e"
+    },
+    {
+      "code": "7035",
+      "name": "Светло-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143108",
+          "url": ""
+        }
+      ],
+      "hex": "#c5c7c4"
+    },
+    {
+      "code": "7036",
+      "name": "Платиново-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143115",
+          "url": ""
+        }
+      ],
+      "hex": "#979392"
+    },
+    {
+      "code": "7044",
+      "name": "Серый шелк",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143122",
+          "url": "https://www.vseinstrumenti.ru/product/grunt-emal-hardmax-ur-2k-ip-222-grant-2k-pro-ral-7044-seryj-shelk-mat-komplekt-2-19-kg-4690417143122-20274296/"
+        }
+      ],
+      "hex": "#b7b3a8"
+    },
+    {
+      "code": "7045",
+      "name": "Теле-серый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143139",
+          "url": ""
+        }
+      ],
+      "hex": "#8d9295"
+    },
+    {
+      "code": "7046",
+      "name": "Теле-серый-2",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143146",
+          "url": ""
+        }
+      ],
+      "hex": "#7f868a"
+    },
+    {
+      "code": "7047",
+      "name": "Теле-серый-4",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143153",
+          "url": ""
+        }
+      ],
+      "hex": "#c8c8c7"
+    },
+    {
+      "code": "8002",
+      "name": "Сигнальный коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143160",
+          "url": ""
+        }
+      ],
+      "hex": "#794d3e"
+    },
+    {
+      "code": "8017",
+      "name": "Шоколадно-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417138678",
+          "url": ""
+        }
+      ],
+      "hex": "#442f29"
+    },
+    {
+      "code": "8019",
+      "name": "Серо-коричневый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143177",
+          "url": ""
+        }
+      ],
+      "hex": "#3d3635"
+    },
+    {
+      "code": "9003",
+      "name": "Сигнальный белый",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417138685",
+          "url": ""
+        }
+      ],
+      "hex": "#ecece7"
+    },
+    {
+      "code": "9004",
+      "name": "Сигнальный черный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417138692",
+          "url": ""
+        }
+      ],
+      "hex": "#2b2b2c"
+    },
+    {
+      "code": "9005",
+      "name": "Глубоко-черный",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417139361",
+          "url": ""
+        }
+      ],
+      "hex": "#0e0e10"
+    },
+    {
+      "code": "9011",
+      "name": "Черный графит",
+      "items": [
+        {
+          "pack": "комплект 2,19 кг",
+          "ean": "4690417143184",
+          "url": ""
+        }
+      ],
+      "hex": "#27292b"
+    }
+  ],
+  "kovka": [
+    {
+      "code": "",
+      "name": "Бронза",
+      "items": [
+        {
+          "pack": "комплект 1,71 л/1,67 кг",
+          "ean": "4690417153398",
+          "url": ""
+        }
+      ],
+      "hex": "#937047"
+    },
+    {
+      "code": "",
+      "name": "Желтое золото",
+      "items": [
+        {
+          "pack": "комплект 1,73 л/1,67 кг",
+          "ean": "4690417153374",
+          "url": ""
+        }
+      ],
+      "hex": "#d9b64b"
+    },
+    {
+      "code": "",
+      "name": "Жемчужный",
+      "items": [
+        {
+          "pack": "комплект 1,70 л/1,67 кг",
+          "ean": "4690417153497",
+          "url": ""
+        }
+      ],
+      "hex": "#dcd8ce"
+    },
+    {
+      "code": "",
+      "name": "Золотистый",
+      "items": [
+        {
+          "pack": "комплект 1,70 л/1,67 кг",
+          "ean": "4690417153367",
+          "url": ""
+        }
+      ],
+      "hex": "#c59b49"
+    },
+    {
+      "code": "",
+      "name": "Красное золото",
+      "items": [
+        {
+          "pack": "комплект 1,74 л/1,67 кг",
+          "ean": "4690417153350",
+          "url": ""
+        }
+      ],
+      "hex": "#b56f50"
+    },
+    {
+      "code": "",
+      "name": "Мокко",
+      "items": [
+        {
+          "pack": "комплект 1,71 л/1,67 кг",
+          "ean": "4690417153459",
+          "url": ""
+        }
+      ],
+      "hex": "#826854"
+    },
+    {
+      "code": "",
+      "name": "Мокрый асфальт",
+      "items": [
+        {
+          "pack": "комплект 1,69 л/1,67 кг",
+          "ean": "4690417153473",
+          "url": ""
+        }
+      ],
+      "hex": "#55585c"
+    },
+    {
+      "code": "",
+      "name": "Молочный шоколад",
+      "items": [
+        {
+          "pack": "комплект 1,73 л/1,67 кг",
+          "ean": "4690417153466",
+          "url": ""
+        }
+      ],
+      "hex": "#926a53"
+    },
+    {
+      "code": "",
+      "name": "Небесно-голубой",
+      "items": [
+        {
+          "pack": "комплект 1,71 л/1,67 кг",
+          "ean": "4690417153428",
+          "url": ""
+        }
+      ],
+      "hex": "#81b6d0"
+    },
+    {
+      "code": "",
+      "name": "Огненно-медный",
+      "items": [
+        {
+          "pack": "комплект 1,71 л/1,67 кг",
+          "ean": "4690417153480",
+          "url": ""
+        }
+      ],
+      "hex": "#c67446"
+    },
+    {
+      "code": "",
+      "name": "Рубиновый",
+      "items": [
+        {
+          "pack": "комплект 1,67 л/1,67 кг",
+          "ean": "4690417153527",
+          "url": ""
+        }
+      ],
+      "hex": "#913947"
+    },
+    {
+      "code": "",
+      "name": "Серебро",
+      "items": [
+        {
+          "pack": "комплект 1,75 л/1,67 кг",
+          "ean": "4690417153510",
+          "url": "https://www.vseinstrumenti.ru/product/grunt-emal-s-molotkovym-effektom-hardmax-grant-2k-kovka-pro-serebro-komplekt-1-75-l-1-67-kg-4690417153510-27369696/"
+        }
+      ],
+      "hex": "#b6b7b8"
+    },
+    {
+      "code": "",
+      "name": "Синий",
+      "items": [
+        {
+          "pack": "комплект 1,70 л/1,67 кг",
+          "ean": "4690417153411",
+          "url": ""
+        }
+      ],
+      "hex": "#3a6190"
+    },
+    {
+      "code": "",
+      "name": "Темно-вишневый",
+      "items": [
+        {
+          "pack": "комплект 1,73 л/1,67 кг",
+          "ean": "4690417153442",
+          "url": ""
+        }
+      ],
+      "hex": "#63404a"
+    },
+    {
+      "code": "",
+      "name": "Темное серебро",
+      "items": [
+        {
+          "pack": "комплект 1,74 л/1,67 кг",
+          "ean": "4690417153503",
+          "url": ""
+        }
+      ],
+      "hex": "#777c82"
+    },
+    {
+      "code": "",
+      "name": "Темный шоколад",
+      "items": [
+        {
+          "pack": "комплект 1,70 л/1,67 кг",
+          "ean": "4690417153435",
+          "url": ""
+        }
+      ],
+      "hex": "#523d34"
+    },
+    {
+      "code": "",
+      "name": "Черное золото",
+      "items": [
+        {
+          "pack": "комплект 1,73 л/1,67 кг",
+          "ean": "4690417153404",
+          "url": ""
+        }
+      ],
+      "hex": "#65573c"
+    },
+    {
+      "code": "",
+      "name": "Черный",
+      "items": [
+        {
+          "pack": "комплект 1,73 л/1,67 кг",
+          "ean": "4690417153381",
+          "url": ""
+        }
+      ],
+      "hex": "#353536"
+    }
+  ]
+}</script>
 <script id="source-data" type="application/json">{"products": [{"id": "211", "name": "УниЭпокс 211", "category": "Грунты", "kind": "Эпоксидный грунт", "pack": "2,74 кг", "colors": "Светло-серый", "description": "Светло-серый антикоррозионный грунт для стальных рам, ворот и деталей техники. Образует первый слой под цветную эмаль.", "use": "Для глянцевого покрытия поверх грунта нанесите PUR 232. Для полуглянцевого покрытия можно выбрать грунт-эмаль 222. Внутри помещения грунт можно использовать самостоятельно в два слоя общей толщиной от 80 мкм.", "image": "assets/211.webp", "pdf": "assets/211.pdf", "palette": ["assets/211-palette-0.webp"], "vi": "https://www.vseinstrumenti.ru/product/grunt-epoksidnyj-hardmax-uniepoks-211-grant-2k-pro-svetlo-seryj-komplekt-2-74-kg-4690417110278-14639315/"}, {"id": "232", "name": "PUR 232", "category": "Эмали", "kind": "Глянцевая эмаль", "pack": "2,04 / 2,21 кг", "colors": "77 оттенков RAL", "description": "Цветное глянцевое покрытие для ворот, стальных рам и наружных деталей техники. На ровной поверхности хорошо видны отражения.", "use": "На подготовленный металл сначала нанесите грунт УниЭпокс 211. PUR 232 образует верхний цветной слой.", "image": "assets/232.webp", "pdf": "assets/232.pdf", "palette": ["assets/232-palette-0.webp", "assets/232-palette-1.webp", "assets/232-palette-2.webp", "assets/232-palette-3.webp"], "vi": "https://www.vseinstrumenti.ru/product/emal-hardmax-pur-232-grant-2k-pro-ral-3002-karminno-krasnyj-gl-komplekt-2-04-kg-4690417142163-20274638/"}, {"id": "222", "name": "ИП 222", "category": "Грунт-эмали", "kind": "Полуглянцевая грунт-эмаль", "pack": "2,19 / 2,38 кг", "colors": "134 оттенка RAL", "description": "Для ворот, ограждений и рам, которым нужен ровный цвет с мягким блеском. Один материал служит грунтом и цветным покрытием.", "use": "Для подготовленной стали предусмотрена схема в два слоя грунт-эмали 222. В системе с отдельным грунтом сначала наносят УниЭпокс 211. Кисть и валик подходят для небольших участков.", "image": "assets/222.webp", "pdf": "assets/222.pdf", "palette": ["assets/222-palette-0.webp", "assets/222-palette-1.webp", "assets/222-palette-2.webp", "assets/222-palette-3.webp", "assets/222-palette-4.webp", "assets/222-palette-5.webp", "assets/222-palette-6.webp"], "vi": "https://www.vseinstrumenti.ru/product/grunt-emal-hardmax-ur-2k-ip-222-grant-2k-pro-ral-9003-signalnyj-belyj-p-gl-komplekt-2-19-kg-4690417138623-20261072/"}, {"id": "mat", "name": "ИП 222 матовая", "category": "Грунт-эмали", "kind": "Матовая грунт-эмаль", "pack": "2,19 / 2,38 кг", "colors": "52 оттенка RAL", "description": "Для металлических изделий, которым нужен ровный цвет с матовой поверхностью. Двухкомпонентная грунт-эмаль совмещает защиту металла и цветную отделку.", "use": "Перед окраской очистите и обезжирьте металл. Для выбора схемы нанесения сверьтесь с инструкцией к матовой версии.", "image": "assets/mat.webp", "pdf": "assets/mat.pdf", "palette": ["assets/mat-palette-0.webp", "assets/mat-palette-1.webp", "assets/mat-palette-2.webp"], "vi": "https://www.vseinstrumenti.ru/product/grunt-emal-hardmax-ur-2k-ip-222-grant-2k-pro-ral-7044-seryj-shelk-mat-komplekt-2-19-kg-4690417143122-20274296/"}, {"id": "kovka", "name": "Ковка", "category": "Грунт-эмали", "kind": "Молотковая грунт-эмаль", "pack": "1,67 кг", "colors": "18 оттенков", "description": "Для кованых ворот, оград и металлического декора. При высыхании образует глянцевый рельефный рисунок, который визуально скрывает небольшие неровности.", "use": "На подготовленный металл наносят тонкий первый слой, затем формируют рисунок следующим слоем. При распылении фактура выражена сильнее. Для получения рисунка в комплект входит активатор текстуры.", "image": "assets/kovka.webp", "pdf": "assets/kovka.pdf", "palette": ["assets/kovka-palette-0.webp"], "vi": "https://www.vseinstrumenti.ru/product/grunt-emal-s-molotkovym-effektom-hardmax-grant-2k-kovka-pro-serebro-komplekt-1-75-l-1-67-kg-4690417153510-27369696/"}], "reviews": [{"author": "Евгений", "product": "ИП 222 полуглянцевая", "meta": "23.07.2026 · Вес нетто: 2.19 кг, Цвет RAL: 6003", "text": "Пуликом 1.2мм без разбавителя -легла отлично Укрывистость в один слой на эпоксидный грунт", "url": "https://www.vseinstrumenti.ru/product/grunt-emal-hardmax-ur-2k-ip-222-grant-2k-pro-ral-9003-signalnyj-belyj-p-gl-komplekt-2-19-kg-4690417138623-20261072/otzyvy/#:~:text=%D0%9F%D1%83%D0%BB%D0%B8%D0%BA%D0%BE%D0%BC%201.2%D0%BC%D0%BC%20%D0%B1%D0%B5%D0%B7%20%D1%80%D0%B0%D0%B7%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D0%B5%D0%BB%D1%8F%20-%D0%BB%D0%B5%D0%B3%D0%BB%D0%B0%20%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%20%D0%A3%D0%BA%D1%80%D1%8B%D0%B2%D0%B8%D1%81%D1%82%D0%BE%D1%81%D1%82%D1%8C%20%D0%B2%20%D0%BE%D0%B4%D0%B8%D0%BD"}, {"author": "Евгения Симонова", "product": "ИП 222 полуглянцевая", "meta": "13.06.2025 · Отзыв из стороннего источника · Вес нетто: 2.19 кг, Цвет RAL: 5021", "text": "Достоинства: Ложится отлично, на предварительно помытые и высохшие от воды ворота легла хорошо и легко", "url": "https://www.vseinstrumenti.ru/product/grunt-emal-hardmax-ur-2k-ip-222-grant-2k-pro-ral-5021-sinyaya-voda-p-gl-komplekt-2-19-kg-4690417141227-20260790/otzyvy/?reviewsVariant=thisVariant#:~:text=%D0%9B%D0%BE%D0%B6%D0%B8%D1%82%D1%81%D1%8F%20%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%2C%20%D0%BD%D0%B0%20%D0%BF%D1%80%D0%B5%D0%B4%D0%B2%D0%B0%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%20%D0%BF%D0%BE%D0%BC%D1%8B%D1%82%D1%8B%D0%B5%20%D0%B8%20%D0%B2%D1%8B%D1%81%D0%BE%D1%85%D1%88%D0%B8%D0%B5%20%D0%BE%D1%82%20%D0%B2%D0%BE%D0%B4%D1%8B"}, {"author": "Наталья К.", "product": "PUR 232", "meta": "04.12.2025 · Отзыв из стороннего источника · Вес нетто: 2.04 кг, Цвет RAL: 1005", "text": "Достоинства: хорошая краска, ложится быстро, и быстро сохнет, брала для улицы красила стойки во дворе под навесом из поликарбоната, красила ранней весной, следующий весной ещё планирую покрасить, спустя полгода нареканий нет, смотрится хорошо, без сколов и трещин, а лето у меня очень жаркое а зима сырая", "url": "https://www.vseinstrumenti.ru/product/emal-hardmax-pur-232-grant-2k-pro-ral-3002-karminno-krasnyj-gl-komplekt-2-04-kg-4690417142163-20274638/otzyvy/#:~:text=%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B0%D1%8F%20%D0%BA%D1%80%D0%B0%D1%81%D0%BA%D0%B0%2C%20%D0%BB%D0%BE%D0%B6%D0%B8%D1%82%D1%81%D1%8F%20%D0%B1%D1%8B%D1%81%D1%82%D1%80%D0%BE%2C%20%D0%B8%20%D0%B1%D1%8B%D1%81%D1%82%D1%80%D0%BE%20%D1%81%D0%BE%D1%85%D0%BD%D0%B5%D1%82%2C%20%D0%B1%D1%80%D0%B0%D0%BB%D0%B0%20%D0%B4%D0%BB%D1%8F"}]}</script><script>'use strict';
 const DATA=JSON.parse(document.getElementById('source-data').textContent), products=DATA.products;
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
@@ -261,11 +3901,250 @@ $$('[data-example]').forEach(b=>b.onclick=()=>example(+b.dataset.example));
 $('#compare-range').oninput=e=>{const value=Number(e.target.value);$('.comparison').style.setProperty('--split',value+'%');e.target.setAttribute('aria-valuetext',`${value}% до, ${100-value}% после`);seenExamples.add(activeExample);$('#compare-hint').hidden=true};
 // Grid expansion is inserted after the last card in the selected visual row.
 let filter='Все',selected=null;
+const productSpecs = {
+  "211": [
+    "Чёрные металлы и бетон.",
+    {
+      "Состав комплекта": "Эпоксидная основа с фосфатом цинка, отвердитель и разбавитель.",
+      "Расход": "250 г/м² при толщине 100 мкм.",
+      "Жизнеспособность при +20 °C": "4 часа.",
+      "Нанесение": "Распыление или кисть. Температура воздуха от +5 °C, материала от +15 °C.",
+      "Самостоятельное покрытие": "Только внутри помещения, два слоя общей толщиной не менее 80 мкм.",
+      "Высыхание": "До степени 3 — 4 часа. Набор твёрдости — 5 суток."
+    }
+  ],
+  "232": [
+    "Металл, дерево, бетон и стеклопластик.",
+    {
+      "Состав комплекта": "Полиуретановая основа, отвердитель и разбавитель. Грунт приобретается отдельно.",
+      "Подготовка": "Сталь, чугун, оцинковку и алюминий предварительно грунтуют. Стеклопластик матируют.",
+      "Расход": "240 г/м² при толщине сухого покрытия 100 мкм. Рекомендованная толщина — 40–80 мкм.",
+      "Жизнеспособность при +20 °C": "6 часов.",
+      "Температура нанесения": "Воздух от +10 до +30 °C, материал от +15 °C.",
+      "Основа и отвердитель": "Для глянцевой эмали — 5:1 по массе или 4:1 по объёму. После смешивания выдержите 15 минут.",
+      "Инструмент": "Кисть, валик, пневматическое или безвоздушное распыление.",
+      "Межслойный интервал": "Мокрый по мокрому — 15 минут. Следующее покрытие при +20 °C — минимум через 30 минут.",
+      "Высыхание при +20 °C": "Слой 40 мкм: до отлипа — 2 часа, до степени 3 — 6 часов. Набор окончательной твёрдости — 7 суток.",
+      "Пример применения": "В том числе для надводных частей судов."
+    }
+  ],
+  "222": [
+    "Металл, дерево и стеклопластик.",
+    {
+      "Состав": "Акриловая гидроксилсодержащая смола и отвердитель.",
+      "Расход": "100–120 г/м². Рекомендованы 2–3 слоя по 18–30 мкм.",
+      "Жизнеспособность": "8 часов.",
+      "Нанесение": "Температура материала от +15 до +25 °C. Кисть и валик — для небольших участков.",
+      "Готовность": "Транспортировка — через 16 часов, набор твёрдости — через 5 суток."
+    }
+  ],
+  "mat": [
+    "Металлические изделия.",
+    {
+      "Выбор основания": "Для дерева и стеклопластика уточните схему применения матовой версии у производителя.",
+      "Применение": "Подготовку, пропорции компонентов и режим нанесения сверяйте с инструкцией для приобретённого комплекта."
+    }
+  ],
+  "kovka": [
+    "Металл, дерево, бетон, стеклопластик и керамика.",
+    {
+      "Состав комплекта": "Основа, отвердитель и активатор текстуры.",
+      "Расход": "200 г/м² при толщине 90 мкм.",
+      "Жизнеспособность при +20 °C": "1,5 часа.",
+      "Нанесение": "2–3 слоя. После тонкого адгезионного слоя выдержите 30–60 минут перед слоем с эффектом.",
+      "Инструмент": "Кисть, валик или распыление. Выраженность рисунка зависит от инструмента и толщины слоя.",
+      "Готовность": "До степени 3 — 8 часов, сборка — через 16 часов, набор твёрдости — 7 суток."
+    }
+  ]
+};
 function visibleProducts(){return products.filter(p=>filter==='Все'||p.category===filter)}
-function catalog(){const list=visibleProducts(),grid=$('#catalog-grid');grid.innerHTML=list.map(p=>`<button class="product-card" data-product="${p.id}" aria-expanded="false" aria-controls="product-detail"><img src="${p.image}" alt="Комплект ${esc(p.name)}" loading="lazy"><span class="kind">${esc(p.kind)}</span><h3>${esc(p.name)}</h3><span class="note">${esc(p.colors)} · ${esc(p.pack)}</span><span class="more">Подробнее <span aria-hidden="true">↗</span></span></button>`).join('');$$('[data-product]',grid).forEach(b=>b.onclick=()=>detail(b.dataset.product));if(selected&&list.some(p=>p.id===selected))renderDetail()}
+const catalogSurfaces={
+  '211':'Для чёрных металлов и бетона',
+  '232':'Для металла, дерева, бетона и стеклопластика',
+  '222':'Для металла, дерева и стеклопластика',
+  mat:'Для металлических изделий',
+  kovka:'Для металла, дерева, бетона, стеклопластика и керамики'
+};
+function catalog(){const list=visibleProducts(),grid=$('#catalog-grid');grid.innerHTML=list.map(p=>`<button class="product-card" data-product="${p.id}" aria-expanded="false" aria-controls="product-detail"><img src="${p.image}" alt="Комплект ${esc(p.name)}" loading="lazy"><h3>${esc(p.kind)} ${esc(p.id==='211'?'211 Super':p.id==='mat'?'ИП 222':p.name)}</h3><span class="surfaces">${esc(catalogSurfaces[p.id])}</span><span class="more">Подробнее <span aria-hidden="true">↗</span></span></button>`).join('');$$('[data-product]',grid).forEach(b=>b.onclick=()=>detail(b.dataset.product));if(selected&&list.some(p=>p.id===selected))renderDetail()}
 function detail(id){selected=selected===id?null:id;renderDetail()}
-function renderDetail(){const old=$('#product-detail');if(old)old.remove();$$('.product-card').forEach(b=>b.setAttribute('aria-expanded',b.dataset.product===selected));if(!selected)return;const p=products.find(x=>x.id===selected),panel=document.createElement('article');panel.id='product-detail';panel.className='product-detail';panel.setAttribute('aria-label',p.name+' — подробности');panel.innerHTML=`<div class="detail-top"><h3>${esc(p.name)}</h3><button class="close-inline" id="close-product">Закрыть ×</button></div><div class="detail-grid"><div><img class="detail-image" src="${p.image}" alt="Упаковка ${esc(p.name)}"></div><div><p>${esc(p.description)}</p><p>${esc(p.use)}</p><dl class="specs"><div><dt>Фасовка комплекта</dt><dd>${esc(p.pack)}</dd></div><div><dt>Палитра</dt><dd>${esc(p.colors)}</dd></div><div><dt>Тип покрытия</dt><dd>${esc(p.kind)}</dd></div><div><dt>Нанесение</dt><dd>По инструкции продукта</dd></div></dl>${p.id==='222'?'':''}${p.id==='mat'?'':''}<a class="text-link" href="${p.pdf}" download>Скачать техническое описание · PDF ↓</a><p style="margin-top:22px"><strong>Цвета покрытия</strong></p><p class="note">Нажмите на палитру для увеличения. Экран не заменяет реальный выкрас.</p><div class="palette-list">${p.palette.map((src,i)=>`<button data-photo="${src}" data-caption="${esc(p.name)} — палитра, лист ${i+1}" aria-label="Открыть палитру, лист ${i+1}"><img src="${src}" alt="Палитра ${esc(p.name)}, лист ${i+1}"></button>`).join('')}</div>${purchaseLinks(p)}<p class="note" style="margin-top:15px">Ссылка ВсеИнструменты ведёт на выбранный пример цвета. Сверьте цвет, фасовку и наличие у продавца.</p></div></div>`;
-const cards=$$('.product-card'),cols=getComputedStyle($('#catalog-grid')).gridTemplateColumns.split(' ').length,ix=cards.findIndex(b=>b.dataset.product===selected),end=Math.min(cards.length-1,Math.floor(ix/cols)*cols+cols-1);cards[end].after(panel);$('#close-product').onclick=()=>{const id=selected;selected=null;renderDetail();$(`[data-product="${id}"]`).focus()};bindPhotos(panel);bindDemos(panel)}
+const productColours = JSON.parse(document.getElementById("product-colours").textContent);
+const colourStates = new Map();
+const paletteSheetCounts = {"211": [1], "232": [19, 19, 19, 20], "222": [19, 19, 19, 19, 19, 19, 20], "mat": [17, 17, 18], "kovka": [18]};
+function openPalette(product,selectedColour,onSelect){
+  const dialog=$('#palette-viewer'), pages=$('.palette-scroll',dialog), controls=$('.palette-controls',dialog);
+  const previous=$('[data-prev]',dialog), next=$('[data-next]',dialog);
+  $('#palette-title').textContent='Палитра · '+product.name;
+  let selectedPage=0;
+  let offset=0;
+  pages.replaceChildren(...product.palette.map((url,index)=>{
+    const page=document.createElement('div'), sheet=document.createElement('div');
+    page.className='palette-page';sheet.className='palette-sheet';page.append(sheet);
+    const img=new Image();img.width=1600;img.height=1600;img.src=url;img.alt=product.name+' — лист '+(index+1);sheet.append(img);
+    const count=paletteSheetCounts[product.id][index];
+    productColours[product.id].slice(offset,offset+count).forEach((colour,i)=>{
+      const button=document.createElement('button');
+      button.type='button';button.className='palette-hit';
+      button.setAttribute('aria-label',[colour.code && 'RAL '+colour.code,colour.name].filter(Boolean).join(' · '));
+      if(colour===selectedColour){
+        button.setAttribute('aria-current','true');
+        selectedPage=index;
+      }
+      const single=product.id==='211';
+      button.style.left=(single?5.2:5.2+(i%4)*22.8)+'%';
+      button.style.top=(11.5+Math.floor(i/4)*15.75)+'%';
+      button.style.width=(single?89.5:21)+'%';
+      button.style.height=(single?78:14.8)+'%';
+      button.onclick=()=>{dialog.close();onSelect(colour)};
+      sheet.append(button);
+    });
+    offset+=count;return page;
+  }));
+  controls.hidden=product.palette.length<2;
+  openDialog(dialog);
+  pages.scrollTop=selectedPage*pages.clientHeight;
+  function current(){return Math.min(pages.children.length-1,Math.round(pages.scrollTop/pages.clientHeight))}
+  function update(){const i=current();previous.disabled=i===0;next.disabled=i===pages.children.length-1}
+  function move(delta){pages.scrollTop=(current()+delta)*pages.clientHeight;update()}
+  previous.onclick=()=>move(-1);next.onclick=()=>move(1);pages.onscroll=update;
+  dialog.onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();move(e.key==='ArrowRight'?1:-1)}};
+  update();
+}
+function showDealerContact(){
+  const choice=$('#request-city').selectedOptions[0];
+  $('#dealer-contacts').textContent='dealer-'+choice.value+'@example.com · +7 (XXX) XXX-00-'+choice.dataset.phone;
+  $('#dealer-send-status').textContent='';
+}
+$('#request-city').onchange=showDealerContact;
+$('#send-demo-request').onclick=()=>{
+  $('#dealer-send-status').textContent='Демонстрация завершена. Получатель: '+$('#request-city').selectedOptions[0].textContent+'. Письмо не отправлено.';
+};
+$('#copy-request').onclick=async()=>{
+  const text=$('#dealer-request .request-copy'), status=$('#copy-status');
+  try{
+    await navigator.clipboard.writeText(text.textContent);
+    status.textContent='Скопировано';
+  }catch{
+    const range=document.createRange();
+    range.selectNodeContents(text);
+    const selection=window.getSelection();
+    selection.removeAllRanges();selection.addRange(range);
+    status.textContent=document.execCommand('copy')?'Скопировано':'Текст выделен. Выберите «Копировать».';
+  }
+};
+function bindColourPicker(panel, product) {
+  const colours = productColours[product.id];
+  const state = colourStates.get(product.id) || {query:'', selected:null, other:false};
+  colourStates.set(product.id,state);
+  const input = panel.querySelector('.colour-picker input');
+  const list = panel.querySelector('.colour-options');
+  const result = panel.querySelector('.colour-result');
+  const other = panel.querySelector('.other-colour');
+  const dealer = panel.querySelector('.dealer-colour');
+  const showColours=panel.querySelector('.show-colours');
+  const normalize = value => value.toLowerCase().replaceAll('ё','е').replace(/[-–]/g,' ').trim();
+  const label = colour => [colour.code && 'RAL '+colour.code,colour.name].filter(Boolean).join(' · ');
+  const swatch = colour => `<span aria-hidden="true" class="colour-swatch" style="background-color:${colour.hex}"></span>`;
+  function render() {
+    input.value=state.query;
+    input.closest('label').hidden=!!state.selected;
+    dealer.hidden=!state.other;
+    other.setAttribute('aria-expanded',String(state.other));
+    const query=normalize(state.query).replace(/^ral\s*/,'');
+    const tokens=query.split(/\s+/).map(t=>t.replace(/(ый|ий|ая|ое|ые)$/,''));
+    const families = {
+      'бежев': ['1000','1001','1013','1014','1015','1019'],
+      'кремов': ['1013','1014','1015','9001'],
+      'коричнев': ['Молочный шоколад','Темный шоколад','Мокко','Бронза'],
+      'сер': ['Мокрый асфальт','Темное серебро','Серебро'],
+      'бел': ['Жемчужный','1013','9001'],
+      'желт': ['Желтое золото','Золотистый']
+    };
+    const matches=colours.filter(c=>tokens.every(t=>normalize(label(c)).includes(t)
+      || (t==='сер' && /^7/.test(c.code))
+      || families[t]?.some(alias=>alias===c.code || normalize(alias)===normalize(c.name))));
+    if(query)matches.sort((a,b)=>Number(normalize(label(b)).includes(query))-Number(normalize(label(a)).includes(query)));
+    list.hidden=state.other || !!state.selected || (!state.query && document.activeElement!==input);
+    list.innerHTML=matches.map(c=>`<button type="button" data-index="${colours.indexOf(c)}">${swatch(c)}<span>${esc(label(c))}</span></button>`).join('') || '<p>Такого оттенка в палитре нет. Для колеровки выберите «Нужен свой оттенок RAL».</p>';
+    result.replaceChildren();
+    if(!state.selected || state.other)return;
+    const colour=state.selected;
+    const heading=document.createElement('strong');heading.innerHTML=swatch(colour)+esc(label(colour));
+    const change=document.createElement('button');
+    change.type='button';change.className='change-shade';change.textContent='Изменить цвет';
+    change.onclick=()=>{
+      state.selected=null;state.query='';render();input.focus();
+    };
+    const row=document.createElement('div');row.className='selected-shade';
+    row.append(heading,change);result.append(row);
+    const term=product.name+' '+label(colour);
+    const stores=document.createElement('div');stores.className='shade-stores';result.append(stores);
+    function addStore(key,text,url,description){
+      const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener';
+      link.innerHTML=marketIcon(key);
+      const caption=document.createElement('span');caption.textContent=text;link.append(caption);
+      link.title=description;link.setAttribute('aria-label',text+'. '+description);stores.append(link);
+    }
+    const search=encodeURIComponent('GRANT 2К '+term);
+    addStore('ozon','Ozon','https://www.ozon.ru/search/?text='+search,'Открыть поиск по продукту и оттенку');
+    const direct=colour.items.filter(item=>item.url);
+    if(direct.length){
+      for(const item of direct)addStore('vi','ВсеИнструменты'+(direct.length>1?' · '+item.pack:''),item.url,'Открыть товар выбранного цвета');
+    }else{
+      addStore('vi','ВсеИнструменты','https://www.vseinstrumenti.ru/search/?what='+search,'Открыть поиск по продукту и оттенку');
+    }
+    const request=document.createElement('button');
+    request.type='button';request.className='shade-dealer';request.textContent='Запросить у дилера';
+    request.onclick=()=>previewRequest(label(colour));
+    result.append(request);
+  }
+  function previewRequest(shade){
+    const dialog=$('#dealer-request');
+    $('#copy-status').textContent='';
+    showDealerContact();
+    const name=product.kind+' '+(product.id==='mat'?'ИП 222':product.name);
+    dialog.querySelector('.request-copy').textContent='Здравствуйте!\nМожно ли заказать ГРАНТ 2К — '+name+', цвет '+shade+'? Подскажите, пожалуйста, доступную фасовку, цену и срок поставки.';
+    openDialog(dialog);
+  }
+  const ral=dealer.elements.ral;
+  ral.value=state.customRal || '';
+  ral.oninput=()=>{state.customRal=ral.value;ral.setCustomValidity('')};
+  dealer.onsubmit=e=>{
+    e.preventDefault();
+    const code=ral.value.trim().replace(/^RAL\s*/i,'').replace(/\s+/g,' ');
+    if(!/^(?:\d{4}|\d{3} \d{2} \d{2})$/.test(code)){
+      ral.setCustomValidity('Введите номер RAL, например 7035 или 240 40 35.');ral.reportValidity();return;
+    }
+    previewRequest('RAL '+code);
+  };
+  input.oninput=()=>{state.query=input.value;state.selected=null;state.other=false;render()};
+  input.onfocus=()=>{if(state.selected || state.other){state.query='';state.selected=null;state.other=false}render()};
+  function selectColour(colour){
+    state.selected=colour;state.query=label(colour);state.other=false;render();
+    result.querySelector('a')?.focus({preventScroll:true});
+    result.scrollIntoView({block:'nearest',behavior:'instant'});
+  }
+  list.onclick=e=>{
+    const btn=e.target.closest('button[data-index]');if(btn)selectColour(colours[Number(btn.dataset.index)]);
+  };
+  showColours.onclick=()=>openPalette(product,state.selected,selectColour);
+  other.onclick=()=>{state.other=!state.other;render()};
+  render();
+}
+function technicalGroups(product) {
+  const groups = new Map();
+  for (const [label, value] of Object.entries(productSpecs[product.id][1])) {
+    let title = 'Подготовка и нанесение';
+    if (['Состав', 'Состав комплекта', 'Основа и отвердитель'].includes(label)) title = 'Состав и смешивание';
+    if (['Готовность','Межслойный интервал'].includes(label) || label.startsWith('Высыхание')) title = 'Сушка и готовность';
+    if (!groups.has(title)) groups.set(title, []);
+    groups.get(title).push(`<div><dt>${esc(label)}</dt><dd>${esc(value)}</dd></div>`);
+  }
+  return ['Состав и смешивание','Подготовка и нанесение','Сушка и готовность'].filter(title=>groups.has(title)).map(title=>
+    `<details class="tech-group"><summary><span>${title}</span><span class="tech-action"><span class="expand">Раскрыть</span><span class="collapse">Свернуть</span></span></summary><dl>${groups.get(title).join('')}</dl></details>`
+  ).join('');
+}
+function renderDetail(){const old=$('#product-detail');if(old)old.remove();$$('.product-card').forEach(b=>b.setAttribute('aria-expanded',b.dataset.product===selected));if(!selected)return;const p=products.find(x=>x.id===selected),panel=document.createElement('article');panel.id='product-detail';panel.className='product-detail';panel.setAttribute('aria-label',p.name+' — подробности');panel.innerHTML=`<div class="detail-top"><h3>${esc(p.name)}</h3><button class="close-inline" id="close-product">Закрыть ×</button></div><div class="detail-grid"><div><img class="detail-image" src="${p.image}" alt="Упаковка ${esc(p.name)}"></div><div><p>${esc(p.description)}</p><p>${esc(p.use)}</p><dl class="specs" aria-label="Основные характеристики"><div><dt>Фасовка комплекта</dt><dd>${esc(p.pack)}</dd></div><div><dt>${p.id==='211'?'Цвет':'Палитра'}</dt><dd>${esc(p.colors)}</dd></div><div><dt>Основания</dt><dd>${esc(productSpecs[p.id][0])}</dd></div></dl><section aria-labelledby="tech-heading"><h4 id="tech-heading">Технические характеристики</h4><div class="tech-groups">${technicalGroups(p)}</div></section><section class="product-docs" aria-label="Документы"><a class="doc-download" href="${esc(p.pdf)}" download aria-label="Скачать техническое описание ${esc(p.name)} в PDF"><span class="doc-format">PDF</span><span class="doc-name"><strong>Техническое описание</strong><small>${esc(p.name)}</small></span><span class="doc-action">Скачать</span></a></section>${p.id==='211'?purchaseLinks(p):`<section class="colour-picker"><h4>Выберите цвет</h4><label>Название или номер RAL<input type="search" autocomplete="off" placeholder="Например, серый или 7035"></label><div class="colour-options" aria-label="Доступные оттенки"></div><div class="colour-result" aria-live="polite"></div><div class="colour-actions"><button type="button" class="show-colours" aria-haspopup="dialog" aria-controls="palette-viewer">Посмотреть цвета</button><button type="button" class="other-colour" aria-controls="custom-ral">Нужен свой оттенок RAL</button></div><form id="custom-ral" class="dealer-colour" hidden><label>Номер RAL<input name="ral" placeholder="Например, 7035" required maxlength="24"></label><button type="submit" class="shade-dealer">Выбрать дилера</button></form></section>`}</div></div>`;
+const cards=$$('.product-card'),cols=getComputedStyle($('#catalog-grid')).gridTemplateColumns.split(' ').length,ix=cards.findIndex(b=>b.dataset.product===selected),end=Math.min(cards.length-1,Math.floor(ix/cols)*cols+cols-1);cards[end].after(panel);$('#close-product').onclick=()=>{const id=selected;selected=null;renderDetail();$(`[data-product="${id}"]`).focus()};bindPhotos(panel);bindDemos(panel);if(p.id!=='211')bindColourPicker(panel,p)}
 $$('.filter').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;selected=null;$$('.filter').forEach(x=>x.setAttribute('aria-pressed',x===b));catalog()});let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(selected)renderDetail()},150)});catalog();
 function openProduct(id){filter='Все';selected=id;$$('.filter').forEach(b=>b.setAttribute('aria-pressed',b.dataset.filter==='Все'));catalog();requestAnimationFrame(()=>jump($(`[data-product="${id}"]`)))}
 // Quiz follows the supplied matrix. No hammer option for outdoor equipment.
