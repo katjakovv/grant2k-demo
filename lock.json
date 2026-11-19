@@ -1,4 +1,8 @@
 {
   "version": 1,
-  "owner": null
+  "owner": {
+    "id": "2f66f338-9d1a-4272-b210-aa6ad28dcb16",
+    "name": "к",
+    "expiresAt": 1795097161155
+  }
 }
