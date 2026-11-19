@@ -51,6 +51,13 @@
     "all|[data-design-id=\"g0006\"]|color": "#2f385a",
     "all|[data-design-id=\"g0006\"]|border-color": "#ffffff",
     "all|[data-design-id=\"g0006\"]|background-color": "#2f385a",
-    "all|[data-design-id=\"g0018\"]|margin-top": "40px"
+    "all|[data-design-id=\"g0018\"]|margin-top": "40px",
+    "phone|[data-design-id=\"g0017\"]|margin-top": "-43px",
+    "phone|[data-design-id=\"g0031\"]|margin-bottom": "-7px",
+    "phone|[data-design-id=\"g0034\"]|padding-top": "13px",
+    "phone|[data-design-id=\"g0034\"]|border-width": "0px",
+    "phone|[data-design-id=\"g0034\"]|border-style": "solid",
+    "phone|[data-design-id=\"g0034\"]|border-color": "#2f385a",
+    "phone|[data-design-id=\"g0028\"]|border-color": "#000000"
   }
 }
