@@ -1,6 +1,27 @@
 {
   "version": 1,
   "texts": {
-    "металла": ""
+    "металла": "",
+    "службы покрытия": "службы",
+    "↗": "",
+    "↓": "",
+    "Купить оптом ": "Купить оптом",
+    "Купить онлайн ": "Купить онлайн"
+  },
+  "styles": {
+    "all|[data-design-id=\"g0025\"]|border-width": "2px",
+    "all|[data-design-id=\"g0025\"]|border-style": "solid",
+    "all|[data-design-id=\"g0026\"]|font-weight": "700",
+    "all|[data-design-id=\"g0027\"]|font-weight": "700",
+    "all|[data-design-id=\"g0030\"]|font-weight": "700",
+    "all|[data-design-id=\"g0029\"]|font-weight": "700",
+    "all|[data-design-id=\"g0028\"]|border-width": "2px",
+    "all|[data-design-id=\"g0028\"]|border-style": "solid",
+    "all|[data-design-id=\"g0025\"]|border-color": "#2f3859",
+    "all|[data-design-id=\"g0028\"]|border-color": "#2f3859",
+    "all|[data-design-id=\"g0048\"]|margin-top": "55px",
+    "all|[data-design-id=\"g0034\"]|padding-top": "13px",
+    "all|[data-design-id=\"g0033\"]|margin-top": "30px",
+    "all|[data-design-id=\"g0031\"]|margin-top": "20px"
   }
 }
