@@ -573,12 +573,12 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 #dealer-count{font:600 17px/1.3 Okta,Arial,sans-serif;margin:0;padding:18px 20px;border-bottom:1px solid var(--divider)}
 .dealer-scroll{flex:1;position:relative;min-height:0}
 
-#dealer-options{position:absolute;inset:0;overflow:auto;scrollbar-width:thin}
-#dealer-options button{width:100%;display:block;text-align:left;font:600 16px/1.35 Okta,Arial,sans-serif;color:var(--ink);background:white;padding:13px 18px;border:0;border-bottom:1px solid var(--divider);cursor:pointer;overflow-wrap:anywhere}
-#dealer-options button:hover{background:var(--paper)}
-#dealer-options button[aria-pressed=true]{background:#f4f5f8;box-shadow:inset 3px 0 var(--orange)}
-#dealer-options button span,#dealer-options button small{display:block;font-weight:400;color:var(--muted);margin-top:3px}
-#dealer-options button span{font-size:14px}#dealer-options button small{font-size:12px}
+#dealer-options{position:relative}
+#dealer-options .dealer-choice{width:100%;display:block;text-align:left;font:600 16px/1.35 Okta,Arial,sans-serif;color:var(--ink);background:white;padding:13px 18px;border:0;border-bottom:1px solid var(--divider);cursor:pointer;overflow-wrap:anywhere}
+#dealer-options .dealer-choice:hover{background:var(--paper)}
+#dealer-options .dealer-choice[aria-expanded=true]{background:#f4f5f8;box-shadow:inset 3px 0 var(--orange)}
+#dealer-options .dealer-choice span,#dealer-options .dealer-choice small{display:block;font-weight:400;color:var(--muted);margin-top:3px}
+#dealer-options .dealer-choice span{font-size:14px}#dealer-options .dealer-choice small{font-size:12px}
 #dealer-options .brand-type,.brand-type{display:block;color:var(--orange);font:600 12px/1.4 Okta,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin:0 0 5px}
 .dealer-layout{min-width:0}
 #dealer-map{width:100%;height:280px;background:var(--soft);border:0;display:block}
@@ -599,7 +599,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 #city-online p{margin:0 0 12px}
 @media(max-width:650px){
   .dealer-browser{grid-template-columns:minmax(0,1fr);gap:12px}
-  .dealer-scroll{height:185px;flex:auto}
+  
   #dealer-map{height:240px}
   .dealer-tools{gap:2px 14px}
   .dealer-tools #locate-shop{min-height:40px}
@@ -615,7 +615,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 .dealer-browser{grid-template-areas:"map";grid-template-columns:minmax(0,1fr)}
 .dealer-browser.has-shop{grid-template-areas:"list map" "list card";grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
 .dealer-sidebar{grid-area:list}.dealer-layout{grid-area:card}
-#dealer-options button[aria-pressed=true]{background:#dfdff1}
+#dealer-options .dealer-choice[aria-expanded=true]{background:#dfdff1}
 .dealer-city-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:20px}
 #dealer-count{padding:0;border:0}.dealer-city-head button{min-height:40px}
 .dealer-online{font:400 14px/1.5 Okta,Arial,sans-serif;color:#626b80;margin:8px 0}
@@ -625,7 +625,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 .dealer-pin::before{content:"";width:62%;height:62%;background:url(data:image/png;base64,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) center/contain no-repeat}
 #dealer-map .dealer-pin.cluster,#dealer-map .dealer-pin.selected{width:40px;height:40px} #dealer-map .dealer-pin.selected{border:2.5px solid #ff5300}
 .dealer-pin b{position:absolute;top:-5px;right:-8px;background:#2f385a;color:white;padding:1px 4px;min-width:19px;box-sizing:border-box;border-radius:12px;text-align:center;font:600 12px/17px Arial,sans-serif}
-@media(max-width:768px){#dealer-map{height:360px}.dealer-browser.has-shop{grid-template-areas:"map" "list" "card";grid-template-columns:minmax(0,1fr)}.dealer-scroll{height:185px;flex:auto}}
+@media(max-width:768px){#dealer-map{height:360px}.dealer-browser.has-shop{grid-template-areas:"map" "list" "card";grid-template-columns:minmax(0,1fr)}}
 #dealer-map{overflow:hidden} #dealer-map iframe,#dealer-map .ymap{display:block;width:100%;height:100%;border:0}
 
 #dealers{background:var(--paper);border-radius:18px;padding:clamp(16px,2.5vw,36px)}
@@ -645,9 +645,9 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 #dealer-online.no-match{width:calc((100% - 10px)*2/3);background:white;border:1px solid var(--line);border-radius:12px;padding:12px 16px;color:var(--ink)}
 #dealer-online a{color:var(--ink)}#all-dealer-cities{background:none;border:0;color:var(--ink);padding-inline:4px}
 #dealers .dealer-sidebar{background:transparent;box-shadow:none}
-#dealer-options button{background:transparent;border:1px solid transparent;border-radius:12px;box-shadow:none}
-#dealer-options button[aria-pressed=true]{background:white;border-color:var(--ink);box-shadow:none}
-#dealer-options button:hover{transform:none;background:var(--soft)}
+#dealer-options .dealer-choice{background:transparent;border:1px solid transparent;border-radius:12px;box-shadow:none}
+#dealer-options .dealer-choice[aria-expanded=true]{background:white;border-color:var(--ink);box-shadow:none}
+#dealer-options .dealer-choice:hover{transform:none;background:var(--soft)}
 #dealers .dealer-summary{display:flex;flex-direction:column;align-items:flex-start}
 #dealers .shop-address{order:-2;font-weight:600;margin:4px 0}
 #dealers #shop-type{order:-3}
@@ -671,8 +671,44 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 #buy .marketplace::after{content:"↗";color:var(--ink);font-size:19px}
 #buy .buy-online{border-top:1px solid var(--line)}
 #buy #dealers{background:white;border-radius:0;padding:clamp(20px,2vw,28px) 0 var(--purchase-pad)}
+#buy .dealer-browser.has-shop{grid-template-areas:"list map"}
+@media(min-width:769px){#buy .has-shop #dealer-map{position:sticky;top:80px;align-self:start}}
+#dealer-map{position:relative}
+#buy #dealer-address-details{position:absolute;inset:0;z-index:2;background:transparent;pointer-events:none;overflow:visible}
+#dealer-address-details .dealer-summary{position:absolute;left:12px;bottom:42px;max-width:calc(100% - 24px);padding:10px 14px;gap:4px;background:white;border-radius:12px;box-shadow:0 2px 12px #2f385a30;pointer-events:auto}
+#dealer-map #map-route{margin:2px 0 0;min-height:42px;padding:8px 14px}
+#dealer-map .shop-address{margin:0;font-size:16px;line-height:1.25}
+#dealer-map #shop-name{font-size:14px}
+#dealer-map .shop-address svg,#dealer-map #address-note,#dealer-map #shop-type{display:none}
+#dealers .dealer-sidebar{overflow:visible}
+#dealer-options{padding:3px}
+#dealer-options .dealer-choice:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+#dealer-contact-card{padding:2px 16px 12px;border-bottom:1px solid var(--line);color:var(--ink)}
+.dealer-map-jump{display:none}
+@media(max-width:768px){.dealer-map-jump{display:inline-flex;align-items:center;min-height:40px;margin-inline-start:8px;font-size:14px}}
+#dealer-contact-card{overflow-wrap:anywhere;font-size:15px;line-height:1.45}
+#dealer-phones p{margin:0 0 4px}
+#dealer-phones a{font-weight:600;text-underline-offset:3px}
+#dealer-contact-card #hours-table{margin:4px 0 8px}
+#dealer-contact-card #hours-status{font-size:14px;color:var(--muted);margin:0}
+#dealer-map #map-route{order:1}
+@media(max-width:768px){
+  #buy .dealer-browser.has-shop{grid-template-areas:"map" "list"}
+
+}
 #buy .dealer-layout{background:var(--white);box-shadow:none}
-#buy #dealer-options button[aria-pressed=true]{background:var(--paper)}
+#dealer-options{--selected-store-bg:#fff5ee;--selected-store-border:#ebcaba}
+#buy #dealer-options .dealer-choice[aria-expanded=true],
+#buy #dealer-options .dealer-choice[aria-expanded=true]+#dealer-contact-card{
+  background:var(--selected-store-bg);border:1px solid var(--selected-store-border);
+  border-left:3px solid var(--orange);padding-inline:15px;box-shadow:none
+}
+#buy #dealer-options .dealer-choice[aria-expanded=true]{
+  color:#a73600;border-bottom:0;border-radius:12px 12px 0 0;padding-bottom:4px
+}
+#buy #dealer-options .dealer-choice[aria-expanded=true]+#dealer-contact-card{
+  margin:0;border-top:0;border-radius:0 0 12px 12px;padding-top:0
+}
 #buy .manufacturer{margin:clamp(20px,3vw,40px) 0 0;padding:clamp(16px,3vw,40px);background:white;border:1px solid var(--line);border-radius:var(--radius);gap:24px}
 #buy .manufacturer h3{margin-top:0}
 #buy .manufacturer a{flex-shrink:0;font:600 clamp(16px,1.4vw,20px)/1.4 Okta,Arial,sans-serif;color:var(--ink)}
@@ -758,15 +794,16 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 <section data-design-id="g0162" class="section" id="faq"><div class="wrap"><p class="section-eyebrow">Ответы</p><div data-design-id="g0163" class="section-head landing-heading"><h2 data-design-id="g0164">Частые вопросы</h2><p data-design-id="g0165">Общие ответы помогут сориентироваться. Точные режимы смотрите в инструкции выбранного покрытия.</p></div><div data-design-id="g0166" class="faq-grid" id="faq-list"></div><div data-design-id="g0167" class="contact-strip"><p data-design-id="g0168">Не нашли свой вопрос?<br><strong data-design-id="g0169">Ответим по телефону.</strong></p><a data-design-id="g0170" class="btn secondary" href="tel:88001015239">8-800-101-52-39 · Позвонить</a></div></div></section>
 <section data-design-id="g0171" class="section wrap reviews-objects" id="reviews"><div data-design-id="g0172"><p class="section-eyebrow">Отзывы</p><div class="section-head landing-heading"><h2 data-design-id="g0173">Опыт покупателей</h2></div><div data-design-id="g0174" class="review-list" id="review-list"></div></div><div data-design-id="g0175" id="objects"><p class="section-eyebrow">Объекты</p><div class="section-head landing-heading"><h2 data-design-id="g0176">Нас выбирают</h2></div><div data-design-id="g0177" class="objects"><figure data-design-id="g0178" class="object"><button data-design-id="g0179" data-photo="assets/truck.webp" data-caption="Окрашенная техника · серия 211 + 232 из материалов компании" aria-label="Увеличить фото окрашенной техники"><img data-design-id="g0180" src="assets/truck.webp" alt="Оранжевый кузов после окраски" loading="lazy"></button><figcaption data-design-id="g0181">Техника · серия УниЭпокс 211 + PUR 232</figcaption></figure><figure data-design-id="g0182" class="object"><button data-design-id="g0183" data-photo="assets/station.webp" data-caption="Трансформаторная подстанция · серия ИП 222 из материалов компании" aria-label="Увеличить фото подстанции"><img data-design-id="g0184" src="assets/station.webp" alt="Трансформаторная подстанция с оранжевыми дверями" loading="lazy"></button><figcaption data-design-id="g0185">Трансформаторная подстанция · серия ИП 222</figcaption></figure><figure data-design-id="g0186" class="object"><button data-design-id="g0187" data-photo="assets/object-tractor.webp" data-caption="Седельный тягач КАМАЗ · PUR 232" aria-label="Увеличить фото: Седельный тягач КАМАЗ · PUR 232"><img data-design-id="g0188" src="assets/object-tractor.webp" alt="Седельный тягач КАМАЗ · PUR 232" loading="lazy"></button><figcaption data-design-id="g0189">Седельный тягач КАМАЗ · PUR 232</figcaption></figure><figure data-design-id="g0190" class="object"><button data-design-id="g0191" data-photo="assets/object-tanker.webp" data-caption="Топливная цистерна · УниЭпокс 211" aria-label="Увеличить фото: Топливная цистерна · УниЭпокс 211"><img data-design-id="g0192" src="assets/object-tanker.webp" alt="Топливная цистерна · УниЭпокс 211" loading="lazy"></button><figcaption data-design-id="g0193">Топливная цистерна · УниЭпокс 211</figcaption></figure><figure data-design-id="g0194" class="object"><button data-design-id="g0195" data-photo="assets/object-playground.webp" data-caption="Детская площадка · ИП 222" aria-label="Увеличить фото: Детская площадка · ИП 222"><img data-design-id="g0196" src="assets/object-playground.webp" alt="Детская площадка · ИП 222" loading="lazy"></button><figcaption data-design-id="g0197">Детская площадка · ИП 222</figcaption></figure><figure data-design-id="g0198" class="object"><button data-design-id="g0199" data-photo="assets/object-playground-detail.webp" data-caption="Элементы детской площадки · ИП 222" aria-label="Увеличить фото: Элементы детской площадки · ИП 222"><img data-design-id="g0200" src="assets/object-playground-detail.webp" alt="Элементы детской площадки · ИП 222" loading="lazy"></button><figcaption data-design-id="g0201">Элементы детской площадки · ИП 222</figcaption></figure></div></div></section>
 <section data-design-id="g0202" class="section buy" id="buy"><div data-design-id="g0203" class="wrap"><div class="buy-panel"><div data-design-id="g0204" class="section-head landing-heading"><h2 data-design-id="g0205">Где купить</h2><p data-design-id="g0206">Найдите магазин в своём городе. Цену, наличие и колеровку уточняйте у продавца.</p></div><div data-design-id="g0218" id="dealers"><div data-design-id="g0219" class="dealer-head"><h3 data-design-id="g0220">Дилеры и магазины</h3></div>
+
 <form class="dealer-tools" id="city-search" role="search"><div class="city-field"><label for="city">Ваш город</label><div class="city-entry"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg><input type="search" id="city" role="combobox" aria-label="Ваш город" aria-autocomplete="list" aria-controls="city-names" aria-expanded="false" autocomplete="off" placeholder="Введите город"><button type="submit">Найти</button></div><div id="city-names" role="listbox" aria-label="Населённые пункты" hidden></div></div><button type="button" id="locate-shop"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></svg>Определить моё место</button></form>
 <p id="location-status" class="note" role="status"></p>
 <p class="dealer-online" id="dealer-online" hidden aria-live="polite"><span id="online-message">Извините, в этом городе нас пока нет.</span> <a href="#buy-online">Перейти к онлайн-заказу ↓</a></p>
 <div class="dealer-city-head" hidden><h4 id="dealer-count"></h4><button class="btn ghost" id="all-dealer-cities" type="button">← Все города</button></div>
-<div class="dealer-browser"><div id="dealer-map" aria-label="Карта дилеров КВИЛ" role="region"></div><div class="dealer-sidebar" hidden><div class="dealer-scroll"><div id="dealer-options" role="region" aria-labelledby="dealer-count"></div></div></div>
-<article class="dealer-layout" hidden><div class="dealer-summary">
+<div class="dealer-browser"><div id="dealer-map" aria-label="Карта дилеров КВИЛ" role="region"><article class="dealer-layout" id="dealer-address-details" hidden><div class="dealer-summary"><a id="map-route" class="btn" target="_blank" rel="noopener">Построить маршрут</a>
 <p class="brand-type" id="shop-type" hidden>Фирменный магазин</p><h4 id="shop-name"></h4>
 <p class="shop-address"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg><span id="display-address"></span></p><p id="address-note" hidden></p>
-<div class="shop-columns"><div id="shop-details"></div><div><table id="hours-table" aria-label="Часы работы" hidden></table><p id="hours-status" hidden></p><a id="map-route" class="btn" target="_blank" rel="noopener">Маршрут ↗</a></div></div></div></article></div>
+</div></article></div><div class="dealer-sidebar" hidden><div class="dealer-scroll"><div id="dealer-options" role="region" aria-labelledby="dealer-count"></div><div id="dealer-contact-card" hidden><div id="dealer-phones"></div><p id="hours-status" hidden></p><table id="hours-table" aria-label="Часы работы" hidden></table><div id="shop-details"></div><a class="dealer-map-jump" href="#dealer-map">К карте и маршруту</a></div></div></div>
+</div>
 </div><div class="buy-online" id="buy-online"><h3>Не нашли магазин рядом? Закажите онлайн</h3><div data-design-id="g0207" class="marketplaces"><a data-design-id="g0208" class="marketplace" data-market="ozon"><div data-design-id="g0209"><strong data-design-id="g0210">Ozon</strong></div></a><a data-design-id="g0213" class="marketplace" data-market="vi"><div data-design-id="g0214"><strong data-design-id="g0215">ВсеИнструменты</strong></div></a></div></div></div><div data-design-id="g0231" class="manufacturer" id="workshops"><div data-design-id="g0232"><h3 data-design-id="g0233">Для мастерских и небольших производств</h3><p data-design-id="g0234">Подберём систему под ваше изделие, способ нанесения и условия эксплуатации. Рассчитаем расход и подготовим предложение на поставку.</p><p>Для расчёта укажите изделие, площадь или количество деталей и город поставки. Минимальный заказ, фасовку, колеровку и доставку уточните при обращении.</p></div><a data-design-id="g0235" href="tel:88001015239">Получить подбор и расчёт<br><small>8 800 101-52-39</small></a></div></div></section></main>
 <footer data-design-id="g0236" class="footer"><div data-design-id="g0237" class="wrap"><div data-design-id="g0238" class="footer-row"><a data-design-id="g0239" href="https://www.kvil.ru/" target="_blank" rel="noopener" aria-label="Официальный сайт КВИЛ"><img data-design-id="g0240" src="assets/kvil.png" alt="КВИЛ"></a><span data-design-id="g0241">ГРАНТ 2К · защита металла</span><a data-design-id="g0242" href="tel:88001015239">8-800-101-52-39</a><button data-design-id="g0243" class="btn ghost" id="callback">Заказать звонок</button></div></div></footer>
 <dialog id="benefit-docs" aria-labelledby="benefit-docs-title"><div class="modal-head"><span>ГРАНТ 2К</span><button class="modal-close" data-close aria-label="Закрыть">×</button></div><div class="modal-body"><h2 id="benefit-docs-title">Технические описания</h2><ul><li><a href="assets/211.pdf" target="_blank" rel="noopener">Грунт УниЭпокс 211 · PDF ↗</a></li><li><a href="assets/232.pdf" target="_blank" rel="noopener">Эмаль PUR 232 · PDF ↗</a></li><li><a href="assets/222.pdf" target="_blank" rel="noopener">Грунт-эмаль УР-2К ИП 222 · PDF ↗</a></li><li><a href="assets/mat.pdf" target="_blank" rel="noopener">Матовая грунт-эмаль · PDF ↗</a></li><li><a href="assets/kovka.pdf" target="_blank" rel="noopener">Грунт-эмаль «Ковка» · PDF ↗</a></li></ul></div></dialog>
@@ -7440,7 +7477,8 @@ function renderAddress() {
   }
   $('#map-route').href='https://yandex.ru/maps/?'+(point?
     new URLSearchParams({rtext:origin+'~'+point[1]+','+point[0],rtt:'auto'}):params);
-  $('#map-route').textContent=address?'Маршрут ↗':'Открыть город в Яндекс Картах ↗';
+  if(address && !point)$('#map-route').href='https://yandex.ru/maps/?'+new URLSearchParams({rtext:origin+'~'+shop.city+', '+displayAddress(address),rtt:'auto'});
+  $('#map-route').textContent=address?'Построить маршрут':'Открыть город в Яндекс Картах ↗';
 }
 function displayAddress(address) {
   return address.replace(/^г\.\s*/i,'').replace(/,\s*/g,', ').replace(/(ул\.|д\.|просп\.)\s*/gi,'$1 ').trim();
@@ -7527,12 +7565,6 @@ function renderHours(now=new Date()){
   if(open && time>=minutes(open) && time<minutes(close))text='Открыто до '+close;
   status.textContent='Сегодня, '+weekdayNames[day]+' · '+text;
 }
-function updateListFade(){
-  const list=$('#dealer-options');
-  list.parentElement.classList.toggle('can-scroll',list.scrollTop+list.clientHeight<list.scrollHeight-2);
-}
-$('#dealer-options').addEventListener('scroll',updateListFade,{passive:true});
-new ResizeObserver(updateListFade).observe($('#dealer-options'));
 setInterval(()=>{if(!document.hidden)renderHours()},60000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)renderHours()});
 function cityKey(value){
@@ -7575,16 +7607,25 @@ function updateWidget(){
     params.set('ll',[(west+east)/2,centerLat]);
     params.set('z',String(Math.max(1,Math.min(16,Math.floor(Math.min(zoomX,zoomY))))));
   }
+  if(focusedDealer){
+    params.set('ll',[focusedDealer.latlng[1],focusedDealer.latlng[0]]);
+    params.set('z',directory[focusedDealer.i].points?.[focusedDealer.address]?'16':'11');
+  }
   params.set('pt',visiblePoints.map(p=>[p.latlng[1],p.latlng[0],p===activePoint?'pm2rdl':'pm2orm'].join(',')).join('~'));
   const url='https://yandex.ru/map-widget/v1/?'+params;
   if(widget.src!==url)widget.src=url;
 }
+let focusedDealer=null;
 function fitDealers(){
   if(!dealerMap){updateWidget();return}
   dealerMap.container.fitToViewport();
+  if(focusedDealer){
+    dealerMap.setCenter(focusedDealer.latlng,directory[focusedDealer.i].points?.[focusedDealer.address]?16:11);
+    return;
+  }
   const bounds=pointBounds();
   if(bounds[0].every((v,i)=>v===bounds[1][i]))dealerMap.setCenter(bounds[0],15);
-  else dealerMap.setBounds(bounds,{zoomMargin:32,checkZoomRange:true});
+  else dealerMap.setBounds(bounds,{zoomMargin:32,checkZoomRange:false,duration:0});
 }
 function showDealerPins(){
   if(dealerMap){
@@ -7636,6 +7677,11 @@ new ResizeObserver(([entry])=>{
   if(dealerWidth!==entry.contentRect.width){dealerWidth=entry.contentRect.width;fitDealers()}
 }).observe(mapHost);
 function renderCity(query='',requestedPoint=null,unknown=false){
+  const panel=$('#dealer-address-details');
+  const contacts=$('#dealer-contact-card');
+  $('.dealer-scroll').append(contacts);
+  contacts.hidden=true;
+  focusedDealer=null;
   const preferred=citiesByKey.get(cityKey(query));
   citySelect.value=preferred || query;
   $('#dealer-online').classList.remove('emphasis');
@@ -7645,10 +7691,11 @@ function renderCity(query='',requestedPoint=null,unknown=false){
   $('#online-message').textContent='Извините, в этом городе нас пока нет.';
   const browser=$('.dealer-browser');
   browser.classList.toggle('has-shop',!!preferred);
-  for(const el of [$('.dealer-sidebar'),$('.dealer-city-head'),$('.dealer-layout')])el.hidden=!preferred;
+  for(const el of [$('.dealer-sidebar'),$('.dealer-city-head')])el.hidden=!preferred;
+  panel.hidden=true;
+  currentShop=undefined;currentAddress='';
   highlightDealer(null);
   if(!preferred){
-    currentShop=undefined;currentAddress='';
     $('#dealer-options').replaceChildren();
     if(visiblePoints!==points || !widget.src){visiblePoints=points;showDealerPins()}
     return;
@@ -7660,7 +7707,9 @@ function renderCity(query='',requestedPoint=null,unknown=false){
     const {i,address}=choices[index],shop=directory[i];
     currentShop=i;currentAddress=address;
     citySelect.value=preferred;
+    focusedDealer=choices[index];
     highlightDealer(choices[index]);
+    fitDealers();
     const parts=addressParts(address,preferred);
     $('#shop-type').hidden=!brandStore(shop);
     $('#shop-name').textContent=storeName(shop);
@@ -7675,12 +7724,16 @@ function renderCity(query='',requestedPoint=null,unknown=false){
       }
     }
     renderHours();
-
-    list.querySelector('[aria-pressed="true"]')?.setAttribute('aria-pressed','false');
-    buttons[index].setAttribute('aria-pressed','true');
+    const phoneRows=Array.from(details.children).filter(row=>row.querySelector('a[href^="tel:"]'));
+    $('#dealer-phones').replaceChildren(...phoneRows);
+    buttons[index].after(contacts);
+    contacts.hidden=false;
+    list.querySelector('.dealer-choice[aria-expanded="true"]')?.setAttribute('aria-expanded','false');
+    buttons[index].setAttribute('aria-expanded','true');
     $('.dealer-browser').classList.add('has-shop');
-    $('.dealer-layout').hidden=false;
+    panel.hidden=false;
     renderAddress();
+
   }
 
   choices.sort((a,b)=>Number(brandStore(directory[b.i]))-Number(brandStore(directory[a.i])) || directory[a.i].name.localeCompare(directory[b.i].name,'ru'));
@@ -7694,7 +7747,9 @@ function renderCity(query='',requestedPoint=null,unknown=false){
     const shop=directory[i];
     const btn=document.createElement('button');
     btn.type='button';
-    btn.setAttribute('aria-pressed','false');
+    btn.className='dealer-choice';
+    btn.setAttribute('aria-controls',panel.id+' '+contacts.id);
+    btn.setAttribute('aria-expanded','false');
     if(brandStore(shop)){
       const type=document.createElement('small');
       type.className='brand-type';type.textContent='Фирменный магазин';btn.append(type);
@@ -7705,19 +7760,22 @@ function renderCity(query='',requestedPoint=null,unknown=false){
       const name=document.createElement('span');name.textContent=storeName(shop);btn.append(name);
     }
     if(parts.note){const note=document.createElement('small');note.textContent=parts.note;btn.append(note)}
-    btn.onclick=()=>{cancelLocate();selectChoice(k)};
+    btn.onclick=()=>{
+      cancelLocate();
+      if(btn.getAttribute('aria-expanded')==='true'){
+        btn.setAttribute('aria-expanded','false');
+        panel.hidden=true;contacts.hidden=true;
+       }else{
+        selectChoice(k);
+
+      }
+    };
     buttons.push(btn);
     group.append(btn);
   }
   list.replaceChildren(group);
 
-  list.scrollTop=0;
-  if(preferred){
-    const factory=preferred==='Белгород' ? choices.findIndex(({i,address})=>
-      directory[i].city===preferred && directory[i].name.includes('Фирменный магазин') && address.includes('Студенческая')) : -1;
-    selectChoice(requestedPoint?choices.indexOf(requestedPoint):Math.max(0,factory));
-    requestAnimationFrame(updateListFade);
-  }
+  if(requestedPoint)selectChoice(choices.indexOf(requestedPoint));
 }
 function cancelLocate() {
   locationRequest++;
@@ -7793,7 +7851,7 @@ $('#locate-shop').onclick=()=>{
       const d=distance(...point.latlng);
       if(d<km){nearest=point;km=d}
     }
-    if(km<=100)renderCity(nearest.city,nearest);
+    if(km<=100)renderCity(nearest.city);
     else{renderCity();$('#online-message').textContent='Поблизости пока нет дилеров.';$('#dealer-online').hidden=false;$('#dealer-online').classList.add('emphasis')}
     status.textContent='';
   },unavailable,
