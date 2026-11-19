@@ -44,6 +44,12 @@
     "all|[data-design-id=\"g0123\"]|letter-spacing": "-1.6px",
     "all|[data-design-id=\"g0108\"]|letter-spacing": "-1.6px",
     "all|[data-design-id=\"g0123\"]|line-height": "1.2",
-    "all|[data-design-id=\"g0123\"]|font-weight": "700"
+    "all|[data-design-id=\"g0123\"]|font-weight": "700",
+    "all|[data-design-id=\"g0003\"]|border-color": "#2f385a",
+    "all|[data-design-id=\"g0003\"]|background-color": "#2f385a",
+    "all|[data-design-id=\"g0008\"]|color": "#ffffff",
+    "all|[data-design-id=\"g0006\"]|color": "#2f385a",
+    "all|[data-design-id=\"g0006\"]|border-color": "#ffffff",
+    "all|[data-design-id=\"g0006\"]|background-color": "#2f385a"
   }
 }
