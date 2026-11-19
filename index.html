@@ -667,7 +667,74 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 @media(max-width:520px){#buy .marketplaces{grid-template-columns:1fr;gap:8px}}
 @media(max-width:700px){#buy .manufacturer{align-items:flex-start;flex-direction:column}}
 </style>
-</head><body data-design-id="g0001"><a data-design-id="g0002" class="skip" href="#main">К содержанию</a>
+<style>
+#product-detail{container-type:inline-size;background:#fff;border-radius:18px;padding:clamp(18px,3vw,36px);color:#2f385a}
+.cd-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);grid-template-areas:"photo head" "colour specs" "colour buy" "colour apply";gap:24px 48px;align-items:start}
+.cd-layout>*{min-width:0}
+.cd-photo{grid-area:photo;width:100%;aspect-ratio:4/3;object-fit:contain;padding:24px;border-radius:14px;background:#f3f4f7;mix-blend-mode:multiply}
+.cd-head{grid-area:head;position:relative;background:none;color:inherit;padding:0}
+.cd-layout small,.cd-layout dt,.cd-colour label{font:400 13px/1.4 Okta,Arial,sans-serif;color:#646c82}
+.cd-head small{font-size:14px;font-weight:500;display:block;padding-right:52px}
+.cd-head h3{font:500 clamp(30px,4cqi,44px)/1.14 Unbounded,Arial,sans-serif;letter-spacing:-.03em;margin:8px 52px 12px 0}
+.cd-head p{font-size:17px;max-width:52ch;margin:0}
+.cd-layout button{cursor:pointer;color:inherit;font-family:inherit}
+.cd-head button,.cd-tools button{border-radius:50%;padding:0;border:0;background:#e7eaf0;font-size:22px;width:44px;height:44px;line-height:1}
+.cd-head button{position:absolute;right:0;top:0}
+.cd-specs{grid-area:specs;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0}
+.cd-specs>div{background:#f3f4f7;border-radius:12px;padding:14px 16px}
+.cd-specs dd{margin:4px 0 0;font-size:17px;font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.cd-specs small{display:block;font-weight:500}
+.cd-colour{grid-area:colour;background:#f3f4f7;padding:14px 16px;border-radius:14px;display:grid;gap:10px}
+.cd-current{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.cd-current strong{flex:1 1 120px;overflow-wrap:anywhere}
+.cd-edit{background:white;border:1px solid #dfe2ea;border-radius:8px;padding:9px 12px;font:500 14px/1.3 Okta,Arial,sans-serif}
+.cd-options{display:grid;gap:10px;min-width:0}
+.cd-current i{flex:0 0 44px;height:44px;border:1px dashed #0003;border-radius:10px}
+.cd-current strong{display:block;font-size:16px}
+.cd-colour input{width:100%;min-width:0;height:46px;border:1px solid #bfc4cf;border-radius:8px;padding:0 12px;font:inherit;color:inherit;background:white}
+.cd-tools,.cd-pdf{display:flex;align-items:center;gap:8px}
+.cd-tools input{flex:1;min-width:0}
+.cd-tools button{flex:none}
+.cd-tools button{width:34px;height:34px;background:white}
+.cd-tools button:disabled,.cd-buy button:disabled{opacity:.55;cursor:default}
+.cd-strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;padding:5px;scroll-padding:5px;overscroll-behavior-x:contain}
+.cd-layout [hidden]{display:none}
+.cd-tile{position:relative;flex:0 0 84px;min-width:0;align-self:flex-start;display:grid;gap:3px;text-align:left;border:0;padding:0;background:none;scroll-snap-align:start;font-size:12px;line-height:1.25}
+.cd-tile i{display:block;width:84px;height:64px;border-radius:10px;border:1px solid #0001}
+.cd-tile[aria-pressed=true] i{outline:2px solid #2f385a;outline-offset:2px}
+.cd-tile span{color:#646c82;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cd-tile[data-divider=true]{margin-left:10px}
+.cd-tile[data-divider=true]::before{content:"";position:absolute;left:-10px;top:0;height:64px;border-left:1px solid #dfe2ea}
+.cd-empty button{border:0;padding:0;background:none;text-decoration:underline;font:inherit}
+.cd-buy{grid-area:buy;display:flex;gap:10px;flex-wrap:wrap}
+.cd-buy :is(a,button),.cd-pdf a{display:inline-flex;justify-content:center;align-items:center;height:50px;border-radius:10px;border:1px solid #dfe2ea;background:#f3f4f7;color:inherit;text-decoration:none;font:600 16px/1.2 Okta,Arial,sans-serif;padding:0 14px}
+.cd-buy a:first-child{color:#fff;background:#2f385a;border-color:#2f385a}
+.cd-apply{grid-area:apply;border-top:1px solid #dfe2ea}
+.cd-apply h4{font:500 18px/1.35 Unbounded,Arial,sans-serif;margin:20px 0 4px}
+.cd-apply details{border-bottom:1px solid #dfe2ea}
+.cd-apply summary{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:16px 0;list-style:none;font-size:17px;font-weight:600}
+.cd-apply summary::-webkit-details-marker{display:none}
+.cd-apply summary::after{content:"";width:8px;height:8px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg);margin-right:6px}
+.cd-apply details[open] summary::after{transform:rotate(225deg)}
+.cd-apply dl{display:grid;gap:12px;margin:0 0 16px}
+.cd-apply dl>div{display:grid;grid-template-columns:170px 1fr;gap:12px}
+.cd-apply dt{font-size:14px}
+.cd-apply dd{margin:0;font-size:15px}
+.cd-pdf{justify-content:space-between;padding:16px 0;font-size:15px}
+.cd-pdf a{background:white;height:40px;font-size:14px}
+#product-detail :focus-visible{outline:3px solid #ff5300;outline-offset:3px}
+@container(max-width:720px){
+ .cd-layout{grid-template-columns:minmax(0,1fr);grid-template-areas:"photo" "head" "specs" "colour" "buy" "apply";gap:16px}
+ .cd-photo{aspect-ratio:16/10}
+ .cd-specs{grid-template-columns:1fr}
+ .cd-specs>div{display:grid;grid-template-columns:minmax(78px,110px) minmax(0,1fr);align-items:baseline;gap:8px}
+ .cd-specs dd{margin:0}
+ .cd-buy{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .cd-buy a:first-child{grid-column:1/-1}
+ .cd-buy :is(a,button){padding:0 4px;font-size:clamp(12px,5cqi,16px)}
+ .cd-apply dl>div{grid-template-columns:1fr;gap:4px}
+}
+</style></head><body data-design-id="g0001"><a data-design-id="g0002" class="skip" href="#main">К содержанию</a>
 <header data-design-id="g0003" class="header"><div data-design-id="g0004" class="wrap nav-inner"><a data-design-id="g0005" class="wordmark" href="#main" aria-label="GRANT 2K — в начало"><img data-design-id="g0006" src="assets/grant2k-logo.svg?v=white-1" alt="GRANT 2K" width="164" height="26"></a><button data-design-id="g0007" class="menu-toggle" aria-expanded="false" aria-controls="nav">Меню</button><nav data-design-id="g0008" id="nav" aria-label="Основное меню"><a data-design-id="g0009" href="#applications">Применение</a><a data-design-id="g0010" href="#catalog">Каталог</a><a data-design-id="g0011" href="#how">Как покрасить</a><a data-design-id="g0012" href="#faq">Вопросы</a><a data-design-id="g0013" href="#buy">Где купить</a></nav><button data-design-id="g0014" class="btn nav-quiz" data-quiz>Подобрать покрытие</button></div></header>
 <main data-design-id="g0015" id="main"><section data-design-id="g0016" class="hero"><div data-design-id="g0017" class="wrap"><div data-design-id="g0018" class="hero-grid"><div data-design-id="g0019" class="hero-copy"><h1 data-design-id="g0020"><span data-design-id="g0021">Долговечная защита</span> <span data-design-id="g0022">металла</span> <span data-design-id="g0023">от коррозии</span></h1><div data-design-id="g0024" class="hero-bottom"><div data-design-id="g0025" class="hero-fact"><strong data-design-id="g0026">100%</strong><span data-design-id="g0027">антикоррозия</span></div><div data-design-id="g0028" class="hero-fact"><strong data-design-id="g0029">от 15 лет</strong><span data-design-id="g0030">службы покрытия</span></div></div><p data-design-id="g0031">Двухкомпонентная краска по металлу для тех, кто не хочет перекрашивать через год-два, <strong data-design-id="g0032">проверено испытаниями</strong>, а не только отзывами.</p><div data-design-id="g0033" class="actions"><a data-design-id="g0034" class="btn" href="#buy">Купить онлайн <span data-design-id="g0035" aria-hidden="true">↗</span></a><a data-design-id="g0036" class="btn light" href="#dealers">Купить оптом <span data-design-id="g0037" aria-hidden="true">↓</span></a></div></div><div data-design-id="g0038" class="hero-product"><div data-design-id="g0039" class="hero-stage"><div data-design-id="g0040" class="hero-crop" data-product="222"><img data-design-id="g0041" id="hero-image" src="assets/hero-pack-222.png" alt="Комплект ИП 222: коробка, основа и отвердитель" fetchpriority="high"></div></div><div class="hero-meta"><div data-design-id="g0042" class="product-caption" id="hero-caption">ИП 222 · Полуглянцевая грунт-эмаль</div><div data-design-id="g0043" class="carousel-controls"><button data-design-id="g0044" class="circle" id="prev" aria-label="Предыдущий продукт">‹</button><div data-design-id="g0045" class="dots" id="dots"></div><button data-design-id="g0046" class="circle" id="next" aria-label="Следующий продукт">›</button></div></div></div></div></div><p data-design-id="g0048" class="hero-tagline">Долговечность без компромиссов</p></section>
 <section data-design-id="g0049" id="applications" class="section wrap"><p class="section-eyebrow" data-design-id="application-eyebrow">Применение</p><div data-design-id="g0050" class="section-head"><h2 data-design-id="g0051">Что вы хотите покрасить?</h2><p data-design-id="g0052">Подберите защиту и внешний вид под свою задачу — от ворот у дома до деталей техники.</p></div><div data-design-id="g0053" class="applications"><article data-design-id="g0054" class="application"><h3 data-design-id="g0055">Дом и участок</h3><p data-design-id="g0056">Цвет и фактура под ваш дом, защитное покрытие для ворот, ограждений и кованых деталей.</p><ul data-design-id="g0057"><li data-design-id="g0058">Ворота и заборы</li><li data-design-id="g0059">Веранды и навесы</li><li data-design-id="g0060">Лестницы и перила</li><li data-design-id="g0061">Детские площадки, газовые трубы</li></ul><button data-design-id="g0062" class="text-link" data-example="0" aria-expanded="false" aria-controls="examples">Смотреть до и после</button></article><article data-design-id="g0063" class="application"><h3 data-design-id="g0064">Прицепы и техника</h3><p data-design-id="g0065">Покрытия для рам, шасси и наружных деталей, которым предстоит работать на улице.</p><ul data-design-id="g0066"><li data-design-id="g0067">Прицепы и кузова</li><li data-design-id="g0068">Рамы, шасси и баки</li><li data-design-id="g0069">Рессоры и детали машин</li><li data-design-id="g0070">Мини-экскаваторы и спецтехника</li></ul><button data-design-id="g0071" class="text-link" data-example="1" aria-expanded="false" aria-controls="examples">Смотреть до и после</button></article><article data-design-id="g0072" class="application"><h3 data-design-id="g0073">Металлоизделия<br>и оборудование</h3><p data-design-id="g0074">Выбор системы покрытия и оттенка для изделий внутри помещения и на открытом воздухе.</p><ul data-design-id="g0075"><li data-design-id="g0076">Электрощиты и контейнеры</li><li data-design-id="g0077">Корпуса редукторов и станков</li><li data-design-id="g0078">Металлическая мебель</li><li data-design-id="g0079">Металлоконструкции</li></ul><button data-design-id="g0080" class="text-link" data-example="2" aria-expanded="false" aria-controls="examples">Смотреть до и после</button></article></div><div data-design-id="g0081" class="compare-panel" id="examples" hidden><div data-design-id="g0085" class="comparison" data-scene="0"><div data-design-id="g0088" class="scene after"><img data-design-id="g0089" id="compare-after" src="assets/compare-gates-after.jpg" alt="Кованые ворота после окраски" width="1000" height="750" loading="lazy" decoding="async"></div><div data-design-id="g0086" class="scene before"><img data-design-id="g0087" id="compare-before" src="assets/compare-gates-before.jpg" alt="Кованые ворота до окраски" width="1000" height="750" loading="lazy" decoding="async"></div><span data-design-id="g0090" class="compare-label left">До</span><span data-design-id="g0091" class="compare-label right">После</span><div data-design-id="g0092" class="compare-handle" aria-hidden="true"></div><span data-design-id="compare-hint" class="compare-hint" id="compare-hint" aria-hidden="true">Потяните вбок</span><input data-design-id="g0093" id="compare-range" type="range" min="0" max="100" value="50" aria-label="Сравнение ворот до и после окраски" aria-valuetext="50% до, 50% после"></div></div><div data-design-id="g0094" class="industry-strip"><img data-design-id="g0095" src="assets/truck.webp" alt="Окрашенный оранжевый кузов техники" loading="lazy"><div data-design-id="g0096"><h3 data-design-id="g0097">Покрытия в работе</h3><p data-design-id="g0098">Окрашенная техника и металлоконструкции из материалов КВИЛ.</p><a data-design-id="g0099" href="#objects" class="text-link">Посмотреть объекты →</a></div><button data-design-id="g0100" class="btn" data-quiz>Подобрать краску</button></div></section>
@@ -6907,60 +6974,146 @@ $('#compare-range').oninput=e=>{const value=Number(e.target.value);$('.compariso
 // Grid expansion is inserted after the last card in the selected visual row.
 let filter='Все',selected=null;
 const productSpecs = {
-  "211": [
-    "Чёрные металлы и бетон.",
-    {
-      "Состав комплекта": "Эпоксидная основа с фосфатом цинка, отвердитель и разбавитель.",
-      "Расход": "250 г/м² при толщине 100 мкм.",
-      "Жизнеспособность при +20 °C": "4 часа.",
-      "Нанесение": "Распыление или кисть. Температура воздуха от +5 °C, материала от +15 °C.",
-      "Самостоятельное покрытие": "Только внутри помещения, два слоя общей толщиной не менее 80 мкм.",
-      "Высыхание": "До степени 3 — 4 часа. Набор твёрдости — 5 суток."
+  "211": {
+    "area": "≈ 11 м² в 2 слоя по 50 мкм",
+    "kit": "Основа и отвердитель ЭПО 211 ГРАНТ",
+    "groups": {
+      "Как смешать": {
+        "Основа и отвердитель": "Для ЭПО 211 ГРАНТ — 100:14 по массе или 100:23,8 по объёму.",
+        "После смешивания": "Выдержать 3 минуты. Использовать в течение 4 часов при +20 °C.",
+        "Разбавитель": "ЭПР 200 указан в техописании. Комплектацию уточните у продавца."
+      },
+      "Как наносить": {
+        "Основания": "Чёрные металлы и бетон.",
+        "Грунтование": "УниЭпокс 211 служит грунтом. Внутри помещений допускается как самостоятельное покрытие общей толщиной от 80 мкм.",
+        "Инструмент": "Кисть, пневматическое или безвоздушное распыление.",
+        "Температура": "Рекомендуемая температура воздуха +5 °C. Основа перед смешиванием от +15 до +25 °C, готовый грунт от +15 °C.",
+        "Слои и расход": "1–2 слоя. Теоретический расход — 250 г/м² при сухой толщине 100 мкм.",
+        "Степень блеска": null,
+        "Расчёт площади": "Около 11 м² в 2 слоя по 50 мкм. Расчёт для 2,74 кг основы с отвердителем, без потерь."
+      },
+      "Сушка и готовность": {
+        "Между слоями": "При нанесении «мокрый по мокрому» выдержать 2 часа. Следующее покрытие при +20 °C — через 2 часа, максимум через 90 дней.",
+        "Сушка при +20 °C": "При 60 мкм до отлипа — 2 часа, до степени 3 — 4 часа.",
+        "Окончательная твёрдость": "7 суток.",
+        "Начало эксплуатации": null
+      }
     }
-  ],
-  "232": [
-    "Металл, дерево, бетон и стеклопластик.",
-    {
-      "Состав комплекта": "Полиуретановая основа, отвердитель и разбавитель. Грунт приобретается отдельно.",
-      "Подготовка": "Сталь, чугун, оцинковку и алюминий предварительно грунтуют. Стеклопластик матируют.",
-      "Расход": "240 г/м² при толщине сухого покрытия 100 мкм. Рекомендованная толщина — 40–80 мкм.",
-      "Жизнеспособность при +20 °C": "6 часов.",
-      "Температура нанесения": "Воздух от +10 до +30 °C, материал от +15 °C.",
-      "Основа и отвердитель": "Для глянцевой эмали — 5:1 по массе или 4:1 по объёму. После смешивания выдержите 15 минут.",
-      "Инструмент": "Кисть, валик, пневматическое или безвоздушное распыление.",
-      "Межслойный интервал": "Мокрый по мокрому — 15 минут. Следующее покрытие при +20 °C — минимум через 30 минут.",
-      "Высыхание при +20 °C": "Слой 40 мкм: до отлипа — 2 часа, до степени 3 — 6 часов. Набор окончательной твёрдости — 7 суток.",
-      "Пример применения": "В том числе для надводных частей судов."
+  },
+  "232": {
+    "area": "≈ 8,5 или 9,2 м² в 2 слоя по 50 мкм",
+    "kit": "Основа и отвердитель",
+    "groups": {
+      "Как смешать": {
+        "Основа и отвердитель": "5:1 по массе или 4:1 по объёму.",
+        "После смешивания": "Выдержать 15 минут. Использовать в течение 6 часов при +20 °C.",
+        "Разбавитель": "ПУР 230 указан в техописании. Комплектацию уточните у продавца."
+      },
+      "Как наносить": {
+        "Основания": "Металл, дерево, бетон и стеклопластик.",
+        "Грунтование": "Сталь, чугун, алюминий, оцинковку, бетон и дерево предварительно грунтуют. Для подготовленного металла подойдёт УниЭпокс 211, его приобретают отдельно. Стеклопластик шлифуют до равномерной матовости.",
+        "Инструмент": "Кисть, валик, пневматическое или безвоздушное распыление.",
+        "Температура": "Воздух от +10 до +30 °C, эмаль от +15 °C.",
+        "Слои и расход": "Рекомендованная сухая толщина 40–80 мкм. Теоретический расход — 240 г/м² при 100 мкм. Отдельным оттенкам могут понадобиться дополнительные слои.",
+        "Рекомендованное число слоёв": null,
+        "Степень блеска": "Глянцевая, показатель блеска 70.",
+        "Расчёт площади": "При 2 слоях по 50 мкм — около 8,5 м² из 2,04 кг или 9,2 м² из 2,21 кг. Расчёт по массе основы с отвердителем, без потерь."
+      },
+      "Сушка и готовность": {
+        "Между слоями": "При нанесении «мокрый по мокрому» — 15 минут. Следующее покрытие при +20 °C — минимум через 30 минут.",
+        "Сушка при +20 °C": "При 40 мкм до отлипа — 2 часа, до степени 3 — 6 часов, до степени 6 — 10 часов.",
+        "Окончательная твёрдость": "7 суток.",
+        "Начало эксплуатации": null
+      }
     }
-  ],
-  "222": [
-    "Металл, дерево и стеклопластик.",
-    {
-      "Состав": "Акриловая гидроксилсодержащая смола и отвердитель.",
-      "Расход": "100–120 г/м². Рекомендованы 2–3 слоя по 18–30 мкм.",
-      "Жизнеспособность": "8 часов.",
-      "Нанесение": "Температура материала от +15 до +25 °C. Кисть и валик — для небольших участков.",
-      "Готовность": "Транспортировка — через 16 часов, набор твёрдости — через 5 суток."
+  },
+  "222": {
+    "area": {
+      "missing": "Для 2 слоёв не указана"
+    },
+    "kit": "Основа и отвердитель",
+    "groups": {
+      "Как смешать": {
+        "Основа и отвердитель": "100:15 по массе.",
+        "После смешивания": "Выдержать 30 минут, затем перемешать и профильтровать. Жизнеспособность смеси — не менее 8 часов.",
+        "Разбавитель": "По техописанию — при необходимости."
+      },
+      "Как наносить": {
+        "Основания": "Металл, дерево и стеклопластик.",
+        "Грунтование": "Наносят на подготовленную поверхность без отдельного грунта. Для полуглянцевой версии на стали также предусмотрена система с УниЭпокс 211.",
+        "Инструмент": "Пневматическое или безвоздушное распыление. Для небольших участков — кисть или валик.",
+        "Температура материала": "От +15 до +25 °C. Поверхность должна быть минимум на 3 °C теплее точки росы.",
+        "Температура воздуха": null,
+        "Слои и расход": "2–3 слоя. Один сухой слой — 18–30 мкм, два — 36–60 мкм. Теоретический расход зависит от цвета и составляет 100–120 г/м².",
+        "Степень блеска": "Полуглянцевая, 37–49 % при угле измерения 45°.",
+        "Площадь комплекта": "Для 2 слоёв площадь не указана. В техописании не уточнено, на сколько слоёв дан расход 100–120 г/м²."
+      },
+      "Сушка и готовность": {
+        "Между слоями": "При распылении «мокрый по мокрому» — 5–10 минут. При обычном нанесении второй слой допускается через 20–30 минут.",
+        "Сушка при +20 ± 2 °C": "Один слой высыхает до отлипа за 1 час, полностью — за 8 часов.",
+        "Транспортировка": "Два слоя после естественной сушки — через 16 часов, после горячей — через 3 часа.",
+        "Окончательная твёрдость": "5 суток для двухслойного покрытия.",
+        "Начало эксплуатации": null
+      }
     }
-  ],
-  "mat": [
-    "Металлические изделия.",
-    {
-      "Выбор основания": "Для дерева и стеклопластика уточните схему применения матовой версии у производителя.",
-      "Применение": "Подготовку, пропорции компонентов и режим нанесения сверяйте с инструкцией для приобретённого комплекта."
+  },
+  "mat": {
+    "area": {
+      "missing": "Для 2 слоёв не указана"
+    },
+    "kit": "Основа и отвердитель",
+    "groups": {
+      "Как смешать": {
+        "Основа и отвердитель": "100:15 по массе.",
+        "После смешивания": "Выдержать 30 минут, затем перемешать и профильтровать. Жизнеспособность смеси — не менее 8 часов.",
+        "Разбавитель": "По техописанию — при необходимости."
+      },
+      "Как наносить": {
+        "Основания": "Металл, дерево и стеклопластик.",
+        "Грунтование": "Наносят на подготовленную поверхность без отдельного грунта.",
+        "Инструмент": "Пневматическое или безвоздушное распыление. Для небольших участков — кисть или валик.",
+        "Температура материала": "От +15 до +25 °C. Поверхность должна быть минимум на 3 °C теплее точки росы.",
+        "Температура воздуха": null,
+        "Слои и расход": "2–3 слоя. Один сухой слой — 18–30 мкм, два — 36–60 мкм. Теоретический расход зависит от цвета и составляет 100–120 г/м².",
+        "Степень блеска": "Матовая, 20–36 % при угле измерения 45°.",
+        "Площадь комплекта": "Для 2 слоёв площадь не указана. В техописании не уточнено, на сколько слоёв дан расход 100–120 г/м²."
+      },
+      "Сушка и готовность": {
+        "Между слоями": "При распылении «мокрый по мокрому» — 5–10 минут. При обычном нанесении второй слой допускается через 20–30 минут.",
+        "Сушка при +20 ± 2 °C": "Один слой высыхает до отлипа за 1 час, полностью — за 8 часов.",
+        "Транспортировка": "Два слоя после естественной сушки — через 16 часов, после горячей — через 3 часа.",
+        "Окончательная твёрдость": "5 суток для двухслойного покрытия.",
+        "Начало эксплуатации": null
+      }
     }
-  ],
-  "kovka": [
-    "Металл, дерево, бетон, стеклопластик и керамика.",
-    {
-      "Состав комплекта": "Основа, отвердитель и активатор текстуры.",
-      "Расход": "200 г/м² при толщине 90 мкм.",
-      "Жизнеспособность при +20 °C": "1,5 часа.",
-      "Нанесение": "2–3 слоя. После тонкого адгезионного слоя выдержите 30–60 минут перед слоем с эффектом.",
-      "Инструмент": "Кисть, валик или распыление. Выраженность рисунка зависит от инструмента и толщины слоя.",
-      "Готовность": "До степени 3 — 8 часов, сборка — через 16 часов, набор твёрдости — 7 суток."
+  },
+  "kovka": {
+    "area": "≈ 8,4 м² в 2 слоя общей толщиной 90 мкм",
+    "kit": "Основа, отвердитель и активатор текстуры",
+    "groups": {
+      "Как смешать": {
+        "Основа и отвердитель": "3,7:1 по массе или 3:1 по объёму.",
+        "Активатор текстуры": "Добавить 10 % от общей массы основы и отвердителя. Перемешивать 2–5 минут.",
+        "После смешивания": "Выдержать 5–10 минут. Использовать в течение 1,5 часа при +20 °C."
+      },
+      "Как наносить": {
+        "Основания": "Металл, дерево, бетон, стеклопластик и керамика.",
+        "Грунтование": "На подготовленный металл первым наносят тонкий слой самой грунт-эмали.",
+        "Инструмент": "Кисть, валик или пневматическое распыление. При распылении рисунок выражен сильнее.",
+        "Температура": "Воздух от +5 до +30 °C, материал от +15 °C.",
+        "Слои и расход": "2–3 слоя. Первый тонкий, второй формирует рисунок. Теоретический расход — 200 г/м² при сухой толщине 90 мкм.",
+        "Степень блеска": "Глянцевая с молотковым эффектом.",
+        "Расчёт площади": "Около 8,4 м² в 2 слоя при общей сухой толщине 90 мкм. Расчёт для 1,67 кг готовой смеси, без потерь."
+      },
+      "Сушка и готовность": {
+        "Между слоями": "30–60 минут перед вторым слоем и столько же перед третьим, если он нужен.",
+        "До отлипа": null,
+        "Сушка при +20 °C": "При 90 мкм оклеивание возможно через 8 часов, сборка — через 16 часов.",
+        "Окончательная твёрдость": "7 суток.",
+        "Начало эксплуатации": null
+      }
     }
-  ]
+  }
 };
 function visibleProducts(){return products.filter(p=>filter==='Все'||p.category===filter)}
 const catalogSurfaces={
@@ -7036,21 +7189,41 @@ $('#copy-request').onclick=async()=>{
     status.textContent=document.execCommand('copy')?'Скопировано':'Текст выделен. Выберите «Копировать».';
   }
 };
+const productTitles = {
+  '211':['Эпоксидный грунт','УниЭпокс 211'],
+  '232':['Глянцевая эмаль','PUR 232'],
+  '222':['Полуглянцевая грунт-эмаль','ИП 222'],
+  mat:['Матовая грунт-эмаль','ИП 222 матовая'],
+  kovka:['Молотковая грунт-эмаль','Ковка']
+};
+const shadeGroups = [
+  "7021 9004 9017 9011 8022 9005",
+  "7047 7035 7044 7038 7032 9006 7040 7004 7001 7036 7045 7042 7046 7000 7023 7037 7002 7005 7031 7012 7011 7015 7043 7024 7022 7026 7016 7010",
+  "8023 8000 8004 8025 8002 8024 7008 8008 8012 8011 8019 8014 8017 8016",
+  "6019 6027 6034 6021 6039 6018 6033 6017 6025 6010 6032 6024 6001 6003 6037 6002 6029 6014 6012 6016 6026 6007 6005",
+  "5024 5023 5012 5015 5018 5000 5017 5005 5019 5022 5010 5002 5021 5003 5001 5008 5013 5011 5004",
+  "3028 2002 3031 3020 3016 3000 3001 3002 3003 3011 3009 3004 3005",
+  "9016 9003 9010 9001 1013 9002 1015 9018",
+  "1014 1000 1001 1002 1019 1020 1011",
+  "1018 1033 1012 1028 1003 1023 1021 1037 1007 1004 1006 1005 1027",
+  "1017 1034 2008 2010 2011 2000 2009 2004",
+  "3015 3014 3012 4005 4007"
+];
+const groupTerms = [
+  ['черн'],['сер'],['коричнев','шоколад','хаки'],['зелен','бирюз'],
+  ['син','голуб'],['красн','борд','вишн'],['бел','молоч','крем'],
+  ['беж','песоч'],['желт'],['оранж'],['розов','фиолет','сирен']
+];
+const normal = text => text.toLowerCase().replaceAll('ё','е').trim();
+const shadeName = c => [c.code && 'RAL '+c.code,c.name].filter(Boolean).join(' · ');
+
 function storeActions(product,colour){
-  const shade=colour?[colour.code && 'RAL '+colour.code,colour.name].filter(Boolean).join(' · '):'';
-  const icons=[];
-  for(const {key,name} of marketplaces){
-    const offers=colour?colour.items.map(item=>({url:key==='vi'?item.url:item.ozonUrl,pack:item.pack})).filter(item=>item.url):[{url:product[key]}];
-    if(!offers.length)offers.push({});
-    for(const offer of offers){
-      const pack=offers.length>1?offer.pack:'';
-      const description=[name,product.name,shade,pack,!offer.url?'Ссылка готовится':''].filter(Boolean).join(' · ');
-      const attrs='class="shop-icon" aria-label="'+esc(description)+'" title="'+esc(description)+'"';
-      const content=marketIcon(key)+(pack?'<span>'+esc(pack)+'</span>':'');
-      icons.push(offer.url?'<a '+attrs+' href="'+esc(offer.url)+'" target="_blank" rel="noopener">'+content+'</a>':'<button type="button" disabled '+attrs+'>'+content+'</button>');
-    }
-  }
-  return `<div class="shop-actions"><button type="button" class="dealer-action" data-dealer-product data-shade="${esc(shade)}">${shade?'Запросить этот цвет у дилера':'Запросить у дилера'}</button><div class="shop-icons">${icons.join('')}</div></div>`;
+  return '<a href="#buy">Купить у дилера</a>'+marketplaces.map(({key,name})=>{
+    const offer=colour?.items.find(item=>key==='vi'?item.url:item.ozonUrl);
+    const url=(key==='vi'?offer?.url:offer?.ozonUrl)||product[key];
+    return url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${name}</a>` :
+      `<button type="button" aria-disabled="true" disabled>${name}</button>`;
+  }).join('');
 }
 function openProductRequest(product,shade,custom=false){
   const dialog=$('#dealer-request');
@@ -7063,99 +7236,146 @@ function openProductRequest(product,shade,custom=false){
   dialog.querySelector('.request-copy').textContent='Здравствуйте!\n'+question+' Подскажите, пожалуйста, доступную фасовку, цену и срок поставки.';
   openDialog(dialog);
 }
-function bindColourPicker(panel, product) {
-  const colours = productColours[product.id];
-  const state = colourStates.get(product.id) || {query:'', selected:null, other:false};
-  colourStates.set(product.id,state);
-  const input = panel.querySelector('.colour-picker input');
-  const list = panel.querySelector('.colour-options');
-  const result = panel.querySelector('.colour-result');
-  const other = panel.querySelector('.other-colour');
-  const dealer = panel.querySelector('.dealer-colour');
-  const showColours=panel.querySelector('.show-colours');
-  const normalize = value => value.toLowerCase().replaceAll('ё','е').replace(/[-–]/g,' ').trim();
-  const label = colour => [colour.code && 'RAL '+colour.code,colour.name].filter(Boolean).join(' · ');
-  const swatch = colour => `<span aria-hidden="true" class="colour-swatch" style="background-color:${colour.hex}"></span>`;
-  function render() {
-    input.value=state.query;
-    input.closest('label').hidden=!!state.selected;
-    dealer.hidden=!state.other;
-    other.setAttribute('aria-expanded',String(state.other));
-    const query=normalize(state.query).replace(/^ral\s*/,'');
-    const tokens=query.split(/\s+/).map(t=>t.replace(/(ый|ий|ая|ое|ые)$/,''));
-    const families = {
-      'бежев': ['1000','1001','1013','1014','1015','1019'],
-      'кремов': ['1013','1014','1015','9001'],
-      'коричнев': ['Молочный шоколад','Темный шоколад','Мокко','Бронза'],
-      'сер': ['Мокрый асфальт','Темное серебро','Серебро'],
-      'бел': ['Жемчужный','1013','9001'],
-      'желт': ['Желтое золото','Золотистый']
-    };
-    const matches=colours.filter(c=>tokens.every(t=>normalize(label(c)).includes(t)
-      || (t==='сер' && /^7/.test(c.code))
-      || families[t]?.some(alias=>alias===c.code || normalize(alias)===normalize(c.name))));
-    if(query)matches.sort((a,b)=>Number(normalize(label(b)).includes(query))-Number(normalize(label(a)).includes(query)));
-    list.hidden=state.other || !!state.selected || (!state.query && document.activeElement!==input);
-    list.innerHTML=matches.map(c=>`<button type="button" data-index="${colours.indexOf(c)}">${swatch(c)}<span>${esc(label(c))}</span></button>`).join('') || '<p>Такого оттенка в палитре нет. Для колеровки выберите «Нужен свой оттенок RAL».</p>';
-    result.replaceChildren();
-    if(!state.selected || state.other){
-      return;
-    }
-    const colour=state.selected;
-    const heading=document.createElement('strong');heading.innerHTML=swatch(colour)+esc(label(colour));
-    const change=document.createElement('button');
-    change.type='button';change.className='change-shade';change.textContent='Изменить цвет';
-    change.onclick=()=>{
-      state.selected=null;state.query='';render();input.focus();
-    };
-    const row=document.createElement('div');row.className='selected-shade';
-    row.append(heading,change);result.append(row);
-    result.insertAdjacentHTML('beforeend', storeActions(product,colour));
-  }
-  const ral=dealer.elements.ral;
-  ral.value=state.customRal || '';
-  ral.oninput=()=>{state.customRal=ral.value;ral.setCustomValidity('')};
-  dealer.onsubmit=e=>{
-    e.preventDefault();
-    const code=ral.value.trim().replace(/^RAL\s*/i,'').replace(/\s+/g,' ');
-    if(!/^(?:\d{4}|\d{3} \d{2} \d{2})$/.test(code)){
-      ral.setCustomValidity('Введите номер RAL, например 7035 или 240 40 35.');ral.reportValidity();return;
-    }
-    openProductRequest(product,'RAL '+code,true);
-  };
-  input.oninput=()=>{state.query=input.value;state.selected=null;state.other=false;render()};
-  input.onfocus=()=>{if(state.selected || state.other){state.query='';state.selected=null;state.other=false}render()};
-  function selectColour(colour){
-    state.selected=colour;state.query=label(colour);state.other=false;render();
-    result.querySelector('[data-dealer-product]')?.focus({preventScroll:true});
-    result.scrollIntoView({block:'nearest',behavior:'instant'});
-  }
-  list.onclick=e=>{
-    const btn=e.target.closest('button[data-index]');if(btn)selectColour(colours[Number(btn.dataset.index)]);
-  };
-  showColours.onclick=()=>openPalette(product,state.selected,selectColour);
-  other.onclick=()=>{state.other=!state.other;render()};
-  render();
+function colourPicker(product){
+  const prompt=product.id==='kovka'?'Название оттенка':'Название или RAL';
+  return `<section class="cd-colour" aria-label="Выбор цвета">
+    <div class="cd-current"><i aria-hidden="true" hidden></i><strong aria-live="polite"></strong><button class="cd-edit" type="button" aria-controls="cd-options" hidden>Изменить цвет</button></div>
+    <div class="cd-options" id="cd-options"><div class="cd-tools"><input type="search" id="cd-search" aria-label="Поиск цвета: ${prompt}" autocomplete="off" placeholder="${prompt}">
+      <button aria-label="Листать назад">‹</button><button aria-label="Листать вперёд">›</button></div>
+    <div class="cd-strip" role="group" tabindex="0" aria-label="Оттенки"></div>
+    <div class="cd-empty" hidden>Оттенок не найден. <button type="button">Запросить свой RAL →</button></div>
+    <small>Цвет на экране приблизительный.</small></div></section>`;
 }
-function technicalGroups(product) {
-  const groups = new Map();
-  for (const [label, value] of Object.entries(productSpecs[product.id][1])) {
-    let title = 'Подготовка и нанесение';
-    if (['Состав', 'Состав комплекта', 'Основа и отвердитель'].includes(label)) title = 'Состав и смешивание';
-    if (['Готовность','Межслойный интервал'].includes(label) || label.startsWith('Высыхание')) title = 'Сушка и готовность';
-    if (!groups.has(title)) groups.set(title, []);
-    groups.get(title).push(`<div><dt>${esc(label)}</dt><dd>${esc(value)}</dd></div>`);
+function bindColourPicker(panel,product){
+  const find=s=>panel.querySelector(s), strip=find('.cd-strip'), input=find('#cd-search');
+  const colours=productColours[product.id], grouped=product.id!=='kovka';
+  const byCode=new Map(colours.map(c=>[String(c.code),c]));
+  const entries=grouped?shadeGroups.flatMap((codes,group)=>codes.split(' ').filter(code=>byCode.has(code)).map(code=>({colour:byCode.get(code),group}))):colours.map(colour=>({colour,group:-1}));
+  const arrows=[...panel.querySelectorAll('.cd-tools button')];
+  function rank({colour,group},query){
+    if(!query)return 0;
+    const number=query.match(/^(?:ral\s*)?(\d+)$/);
+    if(number)return grouped && String(colour.code).startsWith(number[1])?0:3;
+    if(query===normal(colour.name))return 0;
+    const words=normal(colour.name).split(/[^а-яa-z0-9]+/);
+    const stem=query.slice(0,Math.max(3,query.length-2));
+    const matches=words.some(w=>w.startsWith(stem)) && !(stem==='бел' && words.includes('белка'));
+    const family=grouped?groupTerms.findIndex(terms=>terms.some(term=>query.startsWith(term))):-1;
+    if(matches && (family<0 || family===group))return 0;
+    if(family>=0 && family===group)return 1;
+    return matches?2:3;
   }
-  return ['Состав и смешивание','Подготовка и нанесение','Сушка и готовность'].filter(title=>groups.has(title)).map(title=>
-    `<details class="tech-group"><summary><span>${title}</span><span class="tech-action"><span class="expand">Раскрыть</span><span class="collapse">Свернуть</span></span></summary><dl>${groups.get(title).join('')}</dl></details>`
-  ).join('');
+  function selection(){
+    const selected=colourStates.get(product.id), sample=find('.cd-current i');
+    sample.style.backgroundColor=selected?.hex||'transparent';
+    sample.hidden=!selected;
+    sample.style.borderStyle='solid';
+    find('.cd-current strong').textContent=selected?shadeName(selected):'Выберите цвет';
+    for(const tile of strip.children)tile.setAttribute('aria-pressed',String(colours[tile.dataset.index]===selected));
+    find('.cd-buy').innerHTML=storeActions(product,selected);
+  }
+  function filter(){
+    const query=normal(input.value);
+    const results=entries.map(entry=>({...entry,rank:rank(entry,query)})).filter(entry=>entry.rank<3).sort((a,b)=>a.rank-b.rank);
+    strip.innerHTML=results.map(({colour,group},i)=>{
+      const divider=i>0 && results[i-1].group!==group;
+      return `<button class="cd-tile" tabindex="-1" data-index="${colours.indexOf(colour)}" data-divider="${divider}" title="${esc(shadeName(colour))}" aria-label="${esc(shadeName(colour))}"><i style="background:${esc(colour.hex)}"></i>${colour.code?`<b>RAL ${esc(colour.code)}</b>`:`<span>${esc(colour.name)}</span>`}</button>`;
+    }).join('');
+    strip.scrollLeft=0;
+    strip.hidden=!results.length;
+    find('.cd-empty').hidden=!!results.length;
+    for(const arrow of arrows)arrow.hidden=strip.scrollWidth<=strip.clientWidth;
+    selection();
+  }
+  function move(direction){
+    strip.scrollBy({left:direction*strip.clientWidth*.8,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+  }
+  arrows.forEach((button,i)=>button.onclick=()=>move(i?1:-1));
+  strip.onkeydown=e=>{
+    const tiles=[...strip.children];
+    if(!tiles.length)return;
+    if(e.key==='Tab' && !e.shiftKey){
+      e.preventDefault();find('.cd-buy a').focus();
+    }else if(e.target===strip && ['Enter',' '].includes(e.key)){
+      e.preventDefault();
+      const tile=tiles.find(tile=>tile.getBoundingClientRect().left>=strip.getBoundingClientRect().left-1)||tiles[0];
+      tile.focus();tile.click();
+    }else if(['ArrowLeft','ArrowRight'].includes(e.key)){
+      e.preventDefault();
+      const direction=e.key==='ArrowLeft'?-1:1;
+      if(e.target===strip)move(direction);
+      else tiles[Math.max(0,Math.min(tiles.length-1,tiles.indexOf(e.target)+direction))].focus();
+    }
+  };
+  strip.addEventListener('wheel',e=>{
+    if(e.ctrlKey || Math.abs(e.deltaX)>=Math.abs(e.deltaY))return;
+    const before=strip.scrollLeft;
+    strip.scrollLeft+=e.deltaY*(e.deltaMode===1?16:1);
+    if(before!==strip.scrollLeft)e.preventDefault();
+  },{passive:false});
+  const options=find('.cd-options'), edit=find('.cd-edit');
+  function showOptions(show){
+    options.hidden=!show;
+    edit.hidden=show;
+    edit.setAttribute('aria-expanded',String(show));
+  }
+  strip.onclick=e=>{
+    const tile=e.target.closest('.cd-tile');
+    if(!tile)return;
+    colourStates.set(product.id,colours[tile.dataset.index]);
+    selection();
+    showOptions(false);
+    edit.focus({preventScroll:true});
+  };
+  edit.onclick=()=>{
+    showOptions(true);
+    input.value='';
+    filter();
+    input.focus();
+  };
+  input.oninput=filter;
+  find('.cd-empty button').onclick=()=>openProductRequest(product,input.value.trim(),true);
+  filter();
+  showOptions(!colourStates.has(product.id));
 }
-function renderDetail(){const old=$('#product-detail');if(old)old.remove();$$('.product-card').forEach(b=>b.setAttribute('aria-expanded',b.dataset.product===selected));if(!selected)return;const p=products.find(x=>x.id===selected),panel=document.createElement('article');panel.id='product-detail';panel.className='product-detail';panel.setAttribute('aria-label',p.name+' — подробности');panel.innerHTML=`<div class="detail-top"><h3>${esc(p.name)}</h3><button class="close-inline" id="close-product">Закрыть ×</button></div><div class="detail-grid"><div><img class="detail-image" src="${p.image}" alt="Упаковка ${esc(p.name)}"></div><div><p>${esc(p.description)}</p><p>${esc(p.use)}</p><dl class="specs" aria-label="Основные характеристики"><div><dt>Фасовка комплекта</dt><dd>${esc(p.pack)}</dd></div><div><dt>${p.id==='211'?'Цвет':'Палитра'}</dt><dd>${esc(p.colors)}</dd></div><div><dt>Основания</dt><dd>${esc(productSpecs[p.id][0])}</dd></div></dl><section class="product-buy"><h4>Где купить</h4>${storeActions(p)}</section><section aria-labelledby="tech-heading"><h4 id="tech-heading">Технические характеристики</h4><div class="tech-groups">${technicalGroups(p)}</div></section><section class="product-docs" aria-label="Документы"><a class="doc-download" href="${esc(p.pdf)}" download aria-label="Скачать техническое описание ${esc(p.name)} в PDF"><span class="doc-format">PDF</span><span class="doc-name"><strong>Техническое описание</strong><small>${esc(p.name)}</small></span><span class="doc-action">Скачать</span></a></section>${p.id==='211'?'':`<section class="colour-picker"><h4>Выберите цвет</h4><label>Название или номер RAL<input type="search" autocomplete="off" placeholder="Например, серый или 7035"></label><div class="colour-options" aria-label="Доступные оттенки"></div><div class="colour-result" aria-live="polite"></div><div class="colour-actions"><button type="button" class="show-colours" aria-haspopup="dialog" aria-controls="palette-viewer">Посмотреть цвета</button><button type="button" class="other-colour" aria-controls="custom-ral">Нужен свой оттенок RAL</button></div><form id="custom-ral" class="dealer-colour" hidden><label>Номер RAL<input name="ral" placeholder="Например, 7035" required maxlength="24"></label><button type="submit" class="shade-dealer">Уточнить колеровку у дилера</button></form></section>`}</div></div>`;
-const cards=$$('.product-card'),cols=getComputedStyle($('#catalog-grid')).gridTemplateColumns.split(' ').length,ix=cards.findIndex(b=>b.dataset.product===selected),end=Math.min(cards.length-1,Math.floor(ix/cols)*cols+cols-1);cards[end].after(panel);$('#close-product').onclick=()=>{const id=selected;selected=null;renderDetail();$(`[data-product="${id}"]`).focus()};panel.addEventListener('click',event=>{
-  const button=event.target.closest('[data-dealer-product]');
-  if(button)openProductRequest(p,button.dataset.shade);
-});bindPhotos(panel);bindDemos(panel);if(p.id!=='211')bindColourPicker(panel,p)}
-$$('.filter').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;selected=null;$$('.filter').forEach(x=>x.setAttribute('aria-pressed',x===b));catalog()});let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(selected)renderDetail()},150)});catalog();
+function technicalGroups(product){
+  return Object.entries(productSpecs[product.id].groups).map(([title,fields])=>{
+    const rows=Object.entries(fields).filter(([,value])=>value!=null).map(([label,value])=>
+      `<div><dt>${esc(label)}</dt><dd>${esc(typeof value==='string'?value:value.missing)}</dd></div>`).join('');
+    return `<details><summary>${esc(title)}</summary><dl>${rows}</dl></details>`;
+  }).join('');
+}
+function renderDetail(){
+  document.getElementById('product-detail')?.remove();
+  const cards=$$('.product-card');
+  cards.forEach(card=>card.setAttribute('aria-expanded',card.dataset.product===selected));
+  if(!selected)return;
+  const p=products.find(product=>product.id===selected), [kind,title]=productTitles[p.id];
+  const panel=document.createElement('article'), spec=productSpecs[p.id];
+  const [area,condition]=typeof spec.area==='string'?spec.area.split(' в '):[];
+  panel.id='product-detail';panel.className='product-detail';panel.setAttribute('aria-label',title+' — подробности');
+  panel.innerHTML=`<div class="cd-layout"><img class="cd-photo" src="${esc(p.image)}" alt="Упаковка ${esc(title)}">
+    <header class="cd-head"><button aria-label="Закрыть карточку">×</button><small>${kind}</small><h3>${title}</h3><p>${esc(p.description.split('. ')[0].replace(/\.$/,'')+'.')}</p></header>
+    <dl class="cd-specs"><div><dt>Фасовка</dt><dd>${esc(p.pack)}</dd></div>
+      <div><dt>Площадь</dt><dd>${area?esc(area):'<small>уточняется</small>'}${condition?`<small>${esc(condition)}</small>`:''}</dd></div>
+      <div><dt>В комплекте</dt><dd>${esc(spec.kit)}</dd></div>${p.id==='211'?'<div><dt>Цвет</dt><dd>светло-серый</dd></div>':''}</dl>
+    ${p.id==='211'?'':colourPicker(p)}
+    <div class="cd-buy">${storeActions(p)}</div><div class="cd-apply"><h4>Как применять</h4>${technicalGroups(p)}
+    <div class="cd-pdf">Техническое описание · PDF <a href="${esc(p.pdf)}" download>Скачать</a></div></div></div>`;
+  const cols=getComputedStyle($('#catalog-grid')).gridTemplateColumns.split(' ').length;
+  const ix=cards.findIndex(card=>card.dataset.product===selected);
+  cards[Math.min(cards.length-1,(Math.floor(ix/cols)+1)*cols-1)].after(panel);
+  panel.querySelector('.cd-head button').onclick=()=>{selected=null;renderDetail();cards[ix].focus()};
+  if(p.id!=='211')bindColourPicker(panel,p);
+}
+$$('.filter').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;selected=null;$$('.filter').forEach(x=>x.setAttribute('aria-pressed',x===b));catalog()});window.addEventListener('resize',()=>{
+  const panel=document.getElementById('product-detail');
+  if(!panel)return;
+  const cards=$$('.product-card'), index=cards.findIndex(card=>card.dataset.product===selected);
+  const columns=getComputedStyle($('#catalog-grid')).gridTemplateColumns.split(' ').length;
+  const last=cards[Math.min(cards.length-1,(Math.floor(index/columns)+1)*columns-1)];
+  if(last.nextElementSibling!==panel)last.after(panel);
+});catalog();
 function openProduct(id){filter='Все';selected=id;$$('.filter').forEach(b=>b.setAttribute('aria-pressed',b.dataset.filter==='Все'));catalog();requestAnimationFrame(()=>jump($(`[data-product="${id}"]`)))}
 // Quiz follows the supplied matrix. No hammer option for outdoor equipment.
 let answers={},history=[],quizStep='material';
