@@ -1,13 +1,19 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>ГРАНТ 2К — редактор сайта</title><style>
+<!doctype html><html lang="ru"><head><meta charset="utf-8">
+<script>
+if (location.protocol === 'file:') {
+  location.replace('https://katjakovv.github.io/grant2k-demo/editor.html');
+}
+</script><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>ГРАНТ 2К — редактор сайта</title><style>
 @font-face{font-family:Okta;src:url(assets/OktaNeue-Regular.otf)}@font-face{font-family:Okta;src:url(assets/OktaNeue-SemiBold.otf);font-weight:600}
 :root{--ink:#2f385a;--ground:#f1f3f7;--line:#dce0e7;--muted:#606a7b;--accent:#ff5300}*{box-sizing:border-box}body{height:100dvh;display:flex;flex-direction:column;overflow:hidden;margin:0;font:14px/1.45 Okta,Arial,sans-serif;color:var(--ink);background:var(--ground)}button,input,select{font:inherit;color:inherit}button,a,input,select{touch-action:manipulation}button{min-height:40px;padding:7px 12px;border:1px solid var(--line);background:white;cursor:pointer;border-radius:6px}button:disabled{opacity:.45;cursor:default}button[aria-pressed=true]{border-color:var(--ink);background:#e5e9ef}button.primary{background:var(--ink);color:#fff;border-color:var(--ink)}:focus-visible{outline:2px solid var(--accent);outline-offset:2px}[hidden]{display:none!important}a{color:inherit;text-underline-offset:3px}.top{flex-shrink:0;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 20px}.brand{display:flex;align-items:center;gap:16px}.brand img{width:126px;height:auto}h1{font-size:17px;font-weight:600;margin:0}.actions,.devices,.modes,.row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.actions{justify-content:flex-end}.layout{display:grid;grid-template-columns:300px minmax(0,1fr);flex:1;min-height:0;gap:8px;padding:0 8px 8px 0}.panel{padding:12px 18px 24px;overflow-y:auto}.panel h2{font-size:15px;margin:22px 0 12px}.panel p{color:var(--muted);font-size:13px}.panel label{font-size:13px;display:block}.field{display:grid;grid-template-columns:1fr 102px;gap:8px;align-items:center;margin:10px 0}.field input,.field select{width:100%;height:36px;border:1px solid #cbd0d9;border-radius:5px;padding:4px 8px;background:white;min-width:0}.field input[type=color]{padding:3px;height:36px}.field select{font-size:12px}.panel select.scope{width:100%;height:40px;background:white;border:1px solid #cbd0d9;padding:6px;border-radius:5px}.selection{padding:12px;background:#fff;border:1px solid var(--line);border-radius:8px}.selection strong{display:block;overflow-wrap:anywhere}.selection p{margin:8px 0 0}.selection .row{margin-top:10px}.canvas{min-width:0;display:flex;flex-direction:column;background:white;border:1px solid var(--line);border-radius:16px;overflow:hidden}.canvas-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}.metrics{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}.stage{flex:1;min-height:0;overflow:auto;background:#e7ebf0;display:flex;justify-content:center;align-items:flex-start;padding:16px}.frame-wrap{position:relative;background:#fff;flex-shrink:0}iframe{border:0;display:block;transform-origin:top left;background:white}.status{padding:10px 16px;min-height:42px;font-size:13px;border-top:1px solid var(--line);overflow-wrap:anywhere}.empty{padding:24px 0}.hint{margin:8px 0;color:var(--muted);font-size:12px}.control-note{font-size:11px;color:var(--muted);margin:0}.settings-toggle{display:none}.mode-hint{padding:0 16px 12px;color:var(--muted);font-size:13px}#fields{padding-bottom:16px}.selected-name{max-height:60px;overflow:hidden}#save{min-width:158px}@media(max-width:760px){.top{padding:8px 12px;gap:8px;flex-wrap:wrap}.brand img{width:100px}h1{font-size:15px}.actions{gap:4px}.actions button{font-size:12px;padding:6px 8px}.layout{height:auto;display:block;padding:0 8px 8px}.panel{display:none;position:fixed;top:var(--editor-top,108px);bottom:8px;left:8px;right:8px;z-index:4;background:var(--ground);border:1px solid var(--line);border-radius:10px}.layout.settings-open .panel{display:block}.canvas{height:100%}.settings-toggle{display:inline-block}.canvas-head{padding:8px;gap:6px}.devices button,.modes button{padding:6px 8px;font-size:12px}.stage{padding:8px}.mode-hint{padding:0 8px 8px}.status{font-size:12px;padding:8px}.field{grid-template-columns:1fr 120px}}
 .brand-palette{grid-column:1/-1;display:flex;gap:4px;margin:0 0 4px}.brand-swatch{display:flex;align-items:center;justify-content:center;flex:1;min-width:0;min-height:36px;padding:4px}.brand-swatch i{width:24px;height:24px;border:1px solid #cbd0d9;border-radius:3px}.brand-swatch[aria-pressed=true]{outline:2px solid var(--ink);outline-offset:-2px}
 
 .lease-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 16px;background:#f1f3f7;font-size:13px}.lease-bar button{min-height:32px;padding:3px 9px;font-size:12px}body.read-only #fields{opacity:.55;pointer-events:none}body.read-only .selection{opacity:.65}
-</style></head><body>
-<header class="top"><div class="brand"><img src="assets/grant2k-logo.svg" alt="ГРАНТ 2К"><h1>Редактор сайта</h1></div><div class="actions"><button id="undo" disabled title="Отменить последнее изменение">Отменить</button><button id="redo" disabled title="Повторить отменённое изменение">Повторить</button><button id="begin" class="primary" disabled>Начать редактирование</button><button id="save" disabled>Сохранить</button><button id="finish" hidden>Сохранить и закончить</button><a href="./" id="exit">Выйти</a></div></header>
-<div class="layout" id="layout"><aside class="panel" aria-label="Настройки оформления"><div class="row"><b>Оформление</b><button class="settings-toggle" id="close-settings">Закрыть</button></div><p>Выберите элемент на странице. Настройки применяются сразу, а публикуются после сохранения.</p><label for="scope">Где применить изменения</label><select class="scope" id="scope"><option value="all">На всех экранах</option><option value="phone">Только телефон · до 640 px</option><option value="tablet">Только планшет · 641–1100 px</option><option value="desktop">Только компьютер · от 1101 px</option></select><p class="hint">Пустое поле — исходное оформление. Числа в подсказках показывают текущий вид.</p><div class="selection"><strong class="selected-name" id="selected-name">Элемент пока не выбран</strong><p id="selected-type">В режиме «Оформление» нажмите на текст, кнопку или блок справа.</p><div class="row"><button id="parent" disabled>Выбрать блок выше</button><button id="reset" disabled>Сбросить настройки</button></div></div><div id="fields" hidden></div></aside>
-<main class="canvas"><div class="canvas-head"><div class="modes" role="group" aria-label="Режим"><button data-mode="design" aria-pressed="true">Оформление</button><button data-mode="text" aria-pressed="false">Текст</button><button data-mode="preview" aria-pressed="false">Просмотр</button></div><div class="devices" role="group" aria-label="Размер экрана"><button data-device="phone" aria-pressed="false">Телефон</button><button data-device="tablet" aria-pressed="false">Планшет</button><button data-device="desktop" aria-pressed="true">Компьютер</button><button class="settings-toggle" id="settings">Настройки</button></div><span class="metrics" id="metrics">1440 px</span></div><div class="lease-bar" role="status"><span id="lease-label">Проверяю, свободен ли редактор…</span><button id="lease-refresh">Проверить</button></div><div class="mode-hint" id="mode-hint">Нажмите на элемент, чтобы настроить его оформление.</div><div class="stage" id="stage"><div class="frame-wrap" id="frame-wrap"><iframe id="site-frame" title="Предпросмотр сайта ГРАНТ 2К" src="index.html#edit"></iframe></div></div><div class="status" id="status" role="status" aria-live="polite">Загружаю сайт и сохранённые настройки…</div></main></div>
+[hidden]{display:none!important}#access{padding:16px;max-height:78vh;overflow:auto}#access input{font:inherit}#release-list label{display:block;white-space:pre-wrap;overflow-wrap:anywhere;padding:8px 0;border-bottom:1px solid #ddd}#release-list input{margin-right:8px}body:has(#access:not([hidden])) .layout{display:none}</style></head><body>
+<header class="top"><div class="brand"><img src="assets/grant2k-logo.svg" alt="ГРАНТ 2К"><h1>Редактор сайта</h1></div><div class="actions"><button id="undo" disabled title="Отменить последнее изменение">Отменить</button><button id="redo" disabled title="Повторить отменённое изменение">Повторить</button><button id="begin" class="primary" disabled>Начать редактирование</button><button id="save" disabled>Сохранить в черновик</button><button id="finish" hidden>Сохранить и закончить</button><a href="?publish" rel="noopener" target="_blank">Выбрать для сайта</a><a href="./" id="exit">Выйти</a></div></header>
+<section id="access" aria-labelledby="access-title"><h2 id="access-title">Общий черновик</h2><form id="draft-access"><label>Ключ черновика <input required id="draft-key" type="password" autocomplete="off"></label> <button>Открыть черновик</button></form><p id="access-note" role="status">Доступ по ключу для grant2k-draft.</p><div id="publish-fields" hidden><div id="release-list"></div><label>Ваш ключ публикации для grant2k-demo <input id="publish-key" type="password" autocomplete="off"></label> <button id="release-selected" hidden>Опубликовать выбранное</button></div></section>
+<div class="layout" id="layout"><aside class="panel" aria-label="Настройки оформления"><div class="row"><b>Оформление</b><button class="settings-toggle" id="close-settings">Закрыть</button></div><p>Выберите элемент на странице. Настройки применяются сразу, и сохраняются в общий черновик.</p><label for="scope">Где применить изменения</label><select class="scope" id="scope"><option value="all">На всех экранах</option><option value="phone">Только телефон · до 640 px</option><option value="tablet">Только планшет · 641–1100 px</option><option value="desktop">Только компьютер · от 1101 px</option></select><p class="hint">Пустое поле — исходное оформление. Числа в подсказках показывают текущий вид.</p><div class="selection"><strong class="selected-name" id="selected-name">Элемент пока не выбран</strong><p id="selected-type">В режиме «Оформление» нажмите на текст, кнопку или блок справа.</p><div class="row"><button id="parent" disabled>Выбрать блок выше</button><button id="reset" disabled>Сбросить настройки</button></div></div><div id="fields" hidden></div></aside>
+<main class="canvas"><div class="canvas-head"><div class="modes" role="group" aria-label="Режим"><button data-mode="design" aria-pressed="true">Оформление</button><button data-mode="text" aria-pressed="false">Текст</button><button data-mode="preview" aria-pressed="false">Просмотр</button></div><div class="devices" role="group" aria-label="Размер экрана"><button data-device="phone" aria-pressed="false">Телефон</button><button data-device="tablet" aria-pressed="false">Планшет</button><button data-device="desktop" aria-pressed="true">Компьютер</button><button class="settings-toggle" id="settings">Настройки</button></div><span class="metrics" id="metrics">1440 px</span></div><div class="lease-bar" role="status"><span id="lease-label">Проверяю, свободен ли редактор…</span><button id="lease-refresh">Проверить</button></div><div class="mode-hint" id="mode-hint">Нажмите на элемент, чтобы настроить его оформление.</div><div class="stage" id="stage"><div class="frame-wrap" id="frame-wrap"><iframe id="site-frame" title="Предпросмотр сайта ГРАНТ 2К" ></iframe></div></div><div class="status" id="status" role="status" aria-live="polite">Загружаю сайт и сохранённые настройки…</div></main></div>
 <script>
 'use strict';
 const $=s=>document.querySelector(s),frame=$('#site-frame');let bridge,selected=null,selector='',mode='preview',device='desktop',scope='all',connected=false,hadLease=false;
@@ -41,5 +47,124 @@ $('#exit').onclick=async e=>{e.preventDefault();if(bridge?.busy||bridge?.getLock
 window.addEventListener('beforeunload',e=>{if(bridge?.isDirty()){e.preventDefault();e.returnValue=''}});
 function updateLease(){if(!bridge)return;const s=bridge.getLock();$('#lease-label').textContent=s.pending?'Проверяю доступ…':s.error?s.error:s.mine?'Редактор занят вами · '+s.name:s.occupied?'Сейчас редактирует '+s.name+'. Доступен только просмотр.':'Редактор свободен. Можно начать работу.';if(s.mine&&!hadLease)setMode('design');if(!s.mine)setMode('preview');hadLease=s.mine;syncButtons();}
 function connect(){if(connected)return;if(!frame.contentWindow.grantEditor?.ready){setTimeout(connect,100);return}connected=true;bridge=frame.contentWindow.grantEditor;const win=frame.contentWindow,doc=frame.contentDocument;const mark=doc.createElement('style');mark.textContent='[data-design-selected]{outline:2px solid #ff5300!important;outline-offset:3px!important}';doc.head.append(mark);win.addEventListener('click',e=>{if(mode!=='design'||e.altKey||e.target.closest('[data-editor-ui]'))return;e.preventDefault();e.stopImmediatePropagation();if(!bridge.busy&&bridge.hasLease())pick(e.target)},true);win.addEventListener('grant-editor-status',e=>message(e.detail));win.addEventListener('grant-editor-change',()=>{fill();syncButtons()});win.addEventListener('grant-editor-lock',updateLease);updateLease();message('Режим просмотра. Для изменений нажмите «Начать редактирование».');size();}
-frame.addEventListener('load',()=>{connected=false;connect()});connect();setTimeout(()=>{if(!connected)message('Не удалось загрузить редактор. Проверьте соединение и обновите страницу.')},15000);
+frame.addEventListener('load',()=>{if(frame.srcdoc){connected=false;connect()}});
+const draftRepo = 'grant2k-draft';
+const liveRepo = 'grant2k-demo';
+const publishing = new URLSearchParams(location.search).has('publish');
+const accessForm = document.getElementById('draft-access');
+const accessNote = document.getElementById('access-note');
+const releaseList = document.getElementById('release-list');
+const releaseButton = document.getElementById('release-selected');
+const publishKey = document.getElementById('publish-key');
+let review;
+const decodeFile = file => new TextDecoder().decode(Uint8Array.from(atob(file.content.replace(/\s/g,'')), c=>c.charCodeAt(0)));
+function encodeFile(value) {
+  const bytes = new TextEncoder().encode(JSON.stringify(value,null,2)+'\n');
+  return btoa(Array.from(bytes, b=>String.fromCharCode(b)).join(''));
+}
+async function github(repo, path, key, options={}) {
+  const response = await fetch('https://api.github.com/repos/katjakovv/'+repo+'/'+path, {
+    cache:'no-store', signal:AbortSignal.timeout(25000), ...options,
+    headers:{Accept:'application/vnd.github+json', ...(key ? {Authorization:'Bearer '+key}:{}), ...(options.body ? {'Content-Type':'application/json'}:{})}
+  });
+  if (!response.ok) throw new Error(repo+' · HTTP '+response.status+'. '+([401,403,404].includes(response.status)?'Проверьте срок ключа и доступ к этому репозиторию.':response.status===409?'Версия изменилась. Откройте список заново.':'Повторите загрузку.'));
+  return response.json();
+}
+function getFile(repo,path,key,rev='main') {
+  return github(repo,'contents/'+path+'?ref='+encodeURIComponent(rev),key);
+}
+async function jsonFile(repo,path,key,rev) {
+  const file=await getFile(repo,path,key,rev);
+  return {sha:file.sha, data:JSON.parse(decodeFile(file))};
+}
+function putFile(repo,path,key,file,message) {
+  return github(repo,'contents/'+path,key,{method:'PUT',body:JSON.stringify({branch:'main',sha:file.sha,content:encodeFile(file.data),message})});
+}
+async function openDraft(key) {
+  const head=await github(draftRepo,'git/ref/heads/main',key), rev=head.object.sha;
+  const [page,manifest,texts]=await Promise.all([getFile(draftRepo,'index.html',key,rev),jsonFile(draftRepo,'preview.json',key,rev),jsonFile(draftRepo,'texts.json',key,rev)]);
+  let html=decodeFile(page);
+  const assets=await Promise.all(Object.entries(manifest.data.assets).map(async ([path,type])=>{
+    const file=await getFile(draftRepo,path,key,rev);
+    return [path,URL.createObjectURL(new Blob([decodeFile(file)],{type}))];
+  }));
+  for (const [path,url] of [...assets,...Object.entries(manifest.data.embedded)]) html=html.split(path).join(url);
+  window.grantDraftSession={key,initial:texts.data};
+  document.getElementById('access').hidden=true;
+  frame.srcdoc=html;
+  message('Открываю общий черновик…');
+}
+const groups=['texts','styles'];
+const valueAt=(doc,group,key)=>Object.hasOwn(doc[group],key)?doc[group][key]:undefined;
+function assignValue(doc,group,key,value) {
+  if(value===undefined) delete doc[group][key];
+  else Object.defineProperty(doc[group],key,{value,enumerable:true,writable:true,configurable:true});
+}
+async function readRelease(key) {
+  return Promise.all([jsonFile(draftRepo,'release-base.json',key),jsonFile(draftRepo,'texts.json',key),jsonFile(liveRepo,'texts.json','')]);
+}
+function showRelease(files) {
+  review=files;
+  releaseList.replaceChildren();
+  const [base,draft,live]=files.map(f=>f.data);
+  for (const group of groups) {
+    for (const key of new Set([...Object.keys(base[group]),...Object.keys(draft[group])])) {
+      const before=valueAt(base,group,key), after=valueAt(draft,group,key), current=valueAt(live,group,key);
+      if(before===after) continue;
+      const conflict=current!==before && current!==after;
+      const box=document.createElement('input');
+      box.type='checkbox'; box.disabled=conflict; box.dataset.group=group; box.value=key;
+      const label=document.createElement('label');
+      label.append(box,document.createTextNode((group==='texts'?'Текст · ':'Оформление · ')+key+'\nНа сайте: '+(current??'исходное значение')+' → в черновике: '+(after??'исходное значение')+(conflict?' · На сайте есть другая правка. Нужна сверка.':'')));
+      releaseList.append(label);
+    }
+  }
+  accessNote.textContent=releaseList.children.length?'Отметьте строки для сайта. Остальные останутся в черновике.':'Все правки текста и оформления сверены с публикацией.';
+  releaseButton.hidden=!releaseList.children.length;
+}
+async function publishSelected() {
+  const selected=[...releaseList.querySelectorAll('input:checked')];
+  if(!selected.length){accessNote.textContent='Выберите хотя бы одну правку.';return;}
+  if(!publishKey.value){accessNote.textContent='Введите отдельный ключ публикации.';publishKey.focus();return;}
+  if(!confirm('Применить выбранные правки к публичному сайту ('+selected.length+')?')) return;
+  releaseButton.disabled=true; accessForm.querySelector('button').disabled=true;
+  let wroteLive=false;
+  try {
+    const key=document.getElementById('draft-key').value;
+    const files=await readRelease(key);
+    const [base,draft,live]=files;
+    let writeNeeded=false;
+    for(const box of selected) {
+      const group=box.dataset.group,k=box.value;
+      const proposed=valueAt(draft.data,group,k), current=valueAt(live.data,group,k), previous=valueAt(base.data,group,k);
+      if(proposed!==valueAt(review[1].data,group,k)||previous!==valueAt(review[0].data,group,k)||(current!==previous&&current!==proposed)) throw new Error('Правка изменилась после просмотра. Обновите список.');
+      writeNeeded ||= current!==proposed;
+      assignValue(live.data,group,k,proposed);assignValue(base.data,group,k,proposed);
+    }
+    if(writeNeeded) await putFile(liveRepo,'texts.json',publishKey.value,live,'Опубликовать выбранные правки: '+selected.length);
+    wroteLive=true;
+    await putFile(draftRepo,'release-base.json',key,base,'Отметить выбранные правки как опубликованные');
+    showRelease(await readRelease(key));
+    accessNote.textContent='Выбранные правки записаны в версию для сайта ('+selected.length+'). GitHub Pages обновится после сборки. '+accessNote.textContent;
+  } catch(e){accessNote.textContent=(wroteLive?'Сайт принял правки. Обновите список и повторите сверку. ':'')+e.message;}
+  finally {releaseButton.disabled=false;accessForm.querySelector('button').disabled=false;}
+}
+releaseButton.onclick=publishSelected;
+document.getElementById('publish-fields').hidden=!publishing;
+if(publishing){
+  document.getElementById('access-title').textContent='Выбрать правки для сайта';
+  accessForm.querySelector('button').textContent='Показать изменения';
+  document.querySelector('.layout').hidden=true;
+  document.querySelector('.top .actions').hidden=true;
+}
+accessForm.onsubmit=async e=>{
+  e.preventDefault();
+  const button=accessForm.querySelector('button'),key=document.getElementById('draft-key').value.trim();
+  button.disabled=true;accessNote.textContent='Загружаю…';
+  try {
+    if(publishing) showRelease(await readRelease(key));
+    else {await openDraft(key);document.getElementById('draft-key').value='';}
+  }catch(err){accessNote.textContent=err.message;}finally{button.disabled=false;}
+};
+
 </script></body></html>
