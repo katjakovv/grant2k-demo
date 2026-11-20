@@ -924,6 +924,15 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
   .hero-grid > .actions #partnership { width:auto; padding:8px 16px;
     background:transparent; border:1px solid var(--ink); color:var(--ink); text-decoration:none }
 }
+/* Consistent partnership action and packaging at intermediate widths. */
+.hero #partnership { background:transparent; border:1px solid var(--ink); color:var(--ink); text-decoration:none }
+@media (min-width:701px) and (max-width:1000px) and (min-height:501px) {
+  #main .hero .hero-grid { grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); column-gap:24px }
+  .hero .hero-stage { padding-inline:0 }
+  .hero .hero-crop { width:100%; max-width:none; scale:1.15 }
+  .hero .hero-product { min-width:0 }
+  .hero .product-caption { font-size:15px; text-wrap:balance }
+}
 </style></head><body data-design-id="g0001"><a data-design-id="g0002" class="skip" href="#main">К содержанию</a>
 <header data-design-id="g0003" class="header"><div data-design-id="g0004" class="wrap nav-inner"><a data-design-id="g0005" class="wordmark" href="#main" aria-label="GRANT 2K — в начало"><img data-design-id="g0006" src="assets/grant2k-logo.svg?v=white-1" alt="GRANT 2K" width="164" height="26"></a><button data-design-id="g0007" class="menu-toggle" aria-expanded="false" aria-controls="nav">Меню</button><nav data-design-id="g0008" id="nav" aria-label="Основное меню"><a data-design-id="g0009" href="#applications">Применение</a><a data-design-id="g0010" href="#catalog">Каталог</a><a data-design-id="g0011" href="#how">Как покрасить</a><a data-design-id="g0012" href="#faq">Вопросы</a><a data-design-id="g0013" href="#buy">Где купить</a></nav><button data-design-id="g0014" class="btn nav-quiz" data-quiz>Подобрать покрытие</button></div></header>
 <main data-design-id="g0015" id="main"><section data-design-id="g0016" class="hero"><div data-design-id="g0017" class="wrap"><div data-design-id="g0018" class="hero-grid"><div data-design-id="g0019" class="hero-copy"><h1 data-design-id="g0020">Долговременная защита металла от коррозии</h1>
