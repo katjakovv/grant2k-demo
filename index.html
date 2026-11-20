@@ -7704,7 +7704,7 @@ function pointBounds(){
 }
 function updateWidget(){
   const bounds=pointBounds();
-  const params=new URLSearchParams({l:'map',scroll:'false'});
+  const params=new URLSearchParams({l:'map',scroll:matchMedia('(pointer:coarse)').matches?'false':'true'});
   const [[south,west],[north,east]]=bounds;
   if(south===north && west===east){params.set('ll',[west,south]);params.set('z','15')}
   else{
