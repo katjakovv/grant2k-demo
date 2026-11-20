@@ -5,7 +5,7 @@ function initDealerMap(){
   mapHost.prepend(canvas);
   const mobile=matchMedia('(pointer:coarse)').matches;
   dealerMap=new ymaps.Map(canvas,{center:[55,65],zoom:3,controls:['zoomControl'],
-    behaviors:mobile?['multiTouch']:['drag','dblClickZoom']});
+    behaviors:mobile?['multiTouch']:['drag','dblClickZoom','scrollZoom']});
   const layout=html=>ymaps.templateLayoutFactory.createClass(html);
   layouts={normal:layout('<div class="dealer-pin"></div>'),selected:layout('<div class="dealer-pin selected"></div>')};
   const shape={type:'Circle',coordinates:[0,0],radius:20};
