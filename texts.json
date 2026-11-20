@@ -1,11 +1,8 @@
 {
   "version": 1,
   "texts": {
-    "металла": "",
     "↗": "",
     "↓": "",
-    "Купить оптом ": "Купить оптом",
-    "Купить онлайн ": "Купить онлайн",
     "Покрытия в работе": "ПОКРЫТИЯ В РАБОТЕ",
     "↑": "",
     " Наверх": "Наверх",
@@ -32,8 +29,6 @@
     "all|[data-design-id=\"g0025\"]|border-width": "2px",
     "all|[data-design-id=\"g0025\"]|border-style": "solid",
     "all|[data-design-id=\"g0026\"]|font-weight": "700",
-    "all|[data-design-id=\"g0027\"]|font-weight": "700",
-    "all|[data-design-id=\"g0030\"]|font-weight": "700",
     "all|[data-design-id=\"g0029\"]|font-weight": "700",
     "all|[data-design-id=\"g0028\"]|border-width": "2px",
     "all|[data-design-id=\"g0028\"]|border-style": "solid",
