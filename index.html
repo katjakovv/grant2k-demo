@@ -1058,7 +1058,8 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 .wh-field-error {display:block;margin-top:8px;color:#a83600;font:500 14px/20px Okta,Arial,sans-serif}
 .wh-field-error[hidden] {display:none}
 .wh-send {display:grid;justify-items:start;gap:8px}
-#wh-status {color:var(--muted);font-size:12px;line-height:16px}
+#wh-request .wh-consent, #wh-status {line-height:16px}
+#wh-status {color:var(--muted);font-size:12px}
 #wh-form [hidden] {display:none}
 #wh-done {display:grid;gap:24px;justify-items:start}
 #wh-form:has(#wh-done:not([hidden])) {max-width:32rem}
@@ -1137,7 +1138,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
       <label for="wh-comment">Комментарий к заказу</label>
       <textarea id="wh-comment" name="comment" rows="2" placeholder="Что красите, какой нужен объём и куда доставить?"></textarea>
     </div>
-    <label class="wh-check"><input required type="checkbox">Соглашаюсь на обработку персональных данных *</label>
+    <label class="wh-check wh-consent"><input required type="checkbox">Соглашаюсь на обработку персональных данных *</label>
     <div class="wh-send"><button class="btn" type="submit">Отправить запрос</button>
       <small role="status" id="wh-status">* Обязательные поля. В демоверсии данные остаются в браузере.</small></div>
   </form>
