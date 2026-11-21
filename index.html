@@ -937,9 +937,9 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 /* Daylight frame, with a separate live product carousel. */
 #main .hero {display:block; height:auto; min-height:0; padding:0; color:white; background:linear-gradient(90deg,#202e4ee8 0%,#23385cbf 36%,#25364f54 78%),url("assets/hero-bridge-quay.webp") center/cover}
 #main .hero::before {content:none}
-#main .hero>.wrap {display:block;overflow:visible;width:100%;max-width:1320px;height:auto;padding:48px 40px 0}
-#main .hero .hero-grid {display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:32px;min-height:480px}
-#main .hero h1 {font:500 clamp(34px,3.5vw,55px)/1.1 Unbounded,sans-serif;letter-spacing:-.045em;color:white}
+#main .hero>.wrap {display:block;overflow:visible;width:100%;max-width:1680px;height:auto;padding:0 clamp(32px,5vw,96px)}
+#main .hero .hero-grid {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);align-items:center;gap:32px;min-height:calc(100dvh - var(--hero-header-height))}
+#main .hero h1 {font:500 clamp(34px,4vw,68px)/1.1 Unbounded,sans-serif;letter-spacing:-.045em;color:white}
 #main .hero-copy>p {max-width:440px;margin-top:20px;color:white}
 #main .hero .hero-copy .actions {margin-top:24px}
 #main .hero #partnership {background:white;color:var(--ink);border:1px solid white}
@@ -968,7 +968,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
     linear-gradient(#d7e3e8 0,#a5b6c0 2px,#536774 4px,#334653 90%,#273941);
   border-top:1px solid #b1bbc1;
 }
-#main .hero .hero-crop {width:86%;aspect-ratio:1.65;max-height:none;scale:1;overflow:visible}
+#main .hero .hero-crop {width:96%;aspect-ratio:1.65;max-height:none;scale:1;overflow:visible}
 #main .hero .hero-crop img {
   width:100%;height:100%;inset:0;object-fit:contain;object-position:center bottom;
   mix-blend-mode:normal;filter:drop-shadow(0 2px 1px #16232ca6);
@@ -989,9 +989,10 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 #main .hero .dot[aria-pressed=true]::after {background:#ff630e}
 @media(max-width:700px){
  #main .hero {background-position:66% center;background-image:linear-gradient(160deg,#203354da,#243a5ba8 43%,#23395575 77%,#233955b0),url("assets/hero-bridge-quay.webp")}
- #main .hero>.wrap {padding:24px 20px 0}
- #main .hero .hero-grid {grid-template-columns:1fr;gap:16px;min-height:0}
- #main .hero h1 {font-size:clamp(26px,7.4vw,37px)}
+ #main .hero>.wrap {padding:0 20px}
+ #main .hero .hero-grid {grid-template-columns:1fr;grid-template-rows:1fr auto 1fr;gap:16px;padding-top:24px}
+ #main .hero .hero-copy {align-self:end}
+ #main .hero h1 {font-size:clamp(28px,8vw,40px)}
  #main .hero-copy>p {margin-top:12px}
  #main .hero .hero-stage {--lip:12px;padding-inline:28px;padding-bottom:30px}
  #main .hero .hero-stage::before,#main .hero .hero-stage::after {left:12px;right:-100vw}
