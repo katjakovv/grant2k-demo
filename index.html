@@ -1094,6 +1094,11 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 .pack-arrow{display:inline-grid;place-items:center;width:24px;height:24px;font:400 22px/1 Arial,sans-serif}
 .pack-arrow::before{content:"→"}
 .product-card[aria-expanded=true] .pack-arrow{transform:rotate(-90deg)}
+@media(min-width:769px){.pack-name{min-height:2lh}}
+@media(min-width:769px) and (max-width:1000px){
+ #catalog .pack-name{font-size:clamp(15px,calc(2.2vw - 2px),18px)}
+ #catalog .product-card :is(.pack-name,.surfaces,.pack-foot){margin-inline:16px}
+}
 .pack-name{text-wrap:balance;margin:24px 24px 0;font:600 20px/1.28 Okta,Arial,sans-serif}
 #catalog .product-card .surfaces{font:400 15px/1.45 Okta,Arial,sans-serif;color:#5a6488;margin:8px 24px 16px}
 .pack-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:auto 24px 0;padding:16px 0;border-top:1px solid #eceef5;font:600 15px/1.4 Okta,Arial,sans-serif}
