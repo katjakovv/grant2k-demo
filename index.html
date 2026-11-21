@@ -7775,6 +7775,13 @@ function renderDetail(){
   const cols=getComputedStyle($('#catalog-grid')).gridTemplateColumns.split(' ').length;
   const ix=cards.findIndex(card=>card.dataset.product===selected);
   cards[Math.min(cards.length-1,(Math.floor(ix/cols)+1)*cols-1)].after(panel);
+  requestAnimationFrame(()=>{
+    if(!panel.isConnected)return;
+    const photo=panel.querySelector('.cd-photo').getBoundingClientRect();
+    const headerBottom=document.querySelector('.header').getBoundingClientRect().bottom;
+    const visibleCenter=(headerBottom+window.innerHeight)/2;
+    window.scrollBy({top:photo.top+photo.height/2-visibleCenter,behavior:motion()?'instant':'smooth'});
+  });
   panel.querySelector('.cd-head button').onclick=()=>{selected=null;renderDetail();cards[ix].focus()};
   if(p.id!=='211')bindColourPicker(panel,p);
 }
@@ -7786,7 +7793,7 @@ $$('.filter').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;selected=null;$$
   const last=cards[Math.min(cards.length-1,(Math.floor(index/columns)+1)*columns-1)];
   if(last.nextElementSibling!==panel)last.after(panel);
 });catalog();
-function openProduct(id){filter='Все';selected=id;$$('.filter').forEach(b=>b.setAttribute('aria-pressed',b.dataset.filter==='Все'));catalog();requestAnimationFrame(()=>jump($(`[data-product="${id}"]`)))}
+function openProduct(id){filter='Все';selected=id;$$('.filter').forEach(b=>b.setAttribute('aria-pressed',b.dataset.filter==='Все'));catalog()}
 // Quiz follows the supplied matrix. No hammer option for outdoor equipment.
 let answers={},history=[],quizStep='material';
 const labels={steel:'Сталь или чугун',zinc:'Оцинковка или алюминий',concrete:'Бетон',wood:'Дерево',home:'Дом и участок',tech:'Прицепы и техника',equipment:'Металлоизделия и оборудование',inside:'Только внутри помещения',outside:'На улице или и там, и там',gloss:'Глянец',satin:'Полуглянец или мат',hammer:'Молотковый'};
