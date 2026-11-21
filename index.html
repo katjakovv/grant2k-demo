@@ -933,17 +933,80 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
   .hero .hero-product { min-width:0 }
   .hero .product-caption { font-size:15px; text-wrap:balance }
 }
+
+/* Daylight frame, with a separate live product carousel. */
+#main .hero {display:block; height:auto; min-height:0; padding:0; color:white; background:linear-gradient(90deg,#202e4ee8 0%,#23385cbf 36%,#25364f54 78%),url("assets/hero-bridge-quay.webp") center/cover}
+#main .hero::before {content:none}
+#main .hero>.wrap {display:block;overflow:visible;width:100%;max-width:1320px;height:auto;padding:48px 40px 0}
+#main .hero .hero-grid {display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:32px;min-height:480px}
+#main .hero h1 {font:500 clamp(34px,3.5vw,55px)/1.1 Unbounded,sans-serif;letter-spacing:-.045em;color:white}
+#main .hero-copy>p {max-width:440px;margin-top:20px;color:white}
+#main .hero .hero-copy .actions {margin-top:24px}
+#main .hero #partnership {background:white;color:var(--ink);border:1px solid white}
+#main .hero .hero-product {position:relative;align-self:end;display:flex;flex-direction:column;align-items:center;gap:0;margin:0}
+#main .hero {overflow:hidden}
+#main .hero .hero-stage {
+  --lip:48px;
+  position:relative; isolation:isolate; width:100%; height:auto;
+  padding:0 0 calc(var(--lip) + clamp(18px,2.2vw,32px));
+}
+#main .hero .hero-stage::before, #main .hero .hero-stage::after {
+  content:""; position:absolute; left:0; right:-100vw;
+  pointer-events:none; z-index:-1;
+}
+#main .hero .hero-stage::before {
+  bottom:var(--lip); height:clamp(46px,6vw,88px);
+  clip-path:polygon(42px 0,100% 0,100% 100%,0 100%);
+  background:
+    repeating-linear-gradient(179deg,transparent 0 2px,#e5f1f733 2.5px,transparent 3px 6px),
+    linear-gradient(115deg,#536570 0%,#b9c7ce 11%,#879ba6 20%,#ccd9df 28%,#718592 42%);
+  box-shadow:inset 0 1px 0 #e3edf1;
+}
+#main .hero .hero-stage::after {
+  bottom:0; height:var(--lip); background:
+    linear-gradient(105deg,#90a2af40,transparent 12%,#a6bac338 28%,transparent 40%),
+    linear-gradient(#d7e3e8 0,#a5b6c0 2px,#536774 4px,#334653 90%,#273941);
+  border-top:1px solid #b1bbc1;
+}
+#main .hero .hero-crop {width:86%;aspect-ratio:1.65;max-height:none;scale:1;overflow:visible}
+#main .hero .hero-crop img {
+  width:100%;height:100%;inset:0;object-fit:contain;object-position:center bottom;
+  mix-blend-mode:normal;filter:drop-shadow(0 2px 1px #16232ca6);
+}
+/* Cast the current packshot onto the upper plane from its baseline. */
+#main .hero .hero-crop::before {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:var(--packshot,url("assets/hero-cans-222.webp")) center bottom / contain no-repeat;
+  transform-origin:center bottom; transform:translateY(-1.8%) matrix(1,0,.10,-.064,1,0);
+  mask-image:linear-gradient(to bottom,transparent,#000 80%);
+  filter:brightness(0) blur(5px); opacity:.42;
+}
+#main .hero .product-caption {position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}
+#main .hero .hero-meta {position:absolute;bottom:0;align-self:center;display:flex;align-items:center;justify-content:center;height:auto;margin-top:12px;padding:2px 16px;gap:12px;border-radius:0;background:transparent}
+#main .hero .product-caption {color:white;font-size:15px;line-height:1.25}
+#main .hero .carousel-controls {position:static;transform:none;width:auto;margin:0}
+#main .hero .circle {color:white}
+#main .hero .dot[aria-pressed=true]::after {background:#ff630e}
+@media(max-width:700px){
+ #main .hero {background-position:66% center;background-image:linear-gradient(160deg,#203354da,#243a5ba8 43%,#23395575 77%,#233955b0),url("assets/hero-bridge-quay.webp")}
+ #main .hero>.wrap {padding:24px 20px 0}
+ #main .hero .hero-grid {grid-template-columns:1fr;gap:16px;min-height:0}
+ #main .hero h1 {font-size:clamp(26px,7.4vw,37px)}
+ #main .hero-copy>p {margin-top:12px}
+ #main .hero .hero-stage {--lip:12px;padding-inline:28px;padding-bottom:30px}
+ #main .hero .hero-stage::before,#main .hero .hero-stage::after {left:12px;right:-100vw}
+ #main .hero .hero-meta {position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);padding:0}
+ #main .hero .product-caption {min-height:0}
+ #main .hero .hero-stage>.circle {background:#233550aa}
+ #main .hero .hero-grid>.actions {margin-top:0}
+}
 </style></head><body data-design-id="g0001"><a data-design-id="g0002" class="skip" href="#main">К содержанию</a>
 <header data-design-id="g0003" class="header"><div data-design-id="g0004" class="wrap nav-inner"><a data-design-id="g0005" class="wordmark" href="#main" aria-label="GRANT 2K — в начало"><img data-design-id="g0006" src="assets/grant2k-logo.svg?v=white-1" alt="GRANT 2K" width="164" height="26"></a><button data-design-id="g0007" class="menu-toggle" aria-expanded="false" aria-controls="nav">Меню</button><nav data-design-id="g0008" id="nav" aria-label="Основное меню"><a data-design-id="g0009" href="#applications">Применение</a><a data-design-id="g0010" href="#catalog">Каталог</a><a data-design-id="g0011" href="#how">Как покрасить</a><a data-design-id="g0012" href="#faq">Вопросы</a><a data-design-id="g0013" href="#buy">Где купить</a></nav><button data-design-id="g0014" class="btn nav-quiz" data-quiz>Подобрать покрытие</button></div></header>
-<main data-design-id="g0015" id="main"><section data-design-id="g0016" class="hero"><div data-design-id="g0017" class="wrap"><div data-design-id="g0018" class="hero-grid"><div data-design-id="g0019" class="hero-copy"><h1 data-design-id="g0020">Долговременная защита металла от коррозии</h1>
-<div data-design-id="g0024" class="hero-bottom">
-  <div data-design-id="g0025" class="hero-fact"><strong data-design-id="g0026">Защита от ржавчины</strong></div>
-  <a data-design-id="g0028" class="hero-fact service-life" href="#service-life-note" aria-label="15 лет службы. Условия эксплуатации"><strong data-design-id="g0029">15 лет службы*</strong></a>
-  <div data-design-id="fade-resistance" class="hero-fact"><strong>Не выгорает</strong></div>
-</div>
-<p class="hero-mobile-description" data-design-id="hero-mobile-description">ГРАНТ 2К — двухкомпонентные покрытия для металла и других поверхностей.</p>
-<p class="hero-desktop-description" data-design-id="g0031">Двухкомпонентный лакокрасочный материал линейки ГРАНТ 2К для защиты металла и других поверхностей. Технологичные решения для промышленности, производства и частных проектов.</p>
-<div data-design-id="g0033" class="actions"><a data-design-id="g0034" class="btn" href="#buy">Купить</a><button type="button" data-design-id="g0036" class="btn light" id="partnership">Сотрудничество</button></div></div><div data-design-id="g0038" class="hero-product"><div data-design-id="g0039" class="hero-stage"><div data-design-id="g0040" class="hero-crop" data-product="222"><img data-design-id="g0041" id="hero-image" src="assets/hero-pack-222.png" alt="Комплект ИП 222: коробка, основа и отвердитель" fetchpriority="high"></div></div><div class="hero-meta"><div data-design-id="g0042" class="product-caption" id="hero-caption">ИП 222 · Полуглянцевая грунт-эмаль</div><div data-design-id="g0043" class="carousel-controls"><button data-design-id="g0044" class="circle" id="prev" aria-label="Предыдущий продукт">‹</button><div data-design-id="g0045" class="dots" id="dots"></div><button data-design-id="g0046" class="circle" id="next" aria-label="Следующий продукт">›</button></div></div></div></div></div></section>
+<main data-design-id="g0015" id="main"><section data-design-id="g0016" class="hero"><div data-design-id="g0017" class="wrap"><div data-design-id="g0018" class="hero-grid"><div data-design-id="g0019" class="hero-copy"><h1 data-design-id="g0020">Система защиты<br>для металла,<br>дерева и бетона</h1>
+<p class="hero-mobile-description" data-design-id="hero-mobile-description">Двухкомпонентные грунты и эмали ГРАНТ 2К для ворот, ограждений и металлоконструкций.</p>
+<p class="hero-desktop-description" data-design-id="g0031">Двухкомпонентные грунты и эмали ГРАНТ 2К для ворот, ограждений и металлоконструкций.</p>
+
+<div data-design-id="g0033" class="actions"><a data-design-id="g0034" class="btn" href="#buy">Где купить</a><button type="button" data-design-id="g0036" class="btn light" id="partnership">Сотрудничество</button></div></div><div data-design-id="g0038" class="hero-product"><div data-design-id="g0039" class="hero-stage"><div data-design-id="g0040" class="hero-crop" data-product="222"><img data-design-id="g0041" id="hero-image" src="assets/hero-cans-222.webp" alt="Основа и отвердитель ИП 222" fetchpriority="high"></div></div><div class="hero-meta"><div data-design-id="g0042" class="product-caption" id="hero-caption">ИП 222 · Полуглянцевая грунт-эмаль</div><div data-design-id="g0043" class="carousel-controls"><button data-design-id="g0044" class="circle" id="prev" aria-label="Предыдущий продукт">‹</button><div data-design-id="g0045" class="dots" id="dots"></div><button data-design-id="g0046" class="circle" id="next" aria-label="Следующий продукт">›</button></div></div></div></div></div></section>
 <section data-design-id="g0049" id="applications" class="section wrap"><p class="section-eyebrow" data-design-id="application-eyebrow">Применение</p><div data-design-id="g0050" class="section-head"><h2 data-design-id="g0051">Что вы хотите покрасить?</h2><p data-design-id="g0052">Подберите защиту и внешний вид под свою задачу — от ворот у дома до деталей техники.</p></div><div data-design-id="g0053" class="applications"><article data-design-id="g0054" class="application"><h3 data-design-id="g0055">Дом и участок</h3><p data-design-id="g0056">Цвет и фактура под ваш дом, защитное покрытие для ворот, ограждений и кованых деталей.</p><ul data-design-id="g0057"><li data-design-id="g0058">Ворота и заборы</li><li data-design-id="g0059">Веранды и навесы</li><li data-design-id="g0060">Лестницы и перила</li><li data-design-id="g0061">Детские площадки, газовые трубы</li></ul><button data-design-id="g0062" class="text-link" data-example="0" aria-expanded="false" aria-controls="examples">Смотреть до и после</button></article><article data-design-id="g0063" class="application"><h3 data-design-id="g0064">Прицепы и техника</h3><p data-design-id="g0065">Покрытия для рам, шасси и наружных деталей, которым предстоит работать на улице.</p><ul data-design-id="g0066"><li data-design-id="g0067">Прицепы и кузова</li><li data-design-id="g0068">Рамы, шасси и баки</li><li data-design-id="g0069">Рессоры и детали машин</li><li data-design-id="g0070">Мини-экскаваторы и спецтехника</li></ul><button data-design-id="g0071" class="text-link" data-example="1" aria-expanded="false" aria-controls="examples">Смотреть до и после</button></article><article data-design-id="g0072" class="application"><h3 data-design-id="g0073">Металлоизделия<br>и оборудование</h3><p data-design-id="g0074">Выбор системы покрытия и оттенка для изделий внутри помещения и на открытом воздухе.</p><ul data-design-id="g0075"><li data-design-id="g0076">Электрощиты и контейнеры</li><li data-design-id="g0077">Корпуса редукторов и станков</li><li data-design-id="g0078">Металлическая мебель</li><li data-design-id="g0079">Металлоконструкции</li></ul><button data-design-id="g0080" class="text-link" data-example="2" aria-expanded="false" aria-controls="examples">Смотреть до и после</button></article></div><div data-design-id="g0081" class="compare-panel" id="examples" hidden><div data-design-id="g0085" class="comparison" data-scene="0"><div data-design-id="g0088" class="scene after"><img data-design-id="g0089" id="compare-after" src="assets/compare-gates-after.jpg" alt="Кованые ворота после окраски" width="1000" height="750" loading="lazy" decoding="async"></div><div data-design-id="g0086" class="scene before"><img data-design-id="g0087" id="compare-before" src="assets/compare-gates-before.jpg" alt="Кованые ворота до окраски" width="1000" height="750" loading="lazy" decoding="async"></div><span data-design-id="g0090" class="compare-label left">До</span><span data-design-id="g0091" class="compare-label right">После</span><div data-design-id="g0092" class="compare-handle" aria-hidden="true"></div><span data-design-id="compare-hint" class="compare-hint" id="compare-hint" aria-hidden="true">Потяните вбок</span><input data-design-id="g0093" id="compare-range" type="range" min="0" max="100" value="50" aria-label="Сравнение ворот до и после окраски" aria-valuetext="50% до, 50% после"></div></div><div data-design-id="g0094" class="industry-strip"><img data-design-id="g0095" src="assets/truck.webp" alt="Окрашенный оранжевый кузов техники" loading="lazy"><div data-design-id="g0096"><h3 data-design-id="g0097">Покрытия в работе</h3><p data-design-id="g0098">Окрашенная техника и металлоконструкции из материалов КВИЛ.</p><a data-design-id="g0099" href="#objects" class="text-link">Посмотреть объекты →</a></div><button data-design-id="g0100" class="btn" data-quiz>Подобрать краску</button></div></section>
 <section data-design-id="g0101" class="section benefits" id="benefits"><div data-design-id="g0102" class="wrap"><p class="section-eyebrow">Преимущества</p><div data-design-id="g0103" class="section-head landing-heading"><h2 data-design-id="g0104">Почему ГРАНТ 2К</h2></div><div data-design-id="g0106" class="benefit-grid"><article data-design-id="g0107" class="benefit"><div data-design-id="g0108" class="big">от 15 лет<sup>*</sup></div><h3 data-design-id="g0109">Долговечная защита металла</h3><p data-design-id="g0110">Срок службы, заявленный производителем для эмали PUR 232.</p></article><article data-design-id="g0111" class="benefit"><div class="big" data-design-id="g0112">−60…+60 °C<sup>*</sup></div><h3 data-design-id="benefit-conditions" class="benefit-subtitle">Покрытие выдерживает мороз и жару</h3><p data-design-id="g0113">Диапазон эксплуатации грунт-эмали УР-2К ИП 222. Покрытие также стойко к бензину и маслам.</p></article><article data-design-id="g0118" class="benefit"><div class="benefit-swatches" aria-hidden="true"><i style="--sample:#8f7049"></i><i style="--sample:#dbb44d"></i><i style="--sample:#b47150"></i><i style="--sample:#81b8ca"></i><i style="--sample:#903948"></i><i style="--sample:#405f87"></i></div><h3 data-design-id="g0119">Цвет и фактура на выбор</h3><p data-design-id="g0120">Глянец, полуглянец, мат или молотковый рисунок. Цвета — в карточках покрытий.</p><a data-design-id="g0121" href="#catalog" class="text-link">Выбрать покрытие →</a></article><article data-design-id="g0114" class="benefit"><h3 data-design-id="g0115">Контроль каждой партии</h3><p data-design-id="g0116">Как подготовить металл и нанести покрытие — в техническом описании каждого продукта.</p><button data-design-id="g0117" type="button" class="text-link" id="benefit-docs-open">Посмотреть документы →</button></article><article data-design-id="g0122" class="benefit"><h3 data-design-id="g0123">С 1993 года</h3><p data-design-id="g0124">«Краски КВИЛ» — российский производитель декоративных и промышленных покрытий.</p><a data-design-id="g0125" href="https://www.kvil.ru/" target="_blank" rel="noopener" class="text-link">О компании КВИЛ ↗</a></article><article data-design-id="g0126" class="benefit pick"><h3 data-design-id="g0127">Не знаете, что выбрать?</h3><p data-design-id="g0128">Ответьте на несколько вопросов. Покажем материал или систему для вашей задачи.</p><button data-design-id="g0129" class="btn" data-quiz>Подобрать материал →</button></article></div><p class="benefit-footnote" id="service-life-note">* Срок службы и стойкость зависят от продукта, системы покрытия и условий эксплуатации.</p></div></section>
 <section data-design-id="g0130" class="section" id="catalog"><div class="wrap"><p class="section-eyebrow">Покрытия</p><div data-design-id="g0131" class="section-head landing-heading"><h2 data-design-id="g0132">Каталог ГРАНТ 2К</h2><p data-design-id="g0133">Грунт готовит поверхность. Эмаль даёт цвет. Грунт-эмаль совмещает обе задачи.</p></div><div data-design-id="g0134" class="filters" role="group" aria-label="Категории продуктов"><button data-design-id="g0135" class="filter" data-filter="Все" aria-pressed="true">Все</button><button data-design-id="g0136" class="filter" data-filter="Грунты" aria-pressed="false">Грунты</button><button data-design-id="g0137" class="filter" data-filter="Эмали" aria-pressed="false">Эмали</button><button data-design-id="g0138" class="filter" data-filter="Грунт-эмали" aria-pressed="false">Грунт-эмали</button></div><div data-design-id="g0139" class="catalog-grid" id="catalog-grid"></div><noscript data-design-id="g0140">Для интерактивного каталога включите JavaScript. Технические описания доступны в папке assets рядом с этой страницей.</noscript></div></section>
@@ -7162,7 +7225,7 @@ function placeProductControls() {
   const actions = $('.hero .actions');
   const prev = $('#prev'), next = $('#next');
   if (heroPhone.matches) {
-    $('.hero-grid').append(actions);
+    $('.hero-product').before(actions);
     $('.hero-stage').append(prev, next);
   } else {
     $('.hero-copy').append(actions);
@@ -7174,7 +7237,7 @@ placeProductControls();
 heroPhone.addEventListener('change', placeProductControls);
 let heroIndex=2,paused=motion(),heroTimer;
 $('#dots').innerHTML=products.map((p,i)=>`<button class="dot" data-slide="${i}" aria-label="Показать ${esc(p.name)}" aria-pressed="${i===heroIndex}"></button>`).join('');
-function hero(){const p=products[heroIndex];$('.hero-crop').dataset.product=p.id;$('#hero-image').src=`assets/hero-pack-${p.id}.png?v=2`;$('#hero-image').alt=`Комплект ${p.name}: упаковки продукта`;$('#hero-caption').textContent=p.name+' · '+p.kind;$$('.dot').forEach((b,i)=>b.setAttribute('aria-pressed',i===heroIndex))}
+function hero(){const p=products[heroIndex];$('.hero-crop').dataset.product=p.id;$('#hero-image').src=`assets/hero-cans-${p.id}.webp`;$('.hero-crop').style.setProperty('--packshot',`url('assets/hero-cans-${p.id}.webp')`);$('#hero-image').alt=`Комплект ${p.name}: упаковки продукта`;$('#hero-caption').textContent=p.name+' · '+p.kind;$$('.dot').forEach((b,i)=>b.setAttribute('aria-pressed',i===heroIndex))}
 function timer(){clearInterval(heroTimer);if(!paused)heroTimer=setInterval(()=>{if(!document.hidden&&!$('dialog[open]')){heroIndex=(heroIndex+1)%products.length;hero()}},5000)}
 function slide(i){heroIndex=(i+products.length)%products.length;hero();timer()}
 $('#prev').onclick=()=>slide(heroIndex-1);$('#next').onclick=()=>slide(heroIndex+1);$$('.dot').forEach(b=>b.onclick=()=>slide(+b.dataset.slide));hero();timer();
