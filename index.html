@@ -677,12 +677,16 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 #buy .buy-online{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;padding-block:clamp(20px,2vw,28px)}
 #buy .buy-online h3{margin:0;font:600 clamp(17px,1.5vw,21px)/1.3 Okta,Arial,sans-serif}
 #buy .section-head p + p{margin-top:8px}
-#buy .marketplaces{width:100%;max-width:560px;margin:0;gap:10px;grid-template-columns:repeat(2,minmax(0,1fr))}
-#buy .marketplace{justify-content:space-between;min-height:60px;gap:8px;padding:10px 14px;border:1px solid var(--line);background:var(--white)}
-#buy .marketplace:hover,#buy .marketplace:focus-visible{background:var(--white);border-color:var(--muted)}
-#buy .marketplace strong{font:600 clamp(17px,1.5vw,21px)/1.2 Okta,Arial,sans-serif;gap:10px;flex-wrap:nowrap}
-#buy .marketplace img{width:34px;height:34px}
-#buy .marketplace::after{content:"↗";color:var(--ink);font-size:19px}
+:is(#buy,#product-detail,#quiz,#reviews) .marketplaces{width:100%;max-width:560px;margin:0;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,224px),1fr))}
+:is(#buy,#product-detail,#quiz,#reviews) .marketplace{color:var(--ink);text-decoration:none;text-align:start;border-radius:12px;height:auto;display:grid;grid-template-columns:minmax(0,1fr) 16px;align-items:center;min-height:52px;gap:12px;padding:12px 16px;border:1px solid var(--line);background:var(--white)}
+:is(#buy,#product-detail,#quiz,#reviews) .marketplace:hover,:is(#buy,#product-detail,#quiz,#reviews) .marketplace:focus-visible{background:var(--paper);border-color:var(--muted)}
+:is(#buy,#product-detail,#quiz,#reviews) .marketplace strong{display:flex;align-items:center;font:600 16px/24px Okta,Arial,sans-serif;gap:12px;flex-wrap:nowrap}
+:is(#buy,#product-detail,#quiz,#reviews) .marketplace img{width:24px;height:24px}
+:is(#buy,#product-detail,#quiz,#reviews) .marketplace::after{content:"";width:16px;height:16px;background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%232f385a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 12.5l9-9m-7 0h7v7'/%3E%3C/svg%3E")}
+.cd-buy .marketplaces{flex-basis:100%;grid-column:1/-1}
+.purchase-links{display:grid;justify-items:stretch}
+.review-source{display:grid;gap:8px;margin-top:16px;max-width:274px}
+:is(#product-detail,#quiz) .marketplace:disabled::after{visibility:hidden}
 #buy .buy-online{border-top:1px solid var(--line)}
 #buy #dealers{background:white;border-radius:0;padding:clamp(20px,2vw,28px) 0 var(--purchase-pad)}
 #buy .dealer-browser.has-shop{grid-template-areas:"list map"}
@@ -772,7 +776,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 .cd-empty button{border:0;padding:0;background:none;text-decoration:underline;font:inherit}
 .cd-buy{grid-area:buy;display:flex;gap:10px;flex-wrap:wrap}
 .cd-buy :is(a,button),.cd-pdf a{display:inline-flex;justify-content:center;align-items:center;height:50px;border-radius:10px;border:1px solid #dfe2ea;background:#f3f4f7;color:inherit;text-decoration:none;font:600 16px/1.2 Okta,Arial,sans-serif;padding:0 14px}
-.cd-buy a:first-child{color:#fff;background:#2f385a;border-color:#2f385a}
+.cd-buy>a:first-child{color:#fff;background:#2f385a;border-color:#2f385a}
 .cd-apply{grid-area:apply;border-top:1px solid #dfe2ea}
 .cd-apply h4{font:500 18px/1.35 Unbounded,Arial,sans-serif;margin:20px 0 4px}
 .cd-apply details{border-bottom:1px solid #dfe2ea}
@@ -794,7 +798,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
  .cd-specs>div{display:grid;grid-template-columns:minmax(78px,110px) minmax(0,1fr);align-items:baseline;gap:8px}
  .cd-specs dd{margin:0}
  .cd-buy{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
- .cd-buy a:first-child{grid-column:1/-1}
+ .cd-buy>a:first-child{grid-column:1/-1}
  .cd-buy :is(a,button){padding:0 4px;font-size:clamp(12px,5cqi,16px)}
  .cd-apply dl>div{grid-template-columns:1fr;gap:4px}
 }
@@ -7316,12 +7320,16 @@ const marketplaces = [
 function marketIcon(key) {
   return `<img src="assets/market-${key}.png?v=2e06763-d3e1121" width="28" height="28" alt="">`;
 }
+function marketButton(key,name,url,label){
+  const content=`<strong>${marketIcon(key)}${esc(name)}</strong>`;
+  if(!url)return `<button class="marketplace" type="button" disabled>${content}</button>`;
+  return `<a class="marketplace" href="${esc(url)}" aria-label="${esc(label)}" target="_blank" rel="noopener">${content}</a>`;
+}
 function purchaseLinks(product) {
-  const links = marketplaces.filter(({key})=>product.id!=='211'||product[key]).map(({key,name,storeUrl}) => {
-    const label = 'Посмотреть цену на ' + name;
-    return `<a class="market-icon" href="${esc(product[key] || storeUrl)}" aria-label="${label}" target="_blank" rel="noopener">${marketIcon(key)}<span aria-hidden="true">${label}</span></a>`;
-  });
-  return `<div class="purchase-links"><strong>Где купить комплект</strong>${links.join('')}</div>`;
+  const links=marketplaces.filter(({key})=>product.id!=='211'||product[key]).map(({key,name,storeUrl})=>
+    marketButton(key,name,product[key]||storeUrl,'Посмотреть цену на '+name)
+  );
+  return `<div class="purchase-links"><strong>Где купить комплект</strong><div class="marketplaces">${links.join('')}</div></div>`;
 }
 for (const {key,storeUrl} of marketplaces) {
   const card = document.querySelector('[data-market="'+key+'"]');
@@ -7628,12 +7636,12 @@ const normal = text => text.toLowerCase().replaceAll('ё','е').trim();
 const shadeName = c => [c.code && 'RAL '+c.code,c.name].filter(Boolean).join(' · ');
 
 function storeActions(product,colour){
-  return '<a href="#buy">Купить у дилера</a>'+marketplaces.map(({key,name})=>{
+  const links=marketplaces.map(({key,name})=>{
     const offer=colour?.items.find(item=>key==='vi'?item.url:item.ozonUrl);
     const url=(key==='vi'?offer?.url:offer?.ozonUrl)||product[key];
-    return url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${name}</a>` :
-      `<button type="button" aria-disabled="true" disabled>${name}</button>`;
-  }).join('');
+    return marketButton(key,name,url,'Посмотреть товар на '+name);
+  });
+  return '<a href="#buy">Купить у дилера</a><div class="marketplaces">'+links.join('')+'</div>';
 }
 function openProductRequest(product,shade,custom=false){
   const dialog=$('#dealer-request');
@@ -7812,7 +7820,7 @@ $$('[data-quiz]').forEach(b=>b.onclick=()=>{answers={};history=[];quizStep='mate
 // Missing answers remain explicit, rather than inferring technical properties.
 const faqs=[['Можно красить прямо по ржавчине?','Удалите ржавчину, окалину и отслоившуюся краску, очистите и обезжирьте поверхность. Степень подготовки — по инструкции выбранного продукта.'],['Можно по старой краске?','Отслоившуюся краску нужно снять до металла. Совместимость с оставшимся покрытием необходимо уточнить для выбранной системы.'],['Цвет не выгорит?',null],['Совместимы ли эпоксидные и полиуретановые покрытия?',null],['Можно наносить на грунт другого производителя?',null],['Чем разбавлять покрытие?','Используйте только разбавитель, указанный в инструкции выбранного продукта. Конкретные наименования и ссылки на покупку ещё уточняются.'],['Чем грунт-эмаль отличается от эмали?','Грунт-эмаль совмещает грунт и финишное покрытие. Эмаль PUR 232 в представленной системе наносится поверх грунта УниЭпокс 211.'],['При каких условиях можно наносить?',null],['Чем лучше красить?','Выбор инструмента зависит от продукта. Для ИП 222 полуглянцевой в рабочей карточке указаны кисть и валик на небольших участках. Точные рекомендации смотрите в техническом описании.'],['Какие есть цвета?','Палитра зависит от продукта: ИП 222 полуглянцевая — 134 оттенка RAL, матовая — 52, PUR 232 — 77, Ковка — 18 оттенков. УниЭпокс 211 — светло-серый.'],['Зачем указывать пропорцию компонентов?','Пропорция нужна, если вы готовите небольшую порцию материала. Соблюдайте соотношение и порядок смешивания из инструкции.'],['Совместимо с огнезащитными составами?',null]];
 $('#faq-list').innerHTML=faqs.map(([q,a])=>`<details><summary>${esc(q)}</summary><p>${a?esc(a):'Ответ для выбранного продукта ещё готовится. Уточните совместимость и условия у производителя: <a href="tel:88001015239">8-800-101-52-39</a>.'}</p>${!a?'':''}</details>`).join('');
-$('#review-list').innerHTML=DATA.reviews.map((r,i)=>`<article class="review"><p class="review-name">${esc(r.author)}</p><p class="review-meta">${esc(r.product)} · ${esc(r.meta)}</p><blockquote class="review-short" id="review-${i}">${esc(r.text)}</blockquote><button class="text-link" data-review="${i}" aria-expanded="false" aria-controls="review-${i}">Читать полностью</button><br>${external(r.url,'Источник: ВсеИнструменты ↗')}</article>`).join('');$$('[data-review]').forEach(b=>b.onclick=()=>{const open=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',open);b.textContent=open?'Свернуть':'Читать полностью';$('#review-'+b.dataset.review).classList.toggle('review-short',!open)});
+$('#review-list').innerHTML=DATA.reviews.map((r,i)=>`<article class="review"><p class="review-name">${esc(r.author)}</p><p class="review-meta">${esc(r.product)} · ${esc(r.meta)}</p><blockquote class="review-short" id="review-${i}">${esc(r.text)}</blockquote><button class="text-link" data-review="${i}" aria-expanded="false" aria-controls="review-${i}">Читать полностью</button><div class="review-source"><span>Источник отзыва</span>${marketButton('vi','ВсеИнструменты',r.url,'Источник отзыва на ВсеИнструменты')}</div></article>`).join('');$$('[data-review]').forEach(b=>b.onclick=()=>{const open=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',open);b.textContent=open?'Свернуть':'Читать полностью';$('#review-'+b.dataset.review).classList.toggle('review-short',!open)});
 function bindPhotos(root=document){$$('[data-photo]',root).forEach(b=>b.onclick=()=>{$('#large-photo').src=b.dataset.photo;$('#large-photo').alt=b.dataset.caption;$('#photo-caption').textContent=b.dataset.caption;openDialog($('#lightbox'))})}bindPhotos();
 function demo(type){$('#info-body').innerHTML=`<h2 id="info-title">Ссылка готовится</h2><p>${type==='ozon'?'Точная ссылка на магазин или товар на Ozon ещё не добавлена. Вы можете посмотреть карточки продуктов или связаться с производителем.':'Общая ссылка на магазин бренда ещё не добавлена. В подробных карточках уже есть ссылки на конкретные товары во ВсеИнструменты.'}</p><div class="actions"><button class="btn" id="demo-catalog">Перейти к каталогу</button><a class="btn ghost" href="tel:88001015239">Позвонить</a></div>`;$('#demo-catalog').onclick=()=>{$('#info').close();jump($('#catalog'))};openDialog($('#info'))}
 function bindDemos(root=document){$$('[data-demo]',root).forEach(b=>b.onclick=()=>demo(b.dataset.demo))}bindDemos();
