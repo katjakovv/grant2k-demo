@@ -2355,7 +2355,63 @@ body{background:var(--bg-a)}
 
 </style>
 
-<style id="claude-step14b">
+<style id="claude-favorites">
+/* Катя 26.11: «Избранное» вместо «Моих систем», одна кнопка «Купить» */
+/* Катя 26.11: сердце в квадрате, как кнопка меню; пустое — белый контур, с избранным — оранжевое; трубка остаётся оранжевой.
+   Интервалы между значками шапки одинаковые: только gap ряда, без собственных отступов */
+html body .header .sys-pill,html body .header .sys-pill[hidden]{background:#4a557e;border-radius:12px;box-shadow:none;margin:0}
+html body .header .sys-pill:hover{background:#56628e}
+html body .header .sys-pill svg.fav-ico{width:26px;height:26px;min-width:26px;color:#fff}
+html body .header .sys-pill.has-fav svg.fav-ico path{fill:#ff5300;stroke:#fff;stroke-width:1.4}
+/* число — рядом с сердцем внутри кнопки, ничего не выступает над рядом; без избранного кнопка квадратная */
+html body .header .sys-pill .sys-badge{position:static;min-width:0;height:auto;padding:0;background:none;box-shadow:none;color:#fff;font-size:15px;font-weight:700;line-height:1}
+html body .header .sys-pill.has-fav{width:auto;padding:0 14px 0 12px;gap:6px}
+@media (max-width:960px){html body .header .sys-pill{margin-left:auto}html body .header .nav-call{margin-left:0}}
+/* Катя 26.11: на компьютере сердце, «Подобрать покрытие» и трубка — одна группа с шагом 12 px; от меню группа отделена общим gap ряда */
+@media (min-width:1001px){html body .header .nav-quiz,html body .header .nav-call{margin-left:-16px}}
+@media (min-width:961px) and (max-width:1000px){html body .header .nav-quiz,html body .header .nav-call{margin-left:-6px}}
+/* Катя 26.11, вариант Б: компактная шапка на компьютере — 64 px вместо 80 (обычный диапазон дизайн-систем 48–72 px);
+   пункты меню чуть приглушены, чтобы выделялись логотип и кнопки */
+@media (min-width:961px){html:root{--hero-header-height:64px}html:root{scroll-padding-top:64px}
+html body .header #nav a{color:#ffffffd9}html body .header #nav a:hover,html body .header #nav a:focus-visible{color:#fff}}
+/* Катя 26.11: одна горизонтальная ось шапки на компьютере. Буквы Okta сидят в строке на 1,5 px выше середины,
+   поэтому текст меню и кнопки опущен на 1 px; логотип уменьшен, чтобы не перевешивал меню (буквы 20 px вместо 23) */
+@media (min-width:961px){html body .header .wordmark img{width:142px}html body .header #nav{padding-top:2px}
+html body .header .nav-quiz,html body .header .nav-quiz[data-design-id]{padding-top:2px;padding-bottom:0}}
+/* Катя 26.11: меню — сразу за логотипом, служебная группа (избранное, подбор, звонок) — отдельно у правого края */
+@media (min-width:961px){html body .header #nav{margin-left:clamp(16px,3vw,48px);margin-right:auto}}
+.fav-ico{flex:none}
+#catalog .cd-buy .cd-save,#quiz .qz-save-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+#catalog .cd-buy .cd-save.is-saved .fav-ico,#quiz .qz-save-btn.is-saved .fav-ico,#dealer-ask .da-saved .fav-ico{color:#e84a00}
+#dealer-ask .da-saved .fav-ico{display:inline-block;vertical-align:-3px}
+#catalog .cd-buy>a:first-child{min-width:160px}
+#dealer-ask .da-part{margin:24px 0 8px;font-size:16px;line-height:1.35;font-weight:700}
+#dealer-ask .da-online{display:grid;gap:8px}
+#dealer-ask .da-online-row+.da-online-row{margin-top:8px}
+#dealer-ask .da-online .da-part{margin-bottom:0}
+#dealer-ask .da-online-row{display:grid;gap:8px}
+#dealer-ask .da-online-name{font-size:14px;color:#5d6786}
+#dealer-ask .da-online-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#dealer-ask .da-online-links .qz-shop{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 12px;border-radius:12px;color:#fff;font-weight:700;text-decoration:none}
+#dealer-ask .da-online-links .qz-shop img{display:none}
+#dealer-ask .da-online-links .qz-shop::after{content:"↗";font-weight:400}
+#dealer-ask .da-online-links a[href*="ozon.ru"]{background:#005bff}
+#dealer-ask .da-online-links a[href*="ozon.ru"]:hover{background:#004ad1}
+#dealer-ask .da-online-links a[href*="vseinstrumenti.ru"]{background:#e30613}
+#dealer-ask .da-online-links a[href*="vseinstrumenti.ru"]:hover{background:#c00510}
+#dealer-ask .da-online+.da-part+.da-city{margin-top:0}
+#my-systems .ms-acts .ms-buy{background:#be4000;border-color:#be4000;color:#fff}
+#my-systems .ms-acts .ms-buy:hover{background:#a43700;border-color:#a43700}
+#my-systems .ms-foot:empty{margin:0;padding-bottom:24px}
+#buy .buy-focus{display:inline-flex;align-items:center;gap:12px;margin-top:16px;padding:6px 6px 6px 8px;border-radius:16px;background:#fff;color:var(--ink);font-size:16px;line-height:1.35;box-shadow:0 0 0 1.5px #ff530059}
+#buy .buy-focus[hidden]{display:none}
+#buy .buy-focus img{width:40px;height:40px;object-fit:contain;border-radius:10px;background:#f3f4f8;padding:3px}
+#buy .buy-focus b{font-weight:700}
+#buy .buy-focus-x{flex:none;width:36px;height:36px;border:0;border-radius:10px;background:#f1f2f6;color:var(--ink);font-size:20px;line-height:1;cursor:pointer}
+#buy .buy-focus-x:hover{background:#e6e8ef}
+#buy .marketplace[hidden]{display:none}
+@media (max-width:700px){#my-systems .ms-foot:empty{padding-bottom:calc(16px + env(safe-area-inset-bottom))}}
+</style><style id="claude-step14b">
 /* Claude, правка шага 14 по решению Кати (Miro 14, 14в; демо Claude_14_Анимация_значка): подбор оранжевый, «Мои системы» — круглый значок-банка, кольцо при сохранении */
 .header .nav-quiz,.header .nav-quiz[data-design-id]{min-height:44px;height:44px;padding:0 20px;border-radius:12px;background:#ff5300!important;color:#fff!important;font-weight:700}
 .header .nav-quiz:hover{background:#e64a00!important}
@@ -2431,8 +2487,45 @@ body{background:var(--bg-a)}
  #quiz .system-buy{gap:5px;padding:8px}
  #quiz .system-buy .qz-shop{padding:0 7px;font-size:13px}
 }
+</style><style id="claude-dealer-cards">
+/* Claude, карточки дилеров: одна главная кнопка, общий вид свёрнутой и раскрытой карточки */
+#buy .dealer-scroll .gk-note{margin:0!important;padding:0!important;border-radius:0;background:none}
+#buy #dealer-options section{gap:16px}
+#buy .dealer-scroll>.gk-note+#dealer-options{margin-top:16px}
+#buy .dealer-scroll .gk-note span{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border-radius:10px;background:var(--soft);color:var(--ink);font-size:14px;font-weight:400;line-height:1.4;text-align:left}
+#buy .dealer-scroll .gk-note span::before{content:"i";flex:none;display:grid;place-items:center;width:18px;height:18px;margin-top:1px;border:1.5px solid var(--muted);border-radius:50%;color:var(--muted);font:600 11px/1 Okta,Arial,sans-serif}
+#buy .dealer-card:has(>[aria-expanded=true]){border-color:var(--ink);background:#fff}
+#buy #dealer-options .dealer-card .dealer-choice[aria-expanded=true]::after{border-color:#8a93ad}
+#buy #dealer-options .dealer-card .dealer-choice{padding-bottom:0}
+#buy #dealer-options .dealer-card .dealer-choice span{margin-top:8px;line-height:1.3}
+#buy .dc-phone{gap:8px;margin:12px 16px 14px;min-height:24px;text-decoration:underline;text-underline-offset:3px}
+#buy .dc-phone svg,#buy .dc-row svg{flex:none;color:var(--muted)}
+#buy .dealer-card #dealer-contact-card{display:flex;flex-direction:column;margin:16px 16px 0;padding:16px 0;border-top:1px solid #e6e9f1}
+#buy .dealer-card #dealer-contact-card > *{order:3}
+#buy #dealer-contact-card #hours-status{order:1}
+#buy #dealer-contact-card #hours-table{order:2}
+#buy #dealer-contact-card #shop-details{order:3}
+#buy #dealer-contact-card #dealer-phones{order:4;margin-top:12px}
+#buy #dealer-contact-card #shop-request{order:5}
+#buy #dealer-contact-card .dc-route{order:6}
+#buy #dealer-contact-card #shop-details:empty{display:none}
+#buy #dealer-contact-card p.dc-row{display:flex;align-items:center;gap:10px;padding:4px 0;min-height:32px}
+#buy #dealer-contact-card p.dc-row a[href^="tel:"]{font-weight:600}
+#buy #dealer-contact-card #dealer-phones a.dc-call{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;padding:0 16px;border-radius:10px;background:var(--ink);color:#fff;font-weight:600;font-size:15px;text-decoration:none}
+#buy #dealer-contact-card #dealer-phones a.dc-call:hover{background:#3d4870;color:#fff}
+#buy #dealer-contact-card #dealer-phones a.dc-call svg{color:#fff}
+#buy #shop-request{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;margin-top:8px;padding:0 16px;border:1.5px solid var(--ink);border-radius:10px;background:#fff;color:var(--ink);font-size:15px;font-weight:600;text-decoration:none}
+#buy #shop-request:hover{background:var(--soft);transform:none}
+#buy #dealer-contact-card a.dc-route{display:inline-flex;align-self:flex-start;gap:6px;align-items:center;min-height:40px;margin-top:8px;padding:0;border:0;background:none;color:var(--muted)!important;font-size:14px;font-weight:400;text-decoration:underline;text-underline-offset:3px}
+#buy #dealer-contact-card a.dc-route:hover{background:none;color:var(--ink)!important}
+@media (min-width:701px){
+  #buy #dealer-options .dealer-card .dealer-choice,#buy #dealer-options .dealer-card .dealer-choice[aria-expanded=true]{padding:24px 48px 0 24px}
+  #buy .dc-phone{margin:12px 24px 22px}
+  #buy .dealer-card #dealer-contact-card{margin:16px 24px 0;padding:16px 0 24px}
+  #buy #dealer-options section{gap:24px}
+}
 </style></head><body data-design-id="g0001"><a data-design-id="g0002" class="skip" href="#main">К содержанию</a>
-<header data-design-id="g0003" class="header"><div data-design-id="g0004" class="wrap nav-inner"><a data-design-id="g0005" class="wordmark" href="#main" aria-label="GRANT2K — в начало"><img data-design-id="g0006" src="assets/grant2k-logo.svg?v=white-1" alt="GRANT2K" width="164" height="26"></a><a class="nav-call" href="tel:88001015239" aria-label="Позвонить: 8-800-101-52-39"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a><button data-design-id="g0007" class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Меню"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="menu-toggle-label">Меню</span></button><nav data-design-id="g0008" id="nav" aria-label="Основное меню"><a data-design-id="g0009" href="#applications">Применение</a><a data-design-id="g0010" href="#catalog">Каталог</a><a data-design-id="g0011" href="#how">Как покрасить</a><a data-design-id="g0013" href="#buy">Где купить</a><a href="#workshops">Оптовый заказ</a></nav><button type="button" class="sys-pill" id="sys-pill" aria-haspopup="dialog" hidden>☆ Система</button><button data-design-id="g0014" class="btn nav-quiz" data-quiz>Подобрать покрытие</button></div></header>
+<header data-design-id="g0003" class="header"><div data-design-id="g0004" class="wrap nav-inner"><a data-design-id="g0005" class="wordmark" href="#main" aria-label="GRANT2K — в начало"><img data-design-id="g0006" src="assets/grant2k-logo.svg?v=white-1" alt="GRANT2K" width="164" height="26"></a><a class="nav-call" href="tel:88001015239" aria-label="Позвонить: 8-800-101-52-39"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a><button data-design-id="g0007" class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Меню"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="menu-toggle-label">Меню</span></button><nav data-design-id="g0008" id="nav" aria-label="Основное меню"><a data-design-id="g0009" href="#applications">Применение</a><a data-design-id="g0010" href="#catalog">Каталог</a><a data-design-id="g0011" href="#how">Как покрасить</a><a data-design-id="g0013" href="#buy">Где купить</a><a href="#workshops">Оптовый заказ</a></nav><button type="button" class="sys-pill" id="sys-pill" aria-haspopup="dialog" hidden>Избранное</button><button data-design-id="g0014" class="btn nav-quiz" data-quiz>Подобрать покрытие</button></div></header>
 <main data-design-id="g0015" id="main"><section data-design-id="g0016" class="hero"><div data-design-id="g0017" class="wrap"><div data-design-id="g0018" class="hero-grid"><div data-design-id="g0019" class="hero-copy"><h1 data-design-id="g0020">Долговременная защита от коррозии</h1>
 <ul class="hero-badges" aria-label="Свойства покрытий"><li class="hero-badge-wide">2К состав</li><li>15 лет службы</li><li>не выгорает</li></ul>
 <p class="hero-mobile-description" data-design-id="hero-mobile-description">Двухкомпонентные материалы GRANT2K подходят для металла, оцинкованной стали, дерева, бетона и стеклопластика.</p>
@@ -2440,7 +2533,7 @@ body{background:var(--bg-a)}
 
 <div data-design-id="g0033" class="actions"><a data-design-id="g0034" class="btn" href="#buy">Где купить</a><a href="#workshops" class="btn light" id="partnership"><span class="label-long">Купить оптом</span><span class="label-short">Оптом</span></a></div></div><div data-design-id="g0038" class="hero-product"><div data-design-id="g0039" class="hero-stage"><div data-design-id="g0040" class="hero-crop" data-product="222"><img data-design-id="g0041" id="hero-image" src="assets/hero-cans-222.webp" alt="Основа и отвердитель ИП 222" fetchpriority="high"></div></div><div class="hero-meta"><div data-design-id="g0042" class="product-caption" id="hero-caption">ИП 222 · Полуглянцевая грунт-эмаль</div><div data-design-id="g0043" class="carousel-controls"><button data-design-id="g0044" class="circle" id="prev" aria-label="Предыдущий продукт">‹</button><div data-design-id="g0045" class="dots" id="dots"></div><button data-design-id="g0046" class="circle" id="next" aria-label="Следующий продукт">›</button></div></div></div></div></div></section>
 <section data-design-id="g0049" id="applications" class="section wrap apps"><div class="apps-head"><p class="section-eyebrow" data-design-id="application-eyebrow">Применение</p><h2 data-design-id="g0051">Что вы хотите <br>покрасить?</h2><div class="apps-intro"><p data-design-id="g0052"><span class="apps-lead-wide">Выберите задачу — покажем, как выглядит результат и какой материал взять.</span><span class="apps-lead-narrow">Листайте карточки — покажем результат и подходящий материал.</span></p><a class="apps-all" href="#objects">Все объекты в работе →</a></div></div><div class="apps-tabs" role="group" aria-label="Направление"><button type="button" class="apps-tab" data-app-tab="0" aria-controls="app-home" aria-pressed="true">Дом и участок</button><button type="button" class="apps-tab" data-app-tab="1" aria-controls="app-tech" aria-pressed="false">Техника</button><button type="button" class="apps-tab" data-app-tab="2" aria-controls="app-equipment" aria-pressed="false">Оборудование</button></div><div class="apps-track"><article class="app-card" id="app-home" aria-labelledby="app-home-title"><div class="app-photo" data-state="after"><img class="app-img app-before" src="assets/compare-gates-before.jpg" alt="Кованые ворота до окраски" width="1000" height="750" loading="lazy" decoding="async"><img class="app-img app-after" src="assets/compare-gates-after.jpg" alt="Кованые ворота после окраски" width="1000" height="750" loading="lazy" decoding="async"><div class="ba-toggle" role="group" aria-label="Кованые ворота: до или после окраски"><button type="button" data-ba="before" aria-pressed="false">До</button><button type="button" data-ba="after" aria-pressed="true">После</button></div></div><div class="app-body"><h3 id="app-home-title"><span class="app-num">01</span> <span class="app-title">Дом и участок</span></h3><ul class="app-tags" aria-label="Примеры"><li>Ворота и заборы</li><li>Веранды и навесы</li><li>Лестницы и перила</li><li>Детские площадки</li><li>Газовые трубы</li></ul><button type="button" class="app-pick" data-quiz-object="home">Подобрать для дома</button></div></article><article class="app-card" id="app-tech" aria-labelledby="app-tech-title"><div class="app-photo" data-state="after"><img class="app-img app-before" src="assets/compare-truck-before.jpg" alt="Кузов прицепа до окраски" width="1000" height="750" loading="lazy" decoding="async"><img class="app-img app-after" src="assets/compare-truck-after.jpg" alt="Кузов прицепа после окраски" width="1000" height="750" loading="lazy" decoding="async"><div class="ba-toggle" role="group" aria-label="Кузов прицепа: до или после окраски"><button type="button" data-ba="before" aria-pressed="false">До</button><button type="button" data-ba="after" aria-pressed="true">После</button></div></div><div class="app-body"><h3 id="app-tech-title"><span class="app-num">02</span> <span class="app-title">Прицепы и техника</span></h3><ul class="app-tags" aria-label="Примеры"><li>Прицепы и кузова</li><li>Рамы и шасси</li><li>Баки</li><li>Рессоры</li><li>Спецтехника</li></ul><button type="button" class="app-pick" data-quiz-object="tech">Подобрать для техники</button></div></article><article class="app-card" id="app-equipment" aria-labelledby="app-equipment-title"><div class="app-photo" data-state="after"><img class="app-img app-before" src="assets/compare-panels-before.jpg" alt="Трансформаторная подстанция до окраски" width="1000" height="750" loading="lazy" decoding="async"><img class="app-img app-after" src="assets/compare-panels-after.jpg" alt="Трансформаторная подстанция после окраски" width="1000" height="750" loading="lazy" decoding="async"><div class="ba-toggle" role="group" aria-label="Трансформаторная подстанция: до или после окраски"><button type="button" data-ba="before" aria-pressed="false">До</button><button type="button" data-ba="after" aria-pressed="true">После</button></div></div><div class="app-body"><h3 id="app-equipment-title"><span class="app-num">03</span> <span class="app-title">Металлоизделия и оборудование</span></h3><ul class="app-tags" aria-label="Примеры"><li>Электрощиты</li><li>Контейнеры</li><li>Станки и редукторы</li><li>Металлическая мебель</li></ul><button type="button" class="app-pick" data-quiz-object="equipment">Подобрать для оборудования</button></div></article></div><div class="apps-pager" aria-hidden="true"><span class="apps-dots"><i class="on"></i><i></i><i></i></span><span class="apps-count"><b>1</b> / 3 · листайте →</span></div></section><section data-design-id="g0101" class="section benefits bnf" id="benefits"><div data-design-id="g0102" class="wrap"><p class="section-eyebrow">Преимущества</p><h2 class="bnf-title" data-design-id="g0104">Почему GRANT2K</h2><div class="bnf-grid"><article class="bnf-card bnf-num"><p class="bnf-big">от 15 лет<sup>*</sup></p><h3>Срок службы покрытия</h3><p class="bnf-text">В отличие от традиционных 1К материалов, 2К составы GRANT2K обеспечивают повышенную прочность и долговечность покрытия.</p></article><article class="bnf-card bnf-num"><p class="bnf-big">−60…+60&nbsp;°C<sup>*</sup></p><h3>Стойкость в агрессивных средах</h3><p class="bnf-text">Выдерживает мороз, жару, воздействие бензина и масел.</p></article><article class="bnf-card bnf-finish"><ul class="bnf-swatches" aria-label="Виды поверхности"><li><i class="sw-gloss" aria-hidden="true"></i>глянец</li><li><i class="sw-satin" aria-hidden="true"></i>полуглянец</li><li><i class="sw-matte" aria-hidden="true"></i>матовое</li><li><i class="sw-hammer" aria-hidden="true"></i>молотковая</li></ul><h3>Четыре фактуры покрытия</h3><p class="bnf-text">Выберите покрытие: глянцевое, полуглянцевое, матовое или с молотковым рисунком.</p><a href="#catalog" class="bnf-link">Выбрать покрытие →</a></article><article class="bnf-card"><p class="bnf-big">100%</p><h3>партий проходят ОКК<sup>**</sup> завода</h3><p class="bnf-text">Характеристики подтверждены заключениями аккредитованных испытательных центров.</p><button type="button" class="bnf-link" id="benefit-docs-open">Посмотреть документы →</button></article><article class="bnf-card"><p class="bnf-big">33 года</p><h3>производим покрытия на заводе КВИЛ</h3><p class="bnf-text">Специалисты завода консультируют на всех этапах — от выбора материала до нанесения.</p><a href="https://www.kvil.ru/" target="_blank" rel="noopener" class="bnf-link">О компании КВИЛ →</a></article><div class="bnf-photo"><a href="#objects" aria-label="Посмотреть фотографии покрытий на реальных объектах"><img src="assets/object-tractor.webp" alt="Седельный тягач КАМАЗ, окрашенный эмалью PUR 232" loading="lazy" decoding="async"><span class="bnf-tag">Покрытия в работе</span><span class="bnf-caption">КАМАЗ · PUR 232</span></a></div></div><p class="benefit-footnote bnf-note" id="service-life-note">* Срок службы и стойкость зависят от продукта, системы покрытия, условий эксплуатации и подготовки поверхности.<br>** ОКК — отдел контроля качества.</p></div></section><section data-design-id="g0130" class="section" id="catalog"><div class="wrap"><p class="section-eyebrow">Покрытия</p><div data-design-id="g0131" class="section-head landing-heading"><h2 data-design-id="g0132">Каталог GRANT2K</h2><p data-design-id="g0133">Грунт готовит поверхность. Эмаль даёт цвет. Грунт-эмаль совмещает обе задачи.<br>У наших дилеров доступна <strong>колеровка в любой цвет</strong>.</p></div><div class="catalog-bar"><div data-design-id="g0134" class="filters" role="tablist" aria-label="Категории продуктов"><button data-design-id="g0135" class="filter" data-filter="Все" aria-pressed="true">Все продукты</button><button data-design-id="g0136" class="filter" data-filter="Грунты" aria-pressed="false">Грунт</button><button data-design-id="g0137" class="filter" data-filter="Эмали" aria-pressed="false">Эмаль</button><button data-design-id="g0138" class="filter" data-filter="Грунт-эмали" aria-pressed="false">Грунт-эмали</button></div><p class="catalog-total" id="catalog-total" aria-live="polite"></p></div><div data-design-id="g0139" class="catalog-grid" id="catalog-grid" role="tabpanel"></div><div class="catalog-pick"><div class="cp-intro"><p class="cp-eyebrow">Подбор по задаче</p><h3>Что вы красите?</h3><p>Выберите объект — покажем, какие составы нужны и в каком порядке их наносить.</p></div><div class="cp-list"><button type="button" data-quiz-object="home"><span>Дом и участок</span><span class="cp-arrow" aria-hidden="true">→</span></button><button type="button" data-quiz-object="tech"><span>Прицепы и техника</span><span class="cp-arrow" aria-hidden="true">→</span></button><button type="button" data-quiz-object="equipment"><span>Металлоизделия и оборудование</span><span class="cp-arrow" aria-hidden="true">→</span></button></div></div><noscript data-design-id="g0140">Для интерактивного каталога включите JavaScript. Технические описания доступны в папке assets рядом с этой страницей.</noscript></div></section>
-<section data-design-id="g0141" class="section how hw" id="how"><div data-design-id="g0142" class="wrap"><p class="section-eyebrow">Как покрасить</p><h2 class="hw-title" data-design-id="g0144">Два компонента.<br>Четыре простых шага</h2><ol data-design-id="g0145" class="hw-steps"><li><span class="hw-num" aria-hidden="true">1</span><h3>Подготовьте поверхность</h3><p>Удалите ржавчину, окалину и непрочную краску, очистите и обезжирьте поверхность. Перед PUR 232 загрунтуйте металл.</p></li><li><span class="hw-num" aria-hidden="true">2</span><h3>Смешайте компоненты</h3><p>Соедините основу и отвердитель по инструкции к материалу, постоянно помешивая.</p></li><li><span class="hw-num" aria-hidden="true">3</span><h3>Нанесите покрытие</h3><p>Используйте распылитель или кисть. Возможность нанесения валиком и интервал между слоями проверьте в инструкции.</p></li><li><span class="hw-num" aria-hidden="true">4</span><h3>Дайте набрать прочность</h3><p>Время сушки и набора прочности смотрите в инструкции к покрытию.</p></li></ol><div class="hw-video" data-video="https://rutube.ru/play/embed/862d57c7755a427f9ded1aea7f1490fa?autoplay=1"><button type="button" class="hw-cover" aria-label="Смотреть видео «Как подготовить и покрасить» на YouTube"><img src="assets/object-tanker.webp" alt="" loading="lazy" decoding="async"><span class="hw-play" aria-hidden="true"></span><span class="hw-caption"><strong data-design-id="g0160">Как подготовить и покрасить</strong></span></button></div></div></section><section data-design-id="g0162" class="section fq" id="faq"><div class="wrap fq-grid"><div class="fq-intro"><p class="section-eyebrow">Ответы</p><h2 class="fq-title" data-design-id="g0164">Частые вопросы</h2><p data-design-id="g0165">Здесь собраны общие ответы. Подробные условия нанесения и время сушки указаны в инструкции к каждому продукту.</p></div><div class="fq-main"><div class="fq-tabs" role="tablist" aria-label="Темы вопросов"></div><div data-design-id="g0166" class="fq-list" id="faq-list" role="tabpanel"></div></div><div data-design-id="g0167" class="fq-call"><p class="fq-call-title">Не нашли свой вопрос?</p><p>Ответим по телефону.</p><a data-design-id="g0170" class="fq-call-btn" href="tel:88001015239">8-800-101-52-39 · Позвонить</a></div></div></section><section data-design-id="g0171" class="section wrap rv" id="reviews"><div class="rv-head"><div><p class="section-eyebrow">Отзывы</p><h2 class="rv-title" data-design-id="g0173">Опыт покупателей</h2></div><div class="rv-summary" id="review-summary" hidden></div></div><div class="rv-track" id="review-list" tabindex="0" aria-label="Отзывы покупателей, листаются вбок"></div><div class="rv-nav"><button type="button" class="rv-arrow" id="review-prev" aria-label="Предыдущий отзыв">←</button><button type="button" class="rv-arrow" id="review-next" aria-label="Следующий отзыв">→</button><span class="rv-pos" id="review-pos" aria-live="polite"></span></div></section><section class="section wrap objects-sec ob-sec" aria-labelledby="ob-title"><div data-design-id="g0175" id="objects" class="ob"><p class="section-eyebrow">Объекты</p><h2 class="ob-title" id="ob-title" data-design-id="g0176">GRANT2K на реальных объектах</h2><p class="ob-lead">Техника, оборудование и металлоконструкции с нашими покрытиями</p><div class="ob-stage" tabindex="0" aria-roledescription="карусель" aria-label="Объекты, листаются стрелками"><figure class="ob-item" data-i="0"><button type="button" class="ob-photo" data-photo="assets/station.webp" data-caption="Трансформаторная подстанция · серия ИП 222" aria-label="Увеличить фото: Трансформаторная подстанция, ИП 222"><img src="assets/station.webp" alt="Трансформаторная подстанция, покрытие ИП 222" loading="lazy" decoding="async"></button><figcaption><strong>Трансформаторная подстанция</strong><span>ИП 222</span></figcaption></figure><figure class="ob-item" data-i="1"><button type="button" class="ob-photo" data-photo="assets/object-tractor.webp" data-caption="Седельный тягач КАМАЗ · PUR 232" aria-label="Увеличить фото: Седельный тягач КАМАЗ, PUR 232"><img src="assets/object-tractor.webp" alt="Седельный тягач КАМАЗ, покрытие PUR 232" loading="lazy" decoding="async"></button><figcaption><strong>Седельный тягач КАМАЗ</strong><span>PUR 232</span></figcaption></figure><figure class="ob-item" data-i="2"><button type="button" class="ob-photo" data-photo="assets/object-tanker.webp" data-caption="Топливная цистерна · УниЭпокс 211" aria-label="Увеличить фото: Топливная цистерна, УниЭпокс 211"><img src="assets/object-tanker.webp" alt="Топливная цистерна, покрытие УниЭпокс 211" loading="lazy" decoding="async"></button><figcaption><strong>Топливная цистерна</strong><span>УниЭпокс 211</span></figcaption></figure><figure class="ob-item" data-i="3"><button type="button" class="ob-photo" data-photo="assets/object-playground.webp" data-caption="Детская площадка · ИП 222" aria-label="Увеличить фото: Детская площадка, ИП 222"><img src="assets/object-playground.webp" alt="Детская площадка, покрытие ИП 222" loading="lazy" decoding="async"></button><figcaption><strong>Детская площадка</strong><span>ИП 222</span></figcaption></figure><figure class="ob-item" data-i="4"><button type="button" class="ob-photo" data-photo="assets/object-playground-detail.webp" data-caption="Элементы детской площадки · ИП 222" aria-label="Увеличить фото: Элементы детской площадки, ИП 222"><img src="assets/object-playground-detail.webp" alt="Элементы детской площадки, покрытие ИП 222" loading="lazy" decoding="async"></button><figcaption><strong>Элементы детской площадки</strong><span>ИП 222</span></figcaption></figure><figure class="ob-item" data-i="5"><button type="button" class="ob-photo" data-photo="assets/truck.webp" data-caption="Окрашенная техника · серия 211 + 232 из материалов компании" aria-label="Увеличить фото: Грузовая техника, УниЭпокс 211 + PUR 232"><img src="assets/truck.webp" alt="Грузовая техника, покрытие УниЭпокс 211 + PUR 232" loading="lazy" decoding="async"></button><figcaption><strong>Грузовая техника</strong><span>УниЭпокс 211 + PUR 232</span></figcaption></figure></div><div class="ob-nav"><button type="button" class="ob-arrow" id="ob-prev" aria-label="Предыдущий объект">←</button><button type="button" class="ob-arrow" id="ob-next" aria-label="Следующий объект">→</button><span class="ob-pos" id="ob-pos" aria-live="polite"></span></div></div></section><section data-design-id="g0202" class="section buy" id="buy"><div data-design-id="g0203" class="wrap"><div class="buy-panel"><div class="gk-head"><h2 data-design-id="g0205">Где купить</h2><p data-design-id="g0206">Онлайн или в магазине вашего города.</p></div><div data-design-id="g0218" id="dealers" class="gk"><div class="gk-market" id="buy-online"><div data-design-id="g0207" class="marketplaces"><a data-design-id="g0208" class="marketplace" data-market="ozon"><div data-design-id="g0209"><strong data-design-id="g0210">Ozon</strong><span class="mk-sub">Заказать онлайн</span></div></a><a data-design-id="g0213" class="marketplace" data-market="vi"><div data-design-id="g0214"><strong data-design-id="g0215">ВсеИнструменты</strong><span class="mk-sub">Заказать онлайн</span></div></a></div></div><div class="gk-shops"><h3 class="gk-shops-title">Магазины в вашем городе</h3>
+<section data-design-id="g0141" class="section how hw" id="how"><div data-design-id="g0142" class="wrap"><p class="section-eyebrow">Как покрасить</p><h2 class="hw-title" data-design-id="g0144">Два компонента.<br>Четыре простых шага</h2><ol data-design-id="g0145" class="hw-steps"><li><span class="hw-num" aria-hidden="true">1</span><h3>Подготовьте поверхность</h3><p>Удалите ржавчину, окалину и непрочную краску, очистите и обезжирьте поверхность. Перед PUR 232 загрунтуйте металл.</p></li><li><span class="hw-num" aria-hidden="true">2</span><h3>Смешайте компоненты</h3><p>Соедините основу и отвердитель по инструкции к материалу, постоянно помешивая.</p></li><li><span class="hw-num" aria-hidden="true">3</span><h3>Нанесите покрытие</h3><p>Используйте распылитель или кисть. Возможность нанесения валиком и интервал между слоями проверьте в инструкции.</p></li><li><span class="hw-num" aria-hidden="true">4</span><h3>Дайте набрать прочность</h3><p>Время сушки и набора прочности смотрите в инструкции к покрытию.</p></li></ol><div class="hw-video" data-video="https://rutube.ru/play/embed/862d57c7755a427f9ded1aea7f1490fa?autoplay=1"><button type="button" class="hw-cover" aria-label="Смотреть видео «Как подготовить и покрасить» на YouTube"><img src="assets/object-tanker.webp" alt="" loading="lazy" decoding="async"><span class="hw-play" aria-hidden="true"></span><span class="hw-caption"><strong data-design-id="g0160">Как подготовить и покрасить</strong></span></button></div></div></section><section data-design-id="g0162" class="section fq" id="faq"><div class="wrap fq-grid"><div class="fq-intro"><p class="section-eyebrow">Ответы</p><h2 class="fq-title" data-design-id="g0164">Частые вопросы</h2><p data-design-id="g0165">Здесь собраны общие ответы. Подробные условия нанесения и время сушки указаны в инструкции к каждому продукту.</p></div><div class="fq-main"><div class="fq-tabs" role="tablist" aria-label="Темы вопросов"></div><div data-design-id="g0166" class="fq-list" id="faq-list" role="tabpanel"></div></div><div data-design-id="g0167" class="fq-call"><p class="fq-call-title">Не нашли свой вопрос?</p><p>Ответим по телефону.</p><a data-design-id="g0170" class="fq-call-btn" href="tel:88001015239">8-800-101-52-39 · Позвонить</a></div></div></section><section data-design-id="g0171" class="section wrap rv" id="reviews"><div class="rv-head"><div><p class="section-eyebrow">Отзывы</p><h2 class="rv-title" data-design-id="g0173">Опыт покупателей</h2></div><div class="rv-summary" id="review-summary" hidden></div></div><div class="rv-track" id="review-list" tabindex="0" aria-label="Отзывы покупателей, листаются вбок"></div><div class="rv-nav"><button type="button" class="rv-arrow" id="review-prev" aria-label="Предыдущий отзыв">←</button><button type="button" class="rv-arrow" id="review-next" aria-label="Следующий отзыв">→</button><span class="rv-pos" id="review-pos" aria-live="polite"></span></div></section><section class="section wrap objects-sec ob-sec" aria-labelledby="ob-title"><div data-design-id="g0175" id="objects" class="ob"><p class="section-eyebrow">Объекты</p><h2 class="ob-title" id="ob-title" data-design-id="g0176">GRANT2K на реальных объектах</h2><p class="ob-lead">Техника, оборудование и металлоконструкции с нашими покрытиями</p><div class="ob-stage" tabindex="0" aria-roledescription="карусель" aria-label="Объекты, листаются стрелками"><figure class="ob-item" data-i="0"><button type="button" class="ob-photo" data-photo="assets/station.webp" data-caption="Трансформаторная подстанция · серия ИП 222" aria-label="Увеличить фото: Трансформаторная подстанция, ИП 222"><img src="assets/station.webp" alt="Трансформаторная подстанция, покрытие ИП 222" loading="lazy" decoding="async"></button><figcaption><strong>Трансформаторная подстанция</strong><span>ИП 222</span></figcaption></figure><figure class="ob-item" data-i="1"><button type="button" class="ob-photo" data-photo="assets/object-tractor.webp" data-caption="Седельный тягач КАМАЗ · PUR 232" aria-label="Увеличить фото: Седельный тягач КАМАЗ, PUR 232"><img src="assets/object-tractor.webp" alt="Седельный тягач КАМАЗ, покрытие PUR 232" loading="lazy" decoding="async"></button><figcaption><strong>Седельный тягач КАМАЗ</strong><span>PUR 232</span></figcaption></figure><figure class="ob-item" data-i="2"><button type="button" class="ob-photo" data-photo="assets/object-tanker.webp" data-caption="Топливная цистерна · УниЭпокс 211" aria-label="Увеличить фото: Топливная цистерна, УниЭпокс 211"><img src="assets/object-tanker.webp" alt="Топливная цистерна, покрытие УниЭпокс 211" loading="lazy" decoding="async"></button><figcaption><strong>Топливная цистерна</strong><span>УниЭпокс 211</span></figcaption></figure><figure class="ob-item" data-i="3"><button type="button" class="ob-photo" data-photo="assets/object-playground.webp" data-caption="Детская площадка · ИП 222" aria-label="Увеличить фото: Детская площадка, ИП 222"><img src="assets/object-playground.webp" alt="Детская площадка, покрытие ИП 222" loading="lazy" decoding="async"></button><figcaption><strong>Детская площадка</strong><span>ИП 222</span></figcaption></figure><figure class="ob-item" data-i="4"><button type="button" class="ob-photo" data-photo="assets/object-playground-detail.webp" data-caption="Элементы детской площадки · ИП 222" aria-label="Увеличить фото: Элементы детской площадки, ИП 222"><img src="assets/object-playground-detail.webp" alt="Элементы детской площадки, покрытие ИП 222" loading="lazy" decoding="async"></button><figcaption><strong>Элементы детской площадки</strong><span>ИП 222</span></figcaption></figure><figure class="ob-item" data-i="5"><button type="button" class="ob-photo" data-photo="assets/truck.webp" data-caption="Окрашенная техника · серия 211 + 232 из материалов компании" aria-label="Увеличить фото: Грузовая техника, УниЭпокс 211 + PUR 232"><img src="assets/truck.webp" alt="Грузовая техника, покрытие УниЭпокс 211 + PUR 232" loading="lazy" decoding="async"></button><figcaption><strong>Грузовая техника</strong><span>УниЭпокс 211 + PUR 232</span></figcaption></figure></div><div class="ob-nav"><button type="button" class="ob-arrow" id="ob-prev" aria-label="Предыдущий объект">←</button><button type="button" class="ob-arrow" id="ob-next" aria-label="Следующий объект">→</button><span class="ob-pos" id="ob-pos" aria-live="polite"></span></div></div></section><section data-design-id="g0202" class="section buy" id="buy"><div data-design-id="g0203" class="wrap"><div class="buy-panel"><div class="gk-head"><h2 data-design-id="g0205">Где купить</h2><p data-design-id="g0206">Онлайн или в магазине вашего города.</p><div class="buy-focus" id="buy-focus" role="status" hidden></div></div><div data-design-id="g0218" id="dealers" class="gk"><div class="gk-market" id="buy-online"><div data-design-id="g0207" class="marketplaces"><a data-design-id="g0208" class="marketplace" data-market="ozon"><div data-design-id="g0209"><strong data-design-id="g0210">Ozon</strong><span class="mk-sub">Заказать онлайн</span></div></a><a data-design-id="g0213" class="marketplace" data-market="vi"><div data-design-id="g0214"><strong data-design-id="g0215">ВсеИнструменты</strong><span class="mk-sub">Заказать онлайн</span></div></a></div></div><div class="gk-shops"><h3 class="gk-shops-title">Магазины в вашем городе</h3>
 
 <form class="dealer-tools" id="city-search" role="search"><div class="city-field"><label for="city">Ваш город</label><div class="city-entry"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg><input type="search" id="city" role="combobox" aria-label="Ваш город" aria-autocomplete="list" aria-controls="city-names" aria-expanded="false" autocomplete="off" placeholder="Ваш город"><button type="submit">Найти</button></div><div id="city-names" role="listbox" aria-label="Населённые пункты" hidden></div></div><button type="button" id="locate-shop"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></svg>Определить моё место</button></form>
 <p id="location-status" class="note" role="status"></p>
@@ -2449,7 +2542,7 @@ body{background:var(--bg-a)}
 <div class="dealer-browser"><div id="dealer-map" aria-label="Карта дилеров КВИЛ" role="region"><article class="dealer-layout" id="dealer-address-details" hidden><div class="dealer-summary"><a id="map-route" class="btn" target="_blank" rel="noopener">Построить маршрут</a>
 <p class="brand-type" id="shop-type" hidden>Фирменный магазин</p><h4 id="shop-name"></h4>
 <p class="shop-address"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg><span id="display-address"></span></p><p id="address-note" hidden></p>
-</div></article></div></div><div class="dealer-sidebar" hidden><div class="dealer-scroll"><div id="dealer-options" role="region" aria-labelledby="dealer-count"></div><div id="dealer-contact-card" hidden><div id="dealer-phones"></div><p id="hours-status" hidden></p><table id="hours-table" aria-label="Часы работы" hidden></table><div id="shop-details"></div><button type="button" class="text-link" id="shop-request">Подготовить запрос дилеру</button><a class="dealer-map-jump" href="#dealer-map">К карте и маршруту</a></div></div></div><p class="gk-note" data-design-id="buy-seller-note"><span>Цену, наличие и колеровку уточняйте у продавца.</span></p>
+</div></article></div></div><div class="dealer-sidebar" hidden><div class="dealer-scroll"><p class="gk-note" data-design-id="buy-seller-note"><span>Цену, наличие и колеровку уточняйте у продавца.</span></p><div id="dealer-options" role="region" aria-labelledby="dealer-count"></div><div id="dealer-contact-card" hidden><div id="dealer-phones"></div><p id="hours-status" hidden></p><table id="hours-table" aria-label="Часы работы" hidden></table><div id="shop-details"></div><button type="button" class="text-link" id="shop-request">Подготовить запрос дилеру</button><a class="dealer-map-jump" href="#dealer-map">К карте и маршруту</a></div></div></div>
 </div>
 </div></div></div></section><section class="section wrap wh-sec" aria-labelledby="wh-title"><div id="workshops" class="whx"><div class="whx-main"><p class="whx-eyebrow section-eyebrow">Оптовые закупки</p><h2 id="wh-title" class="whx-title">Для мастерских, подрядчиков и производств</h2><p class="whx-lead">Подберём покрытие под вашу задачу, рассчитаем расход и предложим индивидуальную цену на нужный объём.</p><ul class="whx-perks"><li><span class="whx-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.4 3 8.3 7 9.5 4-1.2 7-5.1 7-9.5V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span>Промышленная надёжность</span></li><li><span class="whx-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6"/><path d="M10 3v5.5L5.6 16.2A3 3 0 0 0 8.2 21h7.6a3 3 0 0 0 2.6-4.8L14 8.5V3"/><path d="M7.5 14h9"/></svg></span><span>Устойчивость к нагрузкам и средам</span></li><li><span class="whx-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5v-9Z"/><path d="m3 7.5 9 4.5 9-4.5M12 12v9"/></svg></span><span>Прямые поставки и стабильные цены</span></li></ul><div class="whx-actions"><button type="button" class="btn" id="wh-open">Запросить оптовую цену</button><a class="whx-call" href="tel:88001015239" aria-label="Позвонить: 8-800-101-52-39"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 4.2 2 2 0 0 1 3.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L7 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><span>или 8-800-101-52-39</span></a></div></div><aside class="whx-trial" aria-label="Пробная партия со скидкой"><p class="whx-trial-title">Пробная партия <span>со скидкой</span></p><img src="assets/hero-cans-232.webp" alt="Эмаль и отвердитель GRANT2K" loading="lazy" decoding="async"></aside></div></section></main><div id="catalog-mobile-actions" hidden><a href="#buy">Где купить</a><button type="button" data-quiz>Подобрать</button></div>
 <footer data-design-id="g0236" class="footer ft"><div data-design-id="g0237" class="wrap"><div class="ft-grid"><div class="ft-brand"><a class="ft-logo" href="https://www.kvil.ru/" target="_blank" rel="noopener" aria-label="Официальный сайт КВИЛ"><img data-design-id="g0240" src="assets/kvil.png" alt="КВИЛ"></a><p>GRANT2K<br>Производство КВИЛ</p></div><nav class="ft-col ft-nav" aria-label="Разделы"><h3>Разделы</h3><ul><li><a href="#catalog">Каталог</a></li><li><a href="#how">Как покрасить</a></li><li><a href="#faq">Частые вопросы</a></li><li><a href="#buy">Где купить</a></li><li><a href="#workshops">Оптовые закупки</a></li></ul></nav><div class="ft-col ft-buy"><h3>Где купить</h3><a href="#buy">Магазины на карте</a><div class="ft-markets"><a data-market-link="ozon" aria-label="Ozon, заказать онлайн"><img src="assets/market-ozon.png" alt=""></a><a data-market-link="vi" aria-label="ВсеИнструменты, заказать онлайн"><img src="assets/market-vi.png" alt=""></a></div></div><div class="ft-col ft-contacts"><h3>Контакты</h3><a class="ft-phone" data-design-id="g0242" href="tel:88001015239">8-800-101-52-39</a><a href="mailto:info@kvil.ru">info@kvil.ru</a><p>308023, Россия, г. Белгород,<br>ул. Студенческая, д. 50</p></div></div><div class="ft-bottom"><span>© 2026 Завод «Краски КВИЛ». Все права защищены.</span><span class="ft-pending" title="Ссылка на документ уточняется">Политика конфиденциальности</span><button type="button" class="ft-link" id="ft-docs">Документы и сертификаты</button></div></div></footer>
@@ -2495,7 +2588,7 @@ body{background:var(--bg-a)}
 <dialog id="benefit-docs" aria-labelledby="benefit-docs-title"><div class="modal-head"><span>GRANT2K</span><button class="modal-close" data-close aria-label="Закрыть">×</button></div><div class="modal-body"><h2 id="benefit-docs-title">Технические описания</h2><ul><li><a href="assets/211.pdf" target="_blank" rel="noopener">Грунт УниЭпокс 211 · PDF ↗</a></li><li><a href="assets/232.pdf" target="_blank" rel="noopener">Эмаль PUR 232 · PDF ↗</a></li><li><a href="assets/222.pdf" target="_blank" rel="noopener">Грунт-эмаль УР-2К ИП 222 · PDF ↗</a></li><li><a href="assets/mat.pdf" target="_blank" rel="noopener">Матовая грунт-эмаль · PDF ↗</a></li><li><a href="assets/kovka.pdf" target="_blank" rel="noopener">Грунт-эмаль «Ковка» · PDF ↗</a></li></ul></div></dialog>
 <dialog data-design-id="g0244" id="quiz" aria-labelledby="quiz-title"><div data-design-id="g0245" class="modal-head qz-head"><div class="qz-prog"><span data-design-id="g0246" id="quiz-progress">Подбор покрытия</span><span class="qz-bar" id="quiz-bar" aria-hidden="true"></span></div><button type="button" class="qz-back" id="quiz-back-top" aria-label="Назад" hidden>‹</button><button data-design-id="g0247" class="modal-close" data-close aria-label="Закрыть подбор">×</button></div><div data-design-id="g0248" class="modal-body" id="quiz-body"></div></dialog>
 <dialog data-design-id="g0249" id="info" aria-labelledby="info-title"><div data-design-id="g0250" class="modal-head"><span data-design-id="g0251">GRANT2K</span><button data-design-id="g0252" class="modal-close" data-close aria-label="Закрыть окно">×</button></div><div data-design-id="g0253" class="modal-body" id="info-body"></div></dialog>
-<dialog id="dealer-ask" aria-labelledby="da-title"><div class="modal-head da-head"><span id="da-step">Запрос дилеру</span><button type="button" class="da-back" id="da-back" aria-label="Другой дилер" hidden>‹</button><button type="button" class="modal-close" data-close aria-label="Закрыть">×</button></div><div class="modal-body da-body" id="da-body"></div></dialog><dialog id="my-systems" aria-labelledby="ms-title"><div class="modal-head ms-head"><span class="ms-eyebrow">Сохранённые системы</span><button type="button" class="modal-close" data-close aria-label="Закрыть">×</button></div><div class="modal-body ms-body" id="ms-body"></div></dialog>
+<dialog id="dealer-ask" aria-labelledby="da-title"><div class="modal-head da-head"><span id="da-step">Запрос дилеру</span><button type="button" class="da-back" id="da-back" aria-label="Другой дилер" hidden>‹</button><button type="button" class="modal-close" data-close aria-label="Закрыть">×</button></div><div class="modal-body da-body" id="da-body"></div></dialog><dialog id="my-systems" aria-labelledby="ms-title"><div class="modal-head ms-head"><span class="ms-eyebrow"></span><button type="button" class="modal-close" data-close aria-label="Закрыть">×</button></div><div class="modal-body ms-body" id="ms-body"></div></dialog>
 
 
 <dialog data-design-id="g0254" id="lightbox" class="lightbox" aria-labelledby="photo-caption"><div data-design-id="g0255" class="modal-head"><span data-design-id="g0256" id="photo-caption">Фотография</span><button data-design-id="g0257" class="modal-close" data-close aria-label="Закрыть фотографию">×</button></div><img data-design-id="g0258" id="large-photo" src="assets/truck.webp" alt=""></dialog>
@@ -6241,7 +6334,8 @@ function productShopLinks(product, className){
   }).join('');
 }
 function cdBuy(p){
-  return `<a href="#buy" role="button" data-dealer-product="${p.id}">Купить у дилера</a><span class="cd-also">Также на маркетплейсах</span>${productShopLinks(p,'catalog-shop')}${sysOK?'<button type="button" class="cd-save" aria-pressed="false">☆ Сохранить</button>':''}`;
+  // Катя 26.11: одна кнопка «Купить» — в окне сразу и маркетплейсы, и магазины; рядом «В избранное»
+  return `<a href="#buy" role="button" data-dealer-product="${p.id}">Купить</a>${sysOK?`<button type="button" class="cd-save" aria-pressed="false">${favLabel(false)}</button>`:''}`;
 }
 function cdItems(p){return [{product:p.id}]}
 function cdSaveState(msg){
@@ -6249,8 +6343,8 @@ function cdSaveState(msg){
   const b=$('.cd-save',panel),note=$('.cd-saved',panel);if(!p)return;
   if(!b){note.innerHTML='';return}
   const items=cdItems(p),saved=!!items&&(sysExists(items)||(p.id==='232'&&sysExists(cdPair(items))));
-  b.textContent=saved?'★ Сохранено':'☆ Сохранить';b.setAttribute('aria-pressed',String(saved));b.classList.toggle('is-saved',saved);
-  note.innerHTML=msg==='full'?'Сохранено 20 систем — удалите лишние в <button type="button" class="cd-ms">«Мои системы»</button>':msg==='error'?'Не получилось сохранить в этом браузере.':saved?'Сохранено в этом браузере · <button type="button" class="cd-ms">Мои системы ›</button>':'';
+  b.innerHTML=favLabel(saved);b.setAttribute('aria-pressed',String(saved));b.classList.toggle('is-saved',saved);
+  note.innerHTML=favNote(msg,saved,'cd-ms');
   const ms=$('.cd-ms',note);if(ms)ms.onclick=()=>openMySystems();
   cdPrimerState();
 }
@@ -6266,15 +6360,15 @@ function cdPrimerState(){
   const pic=id=>`<span class="cp-pic"><img src="${catalogPhoto({id})}" alt=""></span>`;
   if(p.id==='232'){
     const pair=cdPair(items);
-    if(sysExists(pair))return show(`<p class="cp-title"><span class="cp-ok" aria-hidden="true">✓</span>Система собрана и сохранена</p>
+    if(sysExists(pair))return show(`<p class="cp-title"><span class="cp-ok" aria-hidden="true">✓</span>Грунт и эмаль в избранном</p>
       <ol class="cp-list"><li>${pic('211')}<span>Грунт УниЭпокс 211</span></li><li>${pic('232')}<span>Эмаль PUR 232</span></li></ol>
-      <div class="cp-acts"><button type="button" class="cp-open">Открыть в «Моих системах»</button><button type="button" class="cp-ask">Запросить у дилера</button></div>`,'done');
-    if(sysExists(items)&&!cdPrimerOff.has(sysSig(items)))return show(`<p class="cp-title">Для системы нужен грунт</p>
+      <div class="cp-acts"><button type="button" class="cp-ask">Купить оба</button><button type="button" class="cp-open">Открыть избранное</button></div>`,'done');
+    if(sysExists(items)&&!cdPrimerOff.has(sysSig(items)))return show(`<p class="cp-title">Под эту эмаль нужен грунт</p>
       <div class="cp-offer">${pic('211')}<div class="cp-name"><strong>УниЭпокс 211</strong><span>Эпоксидный грунт под PUR 232</span></div>
-      <div class="cp-btns"><button type="button" class="cp-add">+ Добавить в систему</button><button type="button" class="cp-no">Не нужно</button></div></div>`,'offer');
+      <div class="cp-btns"><button type="button" class="cp-add">+ Добавить в избранное</button><button type="button" class="cp-no">Не нужно</button></div></div>`,'offer');
     return show('');
   }
-  if(p.id==='211'&&sysExists(items))return show(`<p class="cp-title">Грунт сохранён. Какой финиш нанести сверху?</p>
+  if(p.id==='211'&&sysExists(items))return show(`<p class="cp-title">Грунт в избранном. Какой финиш нанести сверху?</p>
     <div class="cp-acts"><button type="button" class="cp-finish">Подобрать финиш</button></div>`,'finish');
   show('');
 }
@@ -6288,7 +6382,7 @@ document.addEventListener('click',e=>{
     sysChanged();sysPulse();$('.cd-primer .cp-open',panel)?.focus({preventScroll:true});
   }else if(t.classList.contains('cp-no')){cdPrimerOff.add(sysSig(items));cdPrimerState();panel.querySelector('.cd-apply details summary')?.focus({preventScroll:true})}
   else if(t.classList.contains('cp-open'))openMySystems();
-  else if(t.classList.contains('cp-ask'))openSystemRequest(['211','232'],'232',null);
+  else if(t.classList.contains('cp-ask'))goBuy(['211','232']);
   else if(t.classList.contains('cp-finish')){answers={};quizPreset=null;history=[];quizStep='material';quizReset();renderQuiz();openDialog($('#quiz'))}
 });
 function technicalGroups(product){
@@ -6434,8 +6528,7 @@ function systemSteps(ids,source){
       <article class="system-card"><button type="button" class="system-open" data-${source}-product="${id}" aria-label="Подробнее о материале: ${esc(qzName(id))}">
       <span class="system-pic"><img src="${catalogPhoto(p)}" alt=""></span>
       <span><strong class="system-name">${esc(qzName(id))}</strong><span class="system-meta">${esc(type)} · ${esc(p.pack.replace(' / ',' или '))}</span>${area?`<span class="system-area" title="${esc(rawArea)}">${esc(area)}</span>`:''}</span>
-      <svg class="system-next" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
-      <div class="system-buy"><span>Купить</span>${productShopLinks(p,'qz-shop')}</div></article>
+      <svg class="system-next" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button></article>
       ${glossPair && i===0?'<p class="system-delay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Эмаль — через 2 часа при +20 °C</p>':''}</li>`;
   });
   return intro+`<ol class="system-steps${pair?' is-pair':''}">${cards.join('')}</ol>`;
@@ -6446,9 +6539,9 @@ function qzResult(body){
   const fin=qzFinish(),ids=qzAlt()?r.ids.filter(id=>id==='211'||id===answers.variant):r.ids;
   body.innerHTML=`<h2 id="quiz-title">${esc(qzTitle()).replace(/(^|\s)(и|для|в|на|с|по)\s/g,'$1$2&nbsp;')}</h2>
     ${systemSteps(ids,'result')}
-    <div class="qz-foot qz-actions"><div class="qz-act-row"><button type="button" class="btn qz-dealer">Запросить комплект у дилера</button><div class="qz-save"><button type="button" class="qz-save-btn" aria-pressed="false">Сохранить систему</button></div></div><p class="qz-saved" aria-live="polite"></p></div>
+    <div class="qz-foot qz-actions"><div class="qz-act-row"><button type="button" class="btn qz-dealer">Купить комплект</button><div class="qz-save"><button type="button" class="qz-save-btn" aria-pressed="false">В избранное</button></div></div><p class="qz-saved" aria-live="polite"></p></div>
     `;
-  $('.qz-dealer',body).onclick=()=>openSystemRequest(ids,fin,{...answers});
+  $('.qz-dealer',body).onclick=()=>goBuy(ids,{...answers});
   qzSaveBind(body);
   $$('[data-result-product]',body).forEach(b=>b.onclick=()=>{const id=b.dataset.resultProduct;$('#quiz').close();openProduct(id)});
 }
@@ -6836,6 +6929,7 @@ function renderCity(query='',requestedPoint=null,unknown=false){
     renderHours();
     const phoneRows=Array.from(details.children).filter(row=>row.querySelector('a[href^="tel:"]'));
     $('#dealer-phones').replaceChildren(...phoneRows);
+    decorateContacts(phoneRows,details);
     buttons[index].parentElement.append(contacts);
     contacts.hidden=false;
     list.querySelector('.dealer-choice[aria-expanded="true"]')?.setAttribute('aria-expanded','false');
@@ -6844,9 +6938,12 @@ function renderCity(query='',requestedPoint=null,unknown=false){
     // Claude, карта на телефоне: плашка «Построить маршрут» поверх карты убрана, маршрут — в карточке магазина
     panel.hidden=true;
     renderAddress();
+    // Claude, карточки дилеров: «Город в Яндекс Картах» убран, маршрут — только при известном адресе
     let route=contacts.querySelector('.dc-route');
-    if(!route){route=document.createElement('a');route.className='dc-route';route.target='_blank';route.rel='noopener';contacts.append(route)}
-    route.href=$('#map-route').href;route.textContent=shop.addresses.length?'Маршрут':'Город в Яндекс Картах';
+    if(shop.addresses.length){
+      if(!route){route=document.createElement('a');route.className='dc-route';route.target='_blank';route.rel='noopener';contacts.append(route)}
+      route.href=$('#map-route').href;route.innerHTML=DC_ICON.pin+'<span>Маршрут</span>';
+    }else route?.remove();
     if(fromMap){
       group.replaceChildren(...cards);group.prepend(cards[index]);
       cards[index].scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
@@ -6875,7 +6972,8 @@ function renderCity(query='',requestedPoint=null,unknown=false){
     const parts=addressParts(address,preferred);
     // Claude, шаг 9: в строке списка всегда название, под ним адрес
     btn.append(storeName(shop));
-    const where=document.createElement('span');where.textContent=parts.street || 'Адрес уточняется';btn.append(where);
+    const hasPhone=shop.details.some(l=>/^Телефон/i.test(l));
+    const where=document.createElement('span');where.textContent=parts.street || (hasPhone?'Адрес уточняйте по телефону':'Адрес уточняется');btn.append(where);
     if(parts.note){const note=document.createElement('small');note.textContent=parts.note;btn.append(note)}
     btn.onclick=()=>{
       cancelLocate();
@@ -6891,13 +6989,53 @@ function renderCity(query='',requestedPoint=null,unknown=false){
     // Claude, шаг 9 (вариант B): магазин карточкой, первый телефон виден сразу
     const card=document.createElement('div');card.className='dealer-card';card.append(btn);
     const phone=(shop.details.find(l=>/^Телефон/i.test(l))||'').replace(/^Телефоны?:\s*/i,'').split(/[,;]/)[0].trim();
-    if(phone){const a=document.createElement('a');a.className='dc-phone';let d=phone.replace(/[^\d+]/g,'');if(/^8\d{10}$/.test(d))d='+7'+d.slice(1);else if(/^\d{10}$/.test(d))d='+7'+d;a.href='tel:'+d;a.textContent=phone;card.append(a)}
+    if(phone){const a=document.createElement('a');a.className='dc-phone';let d=phone.replace(/[^\d+]/g,'');if(/^8\d{10}$/.test(d))d='+7'+d.slice(1);else if(/^\d{10}$/.test(d))d='+7'+d;a.href='tel:'+d;a.innerHTML=DC_ICON.phone+'<span>'+esc(phone)+'</span>';card.append(a)}
     group.append(card);cards.push(card);
   }
   list.replaceChildren(group);
 
   if(requestedPoint)selectChoice(choices.indexOf(requestedPoint),true);
   selectFromMap=point=>{const k=choices.indexOf(point);if(k<0)return false;if(buttons[k].getAttribute('aria-expanded')!=='true')selectChoice(k,true);else cards[k].scrollIntoView({block:'nearest',behavior:'smooth'});return true};
+}
+// Claude, карточки дилеров: звонок — главной кнопкой, почта и сайт — строками с иконками
+const DC_SVG=d=>'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+d+'</svg>';
+const DC_ICON={
+  phone:DC_SVG('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>'),
+  mail:DC_SVG('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>'),
+  web:DC_SVG('<circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/>'),
+  pin:DC_SVG('<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/>')
+};
+function dcIconRow(row,icon){
+  const first=row.firstChild;
+  if(first?.nodeType===3)first.textContent=first.textContent.replace(/^\s*(?:E-mail|Эл\. ?почта|Сайт|Телефоны?|Тел\.|Моб\.)\s*:\s*/i,'');
+  row.classList.add('dc-row');row.insertAdjacentHTML('afterbegin',DC_ICON[icon]);
+}
+function decorateContacts(phoneRows,details){
+  const box=$('#dealer-phones');
+  const tels=phoneRows.flatMap(r=>[...r.querySelectorAll('a[href^="tel:"]')]);
+  if(!tels.length){box.replaceChildren();}
+  else{
+    const call=document.createElement('a');
+    call.className='dc-call';call.href=tels[0].href;
+    call.innerHTML=DC_ICON.phone+'<span>Позвонить '+esc(tels[0].textContent.trim())+'</span>';
+    tels[0].remove();
+    for(const row of phoneRows){
+      if(!row.querySelector('a[href^="tel:"]')){row.remove();continue}
+      dcIconRow(row,'phone');
+      row.innerHTML=row.innerHTML.replace(/(<\/svg>)\s*[,;]\s*/,'$1');
+      details.prepend(row);
+    }
+    box.replaceChildren(call);
+  }
+  for(const row of [...details.children]){
+    if(row.classList.contains('dc-row'))continue;
+    const link=row.querySelector('a');
+    if(link?.href.startsWith('mailto:'))dcIconRow(row,'mail');
+    else if(link && /^https?:/.test(link.getAttribute('href'))){
+      dcIconRow(row,'web');
+      link.textContent=link.textContent.replace(/^https?:\/\//i,'').replace(/^www\./i,'').replace(/\/$/,'');
+    }
+  }
 }
 function cancelLocate() {
   locationRequest++;
@@ -7017,7 +7155,11 @@ function daCard(p){
 function daStep1(body){
   const pts=daPoints(),unknown=da.typed&&!da.city;
   const head=da.city?`${da.city} · ${pts.length} ${ruPlural(pts.length,'точка','точки','точек')} продаж`:da.origin?'Все точки продаж · ближайшие сверху':`Все точки продаж · ${new Set(points.map(p=>p.city)).size} ${ruPlural(new Set(points.map(p=>p.city)).size,'город','города','городов')}`;
-  body.innerHTML=`<h2 id="da-title" tabindex="-1">Где заказать</h2>${daSummary()}
+  // Катя 26.11: окно «Купить» — сначала маркетплейсы по товарам запроса, затем магазины
+  const online=(da.req.ids||[]).map(id=>{const p=products.find(x=>x.id===id);const links=p?productShopLinks(p,'qz-shop'):'';
+    return links?`<div class="da-online-row">${da.req.ids.length>1?`<span class="da-online-name">${esc(productTitles[id][1])}</span>`:''}<div class="da-online-links">${links}</div></div>`:''}).join('');
+  body.innerHTML=`<h2 id="da-title" tabindex="-1">Где купить</h2>${daSummary()}
+   ${online?`<section class="da-online" aria-labelledby="da-online-title"><h3 id="da-online-title" class="da-part">Онлайн</h3>${online}</section><h3 class="da-part">В магазине</h3>`:''}
    <form class="da-city" role="search"><label for="da-city-input" class="da-label">Ваш город</label><div class="da-city-row"><input id="da-city-input" list="da-cities" autocomplete="off" placeholder="Например, Белгород" value="${esc(da.typed||da.city)}"><button type="submit" class="da-find">Найти</button></div>
    <datalist id="da-cities">${sortedCities.map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
    <div class="da-city-tools"><button type="button" class="da-locate">Определить моё место</button>${da.city||da.typed?'<button type="button" class="da-all">Все города</button>':''}<span class="da-status" role="status"></span></div></form>
@@ -7048,7 +7190,7 @@ function daStep2(body){
    <p class="da-note">Отправьте текст дилеру по контактам выше: позвоните, напишите на почту или в мессенджер. Имя и телефон в запрос не добавляем.</p>`;
   const ta=$('#da-text',body);ta.oninput=()=>{da.text=ta.value};
   if(da.req.save&&sysOK){const r=sysSave(da.req.save,'quiz');const n=document.createElement('p');n.className='da-saved';n.setAttribute('role','status');
-    n.innerHTML=r==='saved'||r==='exists'?'★ Система сохранена в этом браузере · <button type="button" class="da-ms">Мои системы ›</button>':r==='full'?'Сохранено 20 систем — эту не сохранили. Удалите лишние в «Мои системы». Запрос можно отправить.':'';
+    n.innerHTML=r==='saved'||r==='exists'?favIcon(true,16)+' Комплект в избранном · <button type="button" class="da-ms">Открыть ›</button>':r==='full'?'В избранном уже 20 позиций — комплект не добавлен. Запрос можно отправить.':'';
     if(n.innerHTML){$('.da-addr',body).after(n);const m=$('.da-ms',n);if(m)m.onclick=openMySystems}}
   $('.da-other',body).onclick=daBack;
   $('.da-copy',body).onclick=async()=>{const st=$('.da-copied',body);
@@ -7058,7 +7200,7 @@ function daStep2(body){
 function daBack(){if(da.point){da.point=null;daRender()}}
 function daRender(){
   const d=$('#dealer-ask'),body=$('#da-body');
-  $('#da-step').textContent='Запрос дилеру · шаг '+(da.point?2:1)+' из 2';
+  $('#da-step').textContent=da.point?'Запрос дилеру':da.req.ids?'Купить':'Запрос дилеру · шаг 1 из 2';
   $('#da-back').hidden=!da.point;
   (da.point?daStep2:daStep1)(body);
   body.scrollTop=0;$('#da-title').focus({preventScroll:true});
@@ -7071,24 +7213,45 @@ function openDealerRequest(req,point=null){
 }
 $('#shop-request').onclick=()=>{
   if(!focusedDealer)return;
+  // Катя 26.11: если пришли по кнопке «Купить», запрос сразу про выбранный товар или комплект
+  if(buyFocus){if(buyFocus.length===1)openProductRequest(products.find(p=>p.id===buyFocus[0]),focusedDealer);
+    else openSystemRequest(buyFocus,buyFocus.find(id=>id!=='211')||null,buyFocusAnswers,focusedDealer);return}
   openDealerRequest({label:'Ваш запрос',line:'Покрытия GRANT2K',cta:'Подготовить запрос',
     text:'Здравствуйте! Хочу заказать покрытие GRANT2K. Цвет уточню. Подскажите, пожалуйста, наличие, возможность колеровки, фасовку, цену и срок поставки.'},focusedDealer);
 };
-function openProductRequest(product){
+function openProductRequest(product,point=null){
   const detail=product.id==='211'?'Есть ли светло-серый грунт в наличии?':'Цвет уточню.';
   const terms=product.id==='211'?'фасовку, цену и срок поставки':'наличие, возможность колеровки, фасовку, цену и срок поставки';
-  openDealerRequest({label:'Ваш товар',line:productTitles[product.id][1],cta:'Запросить товар',
-    text:`Здравствуйте! Хочу заказать GRANT2K — ${daLower[product.id]}. ${detail} Подскажите, пожалуйста, ${terms}.`});
+  openDealerRequest({label:'Ваш товар',line:productTitles[product.id][1],cta:'Запросить товар',ids:[product.id],
+    text:`Здравствуйте! Хочу заказать GRANT2K — ${daLower[product.id]}. ${detail} Подскажите, пожалуйста, ${terms}.`},point);
 }
-function openSystemRequest(ids,fin,ans){
+function openSystemRequest(ids,fin,ans,point=null){
   const items=ids.map((id,i)=>`${i+1}) ${daLower[id]}${id===fin?', цвет уточню':''}`);
-  openDealerRequest({label:'Ваша система',line:ids.map(id=>productTitles[id][1]).join(' + '),cta:'Запросить комплект',
+  openDealerRequest({ids,label:'Ваша система',line:ids.map(id=>productTitles[id][1]).join(' + '),cta:'Запросить комплект',
     save:{items:ids.map(product=>({product})),answers:ans||{}},
-    text:'Здравствуйте! Хочу заказать систему GRANT2K: '+items.join('; ')+'. Подскажите, пожалуйста, наличие, возможность колеровки, фасовку, цену и срок поставки.'});
+    text:'Здравствуйте! Хочу заказать систему GRANT2K: '+items.join('; ')+'. Подскажите, пожалуйста, наличие, возможность колеровки, фасовку, цену и срок поставки.'},point);
+}
+// Катя 26.11: «Купить» не открывает отдельное окно, а ведёт в раздел «Где купить» с картой.
+// Выбранный товар показан плашкой; Ozon и ВсеИнструменты ведут на этот товар, запрос дилеру — про него
+var buyFocus=null,buyFocusAnswers={};
+function buyFocusPaint(){
+  const chip=$('#buy-focus');
+  marketplaces.forEach(({key,storeUrl})=>{const card=$(`#buy [data-market="${key}"]`);if(!card)return;let url=storeUrl,hide=false;
+    if(buyFocus&&buyFocus.length===1){const p=products.find(x=>x.id===buyFocus[0]);if(!productMarkets(p).some(m=>m.key===key))hide=true;else url=p[key]||storeUrl}
+    if(url)card.href=url;card.hidden=hide});
+  if(!buyFocus){chip.hidden=true;chip.innerHTML='';return}
+  const name=buyFocus.map(id=>productTitles[id][1]).join(' + ');
+  chip.innerHTML=`<img src="${catalogPhoto({id:buyFocus[buyFocus.length-1]})}" alt=""><span>Вы выбрали: <b>${esc(name)}</b></span><button type="button" class="buy-focus-x" aria-label="Сбросить выбор товара">×</button>`;
+  chip.hidden=false;$('.buy-focus-x',chip).onclick=()=>{buyFocus=null;buyFocusAnswers={};buyFocusPaint()};
+}
+function goBuy(ids,answers){
+  buyFocus=ids&&ids.length?[...ids]:null;buyFocusAnswers=answers||{};buyFocusPaint();
+  document.querySelectorAll('dialog[open]').forEach(d=>d.close());
+  setTimeout(()=>{jump($('#buy'));$('#buy-focus')?.focus?.({preventScroll:true})},60);
 }
 document.addEventListener('click',e=>{
   const a=e.target.closest('[data-dealer-product]');if(!a)return;
-  e.preventDefault();openProductRequest(products.find(p=>p.id===a.dataset.dealerProduct));
+  e.preventDefault();goBuy([a.dataset.dealerProduct]);
 });
 // Claude, шаг 14: сохранение систем в этом браузере, «Система» в шапке, «Мои системы» (ТЗ, разделы 3, 6, 10)
 const SYS_KEY='grant2k.systems.v2',SYS_MAX=20;
@@ -7114,11 +7277,19 @@ function sysSave(sys,source){
   if(!sysWrite(list))return 'error';
   sysChanged();sysPulse();return 'saved';
 }
-// Катя 24.11: вариант A шапки — значок-банка «как упаковка» со счётчиком, кольцо при сохранении
-const SYS_CAN='<svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true" focusable="false"><defs><linearGradient id="sysm" x1="0" x2="1"><stop offset="0" stop-color="#aeb6c7"/><stop offset=".35" stop-color="#f5f7fb"/><stop offset="1" stop-color="#8f98ad"/></linearGradient><linearGradient id="sysn" x1="0" x2="1"><stop offset="0" stop-color="#20284a"/><stop offset=".38" stop-color="#3f4c80"/><stop offset="1" stop-color="#1b2140"/></linearGradient></defs><path d="M8.6 13.2C8.6 1.8 23.4 1.8 23.4 13.2" fill="none" stroke="#2f385a" stroke-width="1.6" stroke-linecap="round"/><circle cx="8.6" cy="13.4" r="1.1" fill="#2f385a"/><circle cx="23.4" cy="13.4" r="1.1" fill="#2f385a"/><path d="M8.5 11.5V27a7.5 2.3 0 0 0 15 0V11.5" fill="url(#sysm)" stroke="#7d869c" stroke-width=".7"/><path d="M8.5 19.3V27a7.5 2.3 0 0 0 15 0v-7.7a7.5 2.3 0 0 1-15 0z" fill="url(#sysn)"/><path d="M8.5 17.6v1.7a7.5 2.3 0 0 0 15 0v-1.7a7.5 2.3 0 0 1-15 0z" fill="#ff5300"/><ellipse cx="16" cy="11.5" rx="7.5" ry="2.3" fill="#e3e7ee" stroke="#7d869c" stroke-width=".7"/><ellipse cx="16" cy="11.5" rx="5.6" ry="1.6" fill="#c8cedb"/></svg>';
+// Катя 26.11: «Мои системы» стали «Избранным» — в шапке сердце со счётчиком вместо значка-банки
+const FAV_PATH='M12 20.3s-7.3-4.4-9.1-9C1.6 7.9 3.7 4.6 7.1 4.6c2 0 3.6 1.1 4.9 2.9 1.3-1.8 2.9-2.9 4.9-2.9 3.4 0 5.5 3.3 4.2 6.7-1.8 4.6-9.1 9-9.1 9z';
+const favIcon=(filled,size=20)=>`<svg class="fav-ico" viewBox="0 0 24 24" width="${size}" height="${size}" aria-hidden="true" focusable="false"><path d="${FAV_PATH}" fill="${filled?'currentColor':'none'}" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>`;
+const favLabel=saved=>favIcon(saved)+(saved?'В избранном':'В избранное');
+// подпись под кнопкой: cls — класс кнопки-ссылки, которая открывает избранное
+function favNote(msg,saved,cls,errTail=''){
+  return msg==='full'?`В избранном уже 20 позиций — удалите лишние в <button type="button" class="${cls}">«Избранном»</button>`
+    :msg==='error'?'Не получилось добавить в избранное в этом браузере.'+errTail
+    :saved?`Добавлено в избранное · <button type="button" class="${cls}">Открыть ›</button>`:'';
+}
 function sysPillUpdate(){const b=$('#sys-pill');if(!b)return;b.hidden=!sysOK;const n=sysVisible().length;
-  b.innerHTML=SYS_CAN+(n?`<span class="sys-badge" aria-hidden="true">${n}</span>`:'');b.title='Мои системы';
-  b.setAttribute('aria-label',n?`Мои системы: ${n}`:'Мои системы: пока пусто')}
+  b.innerHTML=favIcon(n>0,24)+(n?`<span class="sys-badge" aria-hidden="true">${n}</span>`:'');b.classList.toggle('has-fav',n>0);b.title='Избранное';
+  b.setAttribute('aria-label',n?`Избранное: ${n}`:'Избранное: пока пусто')}
 function sysPulse(){const b=$('#sys-pill');if(!b||matchMedia('(prefers-reduced-motion: reduce)').matches)return;b.classList.remove('is-pulse');void b.offsetWidth;b.classList.add('is-pulse');b.addEventListener('animationend',()=>b.classList.remove('is-pulse'),{once:true})}
 function sysChanged(){sysPillUpdate();if(qzLink&&$('#quiz').open)qzLinkSave();cdSaveState();if($('#quiz').open&&quizStep==='result')qzSaveState();if($('#my-systems').open)msRender()}
 // кнопка «Сохранить» в результате подбора
@@ -7126,8 +7297,8 @@ function qzSaveState(msg){
   const box=$('#quiz-body .qz-save');if(!box)return;const b=$('button',box),note=$('#quiz-body .qz-saved');
   if(!sysOK){box.hidden=true;return}
   const saved=sysExists(sysFromQuiz().items);
-  b.textContent=saved?'Система сохранена':'Сохранить систему';b.setAttribute('aria-pressed',String(saved));b.classList.toggle('is-saved',saved);
-  note.innerHTML=msg==='full'?'Сохранено 20 систем — удалите лишние в <button type="button" class="qz-ms">«Мои системы»</button>':msg==='error'?'Не получилось сохранить в этом браузере. Запрос дилеру работает и без сохранения.':saved?'Сохранено в этом браузере · <button type="button" class="qz-ms">Мои системы ›</button>':'';
+  b.innerHTML=favLabel(saved);b.setAttribute('aria-pressed',String(saved));b.classList.toggle('is-saved',saved);
+  note.innerHTML=favNote(msg,saved,'qz-ms',' Купить можно и без этого.');
   const ms=$('.qz-ms',note);if(ms)ms.onclick=()=>openMySystems();
 }
 function qzSaveBind(body){
@@ -7138,28 +7309,24 @@ function qzSaveBind(body){
 // «Мои системы»
 const msMat={steel:'сталь и чугун',zinc:'оцинковка и алюминий',concrete:'бетон',wood:'дерево'};
 const msObj={home:'Дом и участок',tech:'Прицепы и техника',equipment:'Металлоизделия и оборудование'};
-function msTitle(s){const a=s.answers||{};return a.object||a.material?[msObj[a.object],msMat[a.material]].filter(Boolean).join(' · '):s.items.length>1?'Система из каталога':qzName(s.items[0].product)}
+function msTitle(s){const a=s.answers||{};return a.object||a.material?[msObj[a.object],msMat[a.material]].filter(Boolean).join(' · '):s.items.length>1?'Грунт и эмаль':qzName(s.items[0].product)}
 function msCard(s){
-  const line=s.items.map(it=>qzName(it.product)).join(' + ');
-  const stores=s.items.map(({product})=>{
-    const p=products.find(item=>item.id===product);
-    return `<div class="ms-stores" role="group" aria-label="Магазины — ${esc(qzName(product))}">${s.items.length>1?`<small>${esc(productTitles[product][1])}</small>`:''}${productShopLinks(p,'ms-store')}</div>`;
-  }).join('');
+  const line=s.items.map(it=>qzName(it.product)).join(' + '),title=msTitle(s);
   const date=new Date(s.savedAt);const when=isNaN(date)?'':date.toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
   return `<article class="ms-card" data-id="${esc(s.id)}"><div class="ms-pics" aria-hidden="true">${s.items.map(it=>`<img src="${catalogPhoto({id:it.product})}" alt="">`).join('')}</div>
-    <div class="ms-info"><h3>${esc(msTitle(s))}</h3><p class="ms-line"><span>${esc(line)}</span></p>${when?`<p class="ms-date">Сохранено ${esc(when)}</p>`:''}</div>
-    <div class="ms-stores-list">${stores}</div><div class="ms-acts"><button type="button" class="ms-open">Открыть</button><button type="button" class="ms-ask">Запросить у дилера</button><button type="button" class="ms-del" aria-label="Удалить систему «${esc(msTitle(s))}»">Удалить</button></div></article>`;
+    <div class="ms-info"><h3>${esc(title)}</h3>${line!==title?`<p class="ms-line"><span>${esc(line)}</span></p>`:''}${when?`<p class="ms-date">Добавлено ${esc(when)}</p>`:''}</div>
+    <div class="ms-acts"><button type="button" class="ms-buy">${s.items.length>1?'Купить комплект':'Купить'}</button><button type="button" class="ms-open">Подробнее</button><button type="button" class="ms-del" aria-label="Удалить из избранного: ${esc(title)}">Удалить</button></div></article>`;
 }
 function msRender(){
   const body=$('#ms-body'),list=sysVisible().slice().reverse();
-  body.innerHTML=`<h2 id="ms-title" tabindex="-1">Мои системы</h2><p class="ms-sub">Сохранено в этом браузере</p>`+
-   (list.length?`<div class="ms-list">${list.map(msCard).join('')}</div>`:`<div class="ms-empty"><p class="ms-empty-title">Здесь появятся сохранённые системы</p><p>Подберите покрытие и нажмите «Сохранить систему».</p><button type="button" class="btn ms-quiz">Подобрать покрытие</button><p class="ms-other">На этом устройстве систем нет? Системы хранятся в браузере, где их сохранили. Чтобы открыть здесь, отправьте себе ссылку с того устройства.</p></div>`)+
-   `<p class="ms-foot">Системы хранятся только в этом браузере. Аккаунтов нет — так задумано.</p>`+
-   (sysPending?`<div class="ms-toast" role="status"><span>Система удалена</span><button type="button" class="ms-undo">Отменить</button></div>`:'<div class="ms-toast-live" role="status"></div>');
+  body.innerHTML=`<h2 id="ms-title" tabindex="-1">Избранное</h2><p class="ms-sub">Хранится в этом браузере, без регистрации</p>`+
+   (list.length?`<div class="ms-list">${list.map(msCard).join('')}</div>`:`<div class="ms-empty"><p class="ms-empty-title">В избранном пока пусто</p><p>Нажмите «В избранное» в карточке покрытия или в результате подбора.</p><button type="button" class="btn ms-quiz">Подобрать покрытие</button></div>`)+
+   `<p class="ms-foot"></p>`+
+   (sysPending?`<div class="ms-toast" role="status"><span>Удалено из избранного</span><button type="button" class="ms-undo">Отменить</button></div>`:'<div class="ms-toast-live" role="status"></div>');
   const quiz=$('.ms-quiz',body);if(quiz)quiz.onclick=()=>{$('#my-systems').close();answers={};history=[];quizStep='material';quizPreset=null;quizReset();renderQuiz();if(!$('#quiz').open)openDialog($('#quiz'))};
   $$('.ms-card',body).forEach(card=>{const s=sysRead().find(x=>x.id===card.dataset.id);
     $('.ms-open',card).onclick=()=>msOpen(s);
-    $('.ms-ask',card).onclick=()=>{const fin=s.items.find(it=>['232','222','mat','kovka'].includes(it.product))?.product||null;openSystemRequest(s.items.map(it=>it.product),fin,s.answers)};
+    $('.ms-buy',card).onclick=()=>goBuy(s.items.map(it=>it.product),s.answers);
     $('.ms-del',card).onclick=()=>msDelete(s)});
   const undo=$('.ms-undo',body);if(undo)undo.onclick=msUndo;
 }
@@ -7242,8 +7409,8 @@ function qzLinkRender(){
     const a=L.answers,title=a.material?'Система покрытия для '+(qzMatGen[a.material]||'вашей задачи'):'Система покрытия';
     body.innerHTML=`<span class="qz-badge">По ссылке</span><h2 id="quiz-title" tabindex="-1">${esc(title).replace(/(^|\s)(и|для|в|на|с|по)\s/g,'$1$2&nbsp;')}</h2>
       ${systemSteps(ids,'link')}
-      <div class="qz-foot qz-actions"><div class="qz-act-row"><button type="button" class="btn qz-dealer">Запросить комплект у дилера</button><div class="qz-save"${sysOK?'':' hidden'}><button type="button" class="qz-save-btn" aria-pressed="false">Сохранить систему</button></div><button type="button" class="qz-share qz-link-quiz">Подобрать свою</button></div><p class="qz-saved" aria-live="polite"></p><p class="qz-link-note">Без регистрации: система сохранится в этом браузере</p></div>`;
-    $('.qz-dealer',body).onclick=()=>openSystemRequest(ids,fin,{...a});
+      <div class="qz-foot qz-actions"><div class="qz-act-row"><button type="button" class="btn qz-dealer">Купить комплект</button><div class="qz-save"${sysOK?'':' hidden'}><button type="button" class="qz-save-btn" aria-pressed="false">В избранное</button></div><button type="button" class="qz-share qz-link-quiz">Подобрать свою</button></div><p class="qz-saved" aria-live="polite"></p><p class="qz-link-note">Без регистрации: избранное хранится в этом браузере</p></div>`;
+    $('.qz-dealer',body).onclick=()=>goBuy(ids,{...a});
     $('.qz-save-btn',body).onclick=()=>{const items=qzLinkItems();if(sysExists(items)){openMySystems();return}const r=sysSave({items,answers:{...a}},'link');qzLinkSave(r==='saved'||r==='exists'?'':r)};
     $$('[data-link-product]',body).forEach(b=>b.onclick=()=>{const id=b.dataset.linkProduct;$('#quiz').close();openProduct(id)});
     qzLinkSave();
@@ -7255,8 +7422,8 @@ function qzLinkItems(){return qzLink.items}
 function qzLinkSave(msg){
   const body=$('#quiz-body'),b=$('.qz-save-btn',body),note=$('.qz-saved',body);if(!b||!qzLink||qzLink.broken)return;
   const saved=sysExists(qzLinkItems());
-  b.textContent=saved?'Система сохранена':'Сохранить систему';b.setAttribute('aria-pressed',String(saved));b.classList.toggle('is-saved',saved);
-  note.innerHTML=msg==='full'?'Сохранено 20 систем — удалите лишние в <button type="button" class="qz-ms">«Мои системы»</button>':msg==='error'?'Не получилось сохранить в этом браузере.':saved?'Сохранено в этом браузере · <button type="button" class="qz-ms">Мои системы ›</button>':'';
+  b.innerHTML=favLabel(saved);b.setAttribute('aria-pressed',String(saved));b.classList.toggle('is-saved',saved);
+  note.innerHTML=favNote(msg,saved,'qz-ms');
   const ms=$('.qz-ms',note);if(ms)ms.onclick=()=>openMySystems();
 }
 function openSystemFromLink(){
@@ -7274,11 +7441,11 @@ function qzAsk(trigger){
   const body=$('#quiz-body'),sys=sysFromQuiz(),sig=sysSig(sys.items);qzAsking=trigger;
   const other=sysVisible().find(x=>x.id!==qzOrigin.id&&sysSig(x.items)===sig);
   const d=qzDiff(qzOrigin.items,sys.items);
-  $('#quiz-progress').textContent='Моя система';$('#quiz-bar').innerHTML='';$('#quiz-back-top').hidden=true;
+  $('#quiz-progress').textContent='Избранное';$('#quiz-bar').innerHTML='';$('#quiz-back-top').hidden=true;
   body.onclick=null;
-  body.innerHTML=`<h2 id="quiz-title" tabindex="-1">${other?'Такая система уже есть':'Сохранить изменения?'}</h2><p class="qz-sub">${esc(d.lead)}</p>
+  body.innerHTML=`<h2 id="quiz-title" tabindex="-1">${other?'Такая система уже в избранном':'Обновить избранное?'}</h2><p class="qz-sub">${esc(d.lead)}</p>
     <div class="qz-ask-diff"><div><p class="qz-ask-names">${esc(d.names)}</p></div></div>
-    <div class="qz-foot qz-actions qz-ask-acts">${other?`<button type="button" class="btn qz-ask-open">Открыть её</button><button type="button" class="qz-share qz-ask-skip">Не сохранять</button>`:`<div class="qz-act-row"><button type="button" class="btn qz-ask-update">Обновить сохранённую</button><button type="button" class="qz-share qz-ask-new">Сохранить как новую</button></div><button type="button" class="text-link qz-ask-skip">Не сохранять</button><p class="qz-link-note">Сохраняется только в этом браузере</p>`}</div>`;
+    <div class="qz-foot qz-actions qz-ask-acts">${other?`<button type="button" class="btn qz-ask-open">Открыть её</button><button type="button" class="qz-share qz-ask-skip">Не сохранять</button>`:`<div class="qz-act-row"><button type="button" class="btn qz-ask-update">Обновить в избранном</button><button type="button" class="qz-share qz-ask-new">Добавить как новую</button></div><button type="button" class="text-link qz-ask-skip">Не сохранять</button><p class="qz-link-note">Избранное хранится только в этом браузере</p>`}</div>`;
   const done=()=>{qzAsking=null;if(trigger==='close'){qzOrigin=null;$('#quiz').close()}else renderQuiz()};
   const u=$('.qz-ask-update',body);if(u)u.onclick=()=>{const list=sysRead(),i=list.findIndex(x=>x.id===qzOrigin.id);
     if(i>=0){list[i]={...list[i],items:sys.items,answers:sys.answers,savedAt:new Date().toISOString()};if(sysWrite(list)){qzOrigin={id:list[i].id,items:sys.items.map(it=>({...it}))};sysChanged();sysPulse()}}else{sysSave(sys,'quiz')}
