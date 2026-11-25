@@ -6746,7 +6746,7 @@ function updateWidget(){
     params.set('ll',[focusedDealer.latlng[1],focusedDealer.latlng[0]]);
     params.set('z',directory[focusedDealer.i].points?.[focusedDealer.address]?'14':'11');
   }
-  params.set('pt',visiblePoints.map(p=>[p.latlng[1],p.latlng[0],p===activePoint?'pm2rdl':'pm2orm'].join(',')).join('~'));
+  params.set('pt',points.map(p=>[p.latlng[1],p.latlng[0],p===activePoint?'pm2rdl':'pm2orm'].join(',')).join('~'));
   const url='https://yandex.ru/map-widget/v1/?'+params;
   if(widget.src!==url)widget.src=url;
 }
@@ -6766,12 +6766,10 @@ function showDealerPins(){
   if(dealerMap){
     dealerMap.geoObjects.removeAll();
     cluster.removeAll();cityLayer.removeAll();
-    if(visiblePoints===points){
-      cluster.add([...markers.values()]);dealerMap.geoObjects.add(cluster);
-    }else{
-      for(const p of visiblePoints)cityLayer.add(markers.get(p));
-      dealerMap.geoObjects.add(cityLayer);
-    }
+    // Claude, карта: при выборе города метки других городов не пропадают — город отдельно без объединения, остальные в кластерах
+    const inCity=new Set(visiblePoints===points?[]:visiblePoints);
+    cluster.add(points.filter(p=>!inCity.has(p)).map(p=>markers.get(p)));dealerMap.geoObjects.add(cluster);
+    if(inCity.size){for(const p of inCity)cityLayer.add(markers.get(p));dealerMap.geoObjects.add(cityLayer)}
   }
   fitDealers();
 }
