@@ -588,7 +588,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
   #workshops{flex-direction:column;align-items:flex-start;gap:16px}
   #workshops a small{white-space:nowrap}
 }
-</style><script defer src="assets/dealer-map.js"></script>
+</style><script defer src="assets/dealer-map.js?v=cd12b5d"></script>
 <style>
 #dealer-map{height:480px;isolation:isolate;border-radius:16px;background:#e8edf2;grid-area:map}
 .dealer-browser{grid-template-areas:"map";grid-template-columns:minmax(0,1fr)}
@@ -605,6 +605,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 #dealer-map .dealer-pin.cluster,#dealer-map .dealer-pin.selected{width:40px;height:40px} #dealer-map .dealer-pin.selected{border:2.5px solid #ff5300}
 .dealer-pin b{position:absolute;top:-5px;right:-8px;background:#2f385a;color:white;padding:1px 4px;min-width:19px;box-sizing:border-box;border-radius:12px;text-align:center;font:600 12px/17px Arial,sans-serif}
 @media(max-width:768px){#dealer-map{height:360px}.dealer-browser.has-shop{grid-template-areas:"map" "list" "card";grid-template-columns:minmax(0,1fr)}}
+@media (pointer:coarse){#dealer-map .ymap,#dealer-map .ymap [class*="-events-pane"]{touch-action:none}}
 #dealer-map{overflow:hidden} #dealer-map iframe,#dealer-map .ymap{display:block;width:100%;height:100%;border:0}
 
 #dealers{background:var(--paper);border-radius:18px;padding:clamp(16px,2.5vw,36px)}
