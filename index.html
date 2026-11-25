@@ -1534,6 +1534,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 #reviews .rv-stars{color:#f2b01e;letter-spacing:1px;font-size:14px;line-height:1}
 #reviews .rv-stars-off{color:#d9dce6}
 #reviews .rv-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;margin:0;padding:0}
+#reviews .rv-track[data-end-space]::after{content:"";flex:0 0 var(--rv-end-space)}
 #reviews .rv-track::-webkit-scrollbar{display:none}
 #reviews .rv-track:focus-visible{outline:2px solid var(--orange);outline-offset:4px;border-radius:18px}
 #reviews .rv-card{display:flex;flex-direction:column;flex:0 0 calc((100% - 32px)/3);min-width:0;margin:0;padding:24px;border-radius:18px;background:#fff;scroll-snap-align:start}
@@ -6633,10 +6634,31 @@ const faqs=[['Можно красить прямо по ржавчине?','Уд
  const sum=DATA.reviewSummary,box=$('#review-summary');if(sum&&sum.rating){box.innerHTML=`<strong class="rv-score">${esc(Number(sum.rating).toFixed(1).replace('.',','))}</strong>${stars(sum.rating)}`+(sum.url&&sum.count?`<a href="${esc(sum.url)}" target="_blank" rel="noopener">${esc(sum.count)} отзывов на ВсеИнструменты ↗</a>`:sum.note?`<span class="rv-note">${esc(sum.note)}</span>`:'');box.hidden=false}
  const D=$$; D('#review-list .rv-quote').forEach(q=>{const b=q.nextElementSibling;const check=()=>{if(b.getAttribute('aria-expanded')==='true')return;b.hidden=q.scrollHeight<=q.clientHeight+2};check();new ResizeObserver(check).observe(q);b.onclick=()=>{const open=b.getAttribute('aria-expanded')!=='true';b.setAttribute('aria-expanded',String(open));b.textContent=open?'Свернуть':'Читать полностью';q.classList.toggle('is-open',open)}});
  const track=$('#review-list'),cards=$$('.rv-card',track),prev=$('#review-prev'),next=$('#review-next'),pos=$('#review-pos'),nav=$('#reviews .rv-nav');
- const step=()=>cards.length>1?cards[1].offsetLeft-cards[0].offsetLeft:track.clientWidth;
- function upd(){const fits=track.scrollWidth<=track.clientWidth+2;nav.hidden=fits;if(fits)return;const i=Math.round(track.scrollLeft/step()),vis=Math.max(1,Math.round((track.clientWidth+16)/step())),last=Math.min(cards.length,i+vis);pos.textContent=(vis>1?(i+1)+'–'+last:String(i+1))+' / '+cards.length;prev.disabled=track.scrollLeft<4;next.disabled=track.scrollLeft>=track.scrollWidth-track.clientWidth-4}
- const go=d=>track.scrollBy({left:d*step(),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
- prev.onclick=()=>go(-1);next.onclick=()=>go(1);let raf;track.addEventListener('scroll',()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(upd)},{passive:true});new ResizeObserver(upd).observe(track);upd();
+ const step=()=>cards.length>1?cards[1].getBoundingClientRect().left-cards[0].getBoundingClientRect().left:track.clientWidth;
+ const visibleCount=()=>Math.max(1,Math.round((track.clientWidth+parseFloat(getComputedStyle(track).columnGap))/step()));
+ const firstVisible=()=>Math.max(0,Math.min(cards.length-1,Math.round(track.scrollLeft/step())));
+ function upd(){
+   const visible=visibleCount(),first=firstVisible()+1,last=Math.min(cards.length,first+visible-1);
+   nav.hidden=cards.length<=visible;
+   pos.textContent=(last>first?first+'–'+last:String(first))+' / '+cards.length;
+   prev.disabled=track.scrollLeft<4;
+   next.disabled=track.scrollLeft>=track.scrollWidth-track.clientWidth-4;
+ }
+ function layout(){
+   const visible=visibleCount(),missing=(visible-cards.length%visible)%visible;
+   const gap=parseFloat(getComputedStyle(track).columnGap);
+   track.style.setProperty('--rv-end-space',Math.max(0,missing*step()-gap)+'px');
+   track.toggleAttribute('data-end-space',cards.length>visible && missing>0);
+   upd();
+ }
+ function go(direction){
+   const visible=visibleCount(),index=firstVisible();
+   const page=direction>0?Math.floor(index/visible)+1:Math.ceil(index/visible)-1;
+   track.scrollTo({left:Math.max(0,page)*visible*step(),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+ }
+ prev.onclick=()=>go(-1);next.onclick=()=>go(1);
+ let raf;track.addEventListener('scroll',()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(upd)},{passive:true});
+ new ResizeObserver(layout).observe(track);layout();
 })();
 function bindPhotos(root=document){$$('[data-photo]',root).forEach(b=>b.onclick=()=>{$('#large-photo').src=b.dataset.photo;$('#large-photo').alt=b.dataset.caption;$('#photo-caption').textContent=b.dataset.caption;openDialog($('#lightbox'))})}bindPhotos();
 function demo(type){$('#info-body').innerHTML=`<h2 id="info-title">Ссылка готовится</h2><p>${type==='ozon'?'Точная ссылка на магазин или товар на Ozon ещё не добавлена. Вы можете посмотреть карточки продуктов или связаться с производителем.':'Общая ссылка на магазин бренда ещё не добавлена. В подробных карточках уже есть ссылки на конкретные товары во ВсеИнструменты.'}</p><div class="actions"><button class="btn" id="demo-catalog">Перейти к каталогу</button><a class="btn ghost" href="tel:88001015239">Позвонить</a></div>`;$('#demo-catalog').onclick=()=>{$('#info').close();jump($('#catalog'))};openDialog($('#info'))}
