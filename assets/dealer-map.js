@@ -12,7 +12,7 @@ function initDealerMap(){
   markers=new Map(points.map(p=>{
     const pin=new ymaps.Placemark(p.latlng,{hintContent:esc(p.city+' · '+storeName(directory[p.i]))},
       {iconLayout:p===activePoint?layouts.selected:layouts.normal,iconShape:shape,openBalloonOnClick:false});
-    pin.events.add('click',()=>{cancelLocate();renderCity(p.city,p)});
+    pin.events.add('click',()=>{cancelLocate();if(!selectFromMap(p))renderCity(p.city,p)});
     return [p,pin];
   }));
   cluster=new ymaps.Clusterer({clusterIconLayout:layout('<div class="dealer-pin cluster"><b>$[properties.geoObjects.length]</b></div>'),
@@ -26,5 +26,6 @@ dealerMapSdk.src = 'https://api-maps.yandex.ru/2.1/?' + new URLSearchParams({
   lang: 'ru_RU',
   apikey: "f97e0227-a124-40dd-9f8b-64b2620bda5c"
 });
-dealerMapSdk.onload = () => window.ymaps?.ready(initDealerMap);
+dealerMapSdk.onload = () => window.ymaps ? ymaps.ready(initDealerMap, allowWidget) : allowWidget();
+dealerMapSdk.onerror = allowWidget;
 document.head.append(dealerMapSdk);

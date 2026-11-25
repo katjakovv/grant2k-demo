@@ -6724,7 +6724,12 @@ function pointBounds(){
   const lats=visiblePoints.map(p=>p.latlng[0]),lons=visiblePoints.map(p=>p.latlng[1]);
   return [[Math.min(...lats),Math.min(...lons)],[Math.max(...lats),Math.max(...lons)]];
 }
+// Claude, карта на телефоне: запасной виджет грузим только если API Яндекс Карт не загрузилось — без двойной загрузки
+let widgetAllowed=false;
+function allowWidget(){if(dealerMap||widgetAllowed)return;widgetAllowed=true;updateWidget()}
+setTimeout(allowWidget,8000);
 function updateWidget(){
+  if(!widgetAllowed)return;
   const bounds=pointBounds();
   const params=new URLSearchParams({l:'map',scroll:matchMedia('(pointer:coarse)').matches?'false':'true'});
   const [[south,west],[north,east]]=bounds;
@@ -6739,7 +6744,7 @@ function updateWidget(){
   }
   if(focusedDealer){
     params.set('ll',[focusedDealer.latlng[1],focusedDealer.latlng[0]]);
-    params.set('z',directory[focusedDealer.i].points?.[focusedDealer.address]?'16':'11');
+    params.set('z',directory[focusedDealer.i].points?.[focusedDealer.address]?'14':'11');
   }
   params.set('pt',visiblePoints.map(p=>[p.latlng[1],p.latlng[0],p===activePoint?'pm2rdl':'pm2orm'].join(',')).join('~'));
   const url='https://yandex.ru/map-widget/v1/?'+params;
@@ -6750,7 +6755,7 @@ function fitDealers(){
   if(!dealerMap){updateWidget();return}
   dealerMap.container.fitToViewport();
   if(focusedDealer){
-    dealerMap.setCenter(focusedDealer.latlng,directory[focusedDealer.i].points?.[focusedDealer.address]?16:11);
+    dealerMap.setCenter(focusedDealer.latlng,directory[focusedDealer.i].points?.[focusedDealer.address]?14:11,{duration:300});
     return;
   }
   const bounds=pointBounds();
@@ -6780,7 +6785,9 @@ let dealerWidth=0;
 new ResizeObserver(([entry])=>{
   if(dealerWidth!==entry.contentRect.width){dealerWidth=entry.contentRect.width;fitDealers()}
 }).observe(mapHost);
+let selectFromMap=()=>false;
 function renderCity(query='',requestedPoint=null,unknown=false){
+  selectFromMap=()=>false;
   const panel=$('#dealer-address-details');
   const contacts=$('#dealer-contact-card');
   $('.dealer-scroll').append(contacts);
@@ -6807,7 +6814,7 @@ function renderCity(query='',requestedPoint=null,unknown=false){
   const choices=points.filter(point=>point.city===preferred);
   visiblePoints=choices;
   showDealerPins();
-  function selectChoice(index){
+  function selectChoice(index,fromMap=false){
     const {i,address}=choices[index],shop=directory[i];
     currentShop=i;currentAddress=address;
     citySelect.value=preferred;
@@ -6836,17 +6843,22 @@ function renderCity(query='',requestedPoint=null,unknown=false){
     list.querySelector('.dealer-choice[aria-expanded="true"]')?.setAttribute('aria-expanded','false');
     buttons[index].setAttribute('aria-expanded','true');
     $('.dealer-browser').classList.add('has-shop');
-    panel.hidden=false;
+    // Claude, карта на телефоне: плашка «Построить маршрут» поверх карты убрана, маршрут — в карточке магазина
+    panel.hidden=true;
     renderAddress();
     let route=contacts.querySelector('.dc-route');
     if(!route){route=document.createElement('a');route.className='dc-route';route.target='_blank';route.rel='noopener';contacts.append(route)}
     route.href=$('#map-route').href;route.textContent=shop.addresses.length?'Маршрут':'Город в Яндекс Картах';
+    if(fromMap){
+      group.replaceChildren(...cards);group.prepend(cards[index]);
+      cards[index].scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+    }
 
   }
 
   choices.sort((a,b)=>Number(brandStore(directory[b.i]))-Number(brandStore(directory[a.i])) || directory[a.i].name.localeCompare(directory[b.i].name,'ru'));
   const list=$('#dealer-options');
-  const group=document.createElement('section'),buttons=[];
+  const group=document.createElement('section'),buttons=[],cards=[];
   const n=choices.length;
   const plural=new Intl.PluralRules('ru').select(n);
   const noun=({one:'точка',few:'точки',many:'точек'})[plural] || 'точек';
@@ -6882,11 +6894,12 @@ function renderCity(query='',requestedPoint=null,unknown=false){
     const card=document.createElement('div');card.className='dealer-card';card.append(btn);
     const phone=(shop.details.find(l=>/^Телефон/i.test(l))||'').replace(/^Телефоны?:\s*/i,'').split(/[,;]/)[0].trim();
     if(phone){const a=document.createElement('a');a.className='dc-phone';let d=phone.replace(/[^\d+]/g,'');if(/^8\d{10}$/.test(d))d='+7'+d.slice(1);else if(/^\d{10}$/.test(d))d='+7'+d;a.href='tel:'+d;a.textContent=phone;card.append(a)}
-    group.append(card);
+    group.append(card);cards.push(card);
   }
   list.replaceChildren(group);
 
-  if(requestedPoint)selectChoice(choices.indexOf(requestedPoint));
+  if(requestedPoint)selectChoice(choices.indexOf(requestedPoint),true);
+  selectFromMap=point=>{const k=choices.indexOf(point);if(k<0)return false;if(buttons[k].getAttribute('aria-expanded')!=='true')selectChoice(k,true);else cards[k].scrollIntoView({block:'nearest',behavior:'smooth'});return true};
 }
 function cancelLocate() {
   locationRequest++;
