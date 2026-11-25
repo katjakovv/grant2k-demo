@@ -6651,14 +6651,41 @@ const faqs=[['Можно красить прямо по ржавчине?','Уд
    track.toggleAttribute('data-end-space',cards.length>visible && missing>0);
    upd();
  }
- function go(direction){
-   const visible=visibleCount(),index=firstVisible();
-   const page=direction>0?Math.floor(index/visible)+1:Math.ceil(index/visible)-1;
-   track.scrollTo({left:Math.max(0,page)*visible*step(),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+ let animationFrame=0, targetIndex=null;
+ const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+ function stopAnimation(){
+   cancelAnimationFrame(animationFrame);
+   targetIndex=null;
+   track.style.removeProperty('scroll-snap-type');
  }
+ function go(direction){
+   const visible=visibleCount(),index=targetIndex??firstVisible();
+   const page=direction>0?Math.floor(index/visible)+1:Math.ceil(index/visible)-1;
+   const destination=Math.max(0,Math.min(Math.ceil(cards.length/visible)-1,page))*visible;
+   cancelAnimationFrame(animationFrame);
+   const start=track.scrollLeft,end=Math.min(destination*step(),track.scrollWidth-track.clientWidth);
+   if(reducedMotion.matches || Math.abs(end-start)<1){
+     stopAnimation();
+     track.scrollTo({left:end,behavior:'instant'});
+     return;
+   }
+   targetIndex=destination;
+   track.style.scrollSnapType='none';
+   const started=performance.now(),duration=visible===1?520:640;
+   function advance(now){
+     const progress=Math.min(1,(now-started)/duration);
+     const eased=(1-Math.cos(Math.PI*progress))/2;
+     track.scrollTo({left:start+(end-start)*eased,behavior:'instant'});
+     if(progress<1) animationFrame=requestAnimationFrame(advance);
+     else stopAnimation();
+   }
+   animationFrame=requestAnimationFrame(advance);
+ }
+ for(const event of ['pointerdown','wheel','keydown']) track.addEventListener(event,stopAnimation,{passive:true});
+ reducedMotion.addEventListener('change',stopAnimation);
  prev.onclick=()=>go(-1);next.onclick=()=>go(1);
  let raf;track.addEventListener('scroll',()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(upd)},{passive:true});
- new ResizeObserver(layout).observe(track);layout();
+ new ResizeObserver(()=>{stopAnimation();layout()}).observe(track);layout();
 })();
 function bindPhotos(root=document){$$('[data-photo]',root).forEach(b=>b.onclick=()=>{$('#large-photo').src=b.dataset.photo;$('#large-photo').alt=b.dataset.caption;$('#photo-caption').textContent=b.dataset.caption;openDialog($('#lightbox'))})}bindPhotos();
 function demo(type){$('#info-body').innerHTML=`<h2 id="info-title">Ссылка готовится</h2><p>${type==='ozon'?'Точная ссылка на магазин или товар на Ozon ещё не добавлена. Вы можете посмотреть карточки продуктов или связаться с производителем.':'Общая ссылка на магазин бренда ещё не добавлена. В подробных карточках уже есть ссылки на конкретные товары во ВсеИнструменты.'}</p><div class="actions"><button class="btn" id="demo-catalog">Перейти к каталогу</button><a class="btn ghost" href="tel:88001015239">Позвонить</a></div>`;$('#demo-catalog').onclick=()=>{$('#info').close();jump($('#catalog'))};openDialog($('#info'))}
