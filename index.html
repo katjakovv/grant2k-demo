@@ -2484,6 +2484,20 @@ html body .header .nav-quiz,html body .header .nav-quiz[data-design-id]{padding-
 #quiz .system-buy .qz-shop img{display:none}
 #quiz .system-buy a[href*="ozon.ru"]{background:#005bff}
 #quiz .system-buy a[href*="vseinstrumenti.ru"]{background:#e30613}
+/* Claude, макет 29 (вид В): шкала шрифтов 17/15/14, магазины в рамке товара */
+#quiz .system-label{font-size:15px;font-weight:700;color:var(--ink);text-transform:none;letter-spacing:0}
+#quiz .system-card{border-width:1px}
+#quiz .system-open{grid-template-columns:64px minmax(0,1fr) 18px;padding:16px}
+#quiz .system-pic{width:64px;height:64px}#quiz .system-pic img{width:54px;height:54px}
+#quiz .system-meta{margin-top:4px}
+#quiz .system-area{font-size:14px;margin-top:8px}
+#quiz .system-step:first-child:not(:last-child){padding-bottom:24px}
+#quiz .system-shops{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);border-top:1px solid #dfe2ec}
+#quiz .system-shops a{display:flex;align-items:center;justify-content:center;gap:4px;min-height:44px;padding:0 8px;color:var(--ink);font-size:15px;font-weight:600;text-decoration:none}
+#quiz .system-shops a+a{border-left:1px solid #dfe2ec}
+#quiz .system-shops a:hover{background:#fafbfc}
+#quiz .system-shops a:focus-visible{outline:2px solid var(--ink);outline-offset:-3px}
+#quiz .system-shops svg{width:12px;height:12px;flex:none;opacity:.55}
 @media(max-width:380px){
  #quiz .system-step{padding-left:34px}
  #quiz .system-open{grid-template-columns:44px minmax(0,1fr) 12px;gap:8px}
@@ -6516,6 +6530,11 @@ function qzTrail(){
   parts.push(a.variant?(a.variant==='mat'?'Матовое':'Полуглянец'):a.finish&&labels[a.finish]);
   return parts.filter(Boolean).join(' · ');
 }
+// Claude, макет 29 (вид В): Ozon и ВсеИнструменты — нижняя полоса рамки товара; правило ссылок — как в purchaseLinks
+function systemShops(p){
+  const links=productMarkets(p).filter(({key})=>p.id!=='211'||p[key]).map(({key,name,storeUrl})=>{const url=p[key]||storeUrl;return url?`<a href="${esc(url)}" target="_blank" rel="noopener" aria-label="${esc(qzName(p.id))} на ${esc(name)}">${esc(name)}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>`:''}).filter(Boolean);
+  return links.length?`<div class="system-shops">${links.join('')}</div>`:'';
+}
 function systemSteps(ids,source){
   const pair=ids.length===2 && ids[0]==='211';
   const glossPair=pair && ids[1]==='232';
@@ -6525,15 +6544,14 @@ function systemSteps(ids,source){
     const p=products.find(product=>product.id===id);
     const rawArea=productSpecs[id].area;
     const area=typeof rawArea==='string'?rawArea.split(' по ')[0].split(' общей толщиной')[0].replace('8,5 или 9,2','8,5–9,2'):'';
-    const label=pair?(i?'Затем — ':'Сначала — ')+finish[id]:'Покрытие в два слоя';
+    const label=pair?(i?'Затем ':'Сначала ')+finish[id]:'Покрытие в два слоя';
     const type=p.kind.replace(/ (?:грунт|эмаль|грунт-эмаль)$/i,'');
     return `<li class="system-step">${pair?`<span class="system-number" aria-hidden="true">${i+1}</span>${i===0?'<span class="system-rail" aria-hidden="true"></span>':''}`:''}
       <h3 class="system-label">${esc(label)}</h3>
       <article class="system-card"><button type="button" class="system-open" data-${source}-product="${id}" aria-label="Подробнее о материале: ${esc(qzName(id))}">
       <span class="system-pic"><img src="${catalogPhoto(p)}" alt=""></span>
-      <span><strong class="system-name">${esc(qzName(id))}</strong><span class="system-meta">${esc(type)} · ${esc(p.pack.replace(' / ',' или '))}</span>${area?`<span class="system-area" title="${esc(rawArea)}">${esc(area)}</span>`:''}</span>
-      <svg class="system-next" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button></article>
-      ${glossPair && i===0?'<p class="system-delay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Эмаль — через 2 часа при +20 °C</p>':''}</li>`;
+      <span><strong class="system-name">${esc(qzName(id))}</strong><span class="system-meta">${esc(type)} · ${esc(p.pack.replace(' / ','–'))}</span>${area?`<span class="system-area" title="${esc(rawArea)}">${esc(area)}</span>`:''}</span>
+      <svg class="system-next" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>${systemShops(p)}</article></li>`;
   });
   return intro+`<ol class="system-steps${pair?' is-pair':''}">${cards.join('')}</ol>`;
 }
@@ -6543,7 +6561,7 @@ function qzResult(body){
   const fin=qzFinish(),ids=qzAlt()?r.ids.filter(id=>id==='211'||id===answers.variant):r.ids;
   body.innerHTML=`<h2 id="quiz-title">${esc(qzTitle()).replace(/(^|\s)(и|для|в|на|с|по)\s/g,'$1$2&nbsp;')}</h2>
     ${systemSteps(ids,'result')}
-    <div class="qz-foot qz-actions"><div class="qz-act-row"><button type="button" class="btn qz-dealer">Купить комплект</button><div class="qz-save"><button type="button" class="qz-save-btn" aria-pressed="false">В избранное</button></div></div><p class="qz-saved" aria-live="polite"></p></div>
+    <div class="qz-foot qz-actions"><div class="qz-act-row"><button type="button" class="btn qz-dealer">${ids.length>1?'Купить комплект в магазине':'Купить в магазине'}</button><div class="qz-save"><button type="button" class="qz-save-btn" aria-pressed="false">В избранное</button></div></div><p class="qz-saved" aria-live="polite"></p></div>
     `;
   $('.qz-dealer',body).onclick=()=>goBuy(ids,{...answers});
   qzSaveBind(body);
@@ -7413,7 +7431,7 @@ function qzLinkRender(){
     const a=L.answers,title=a.material?'Система покрытия для '+(qzMatGen[a.material]||'вашей задачи'):'Система покрытия';
     body.innerHTML=`<span class="qz-badge">По ссылке</span><h2 id="quiz-title" tabindex="-1">${esc(title).replace(/(^|\s)(и|для|в|на|с|по)\s/g,'$1$2&nbsp;')}</h2>
       ${systemSteps(ids,'link')}
-      <div class="qz-foot qz-actions"><div class="qz-act-row"><button type="button" class="btn qz-dealer">Купить комплект</button><div class="qz-save"${sysOK?'':' hidden'}><button type="button" class="qz-save-btn" aria-pressed="false">В избранное</button></div><button type="button" class="qz-share qz-link-quiz">Подобрать свою</button></div><p class="qz-saved" aria-live="polite"></p><p class="qz-link-note">Без регистрации: избранное хранится в этом браузере</p></div>`;
+      <div class="qz-foot qz-actions"><div class="qz-act-row"><button type="button" class="btn qz-dealer">${ids.length>1?'Купить комплект в магазине':'Купить в магазине'}</button><div class="qz-save"${sysOK?'':' hidden'}><button type="button" class="qz-save-btn" aria-pressed="false">В избранное</button></div><button type="button" class="qz-share qz-link-quiz">Подобрать свою</button></div><p class="qz-saved" aria-live="polite"></p><p class="qz-link-note">Без регистрации: избранное хранится в этом браузере</p></div>`;
     $('.qz-dealer',body).onclick=()=>goBuy(ids,{...a});
     $('.qz-save-btn',body).onclick=()=>{const items=qzLinkItems();if(sysExists(items)){openMySystems();return}const r=sysSave({items,answers:{...a}},'link');qzLinkSave(r==='saved'||r==='exists'?'':r)};
     $$('[data-link-product]',body).forEach(b=>b.onclick=()=>{const id=b.dataset.linkProduct;$('#quiz').close();openProduct(id)});
