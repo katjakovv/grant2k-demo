@@ -1096,8 +1096,8 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 
 
 #product-detail [hidden]{display:none}
-#catalog .cd-buy>a:first-child{background:#be4000;color:#fff;border-color:#be4000;border-radius:12px}
-#catalog .cd-buy>a:first-child:hover{background:#a43700;border-color:#a43700}
+#catalog .cd-buy>a:first-child{background:var(--orange);color:#fff;border-color:var(--orange);border-radius:12px}
+#catalog .cd-buy>a:first-child:hover{background:var(--orange);border-color:var(--orange)}
 .catalog-buy-frame{container-type:inline-size;min-width:0}
 #catalog .cd-buy{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
 #catalog .cd-buy a{display:inline-flex;align-items:center;justify-content:center;width:auto;height:auto;min-height:48px;padding:10px 16px;border-radius:12px;white-space:nowrap;font:600 16px/24px Okta,Arial,sans-serif}
@@ -2187,6 +2187,9 @@ body{background:var(--bg-a)}
 #product-dialog .pd-handle{display:none}
 #product-dialog #product-detail{margin:0;padding:36px;border-radius:0;box-shadow:none}
 #product-dialog .catalog-close{top:24px;right:24px;width:44px;height:44px}
+/* Катя 26.11: при открытии фокус на самом окне, а не на ✕ — иначе iPhone рисует вокруг крестика тёмное кольцо, обрезанное ручкой; кольцо клавиатурного фокуса — внутри кнопки */
+#product-dialog:focus{outline:none}
+#product-dialog .catalog-close:focus-visible{outline-offset:-3px}
 
 
 
@@ -6420,7 +6423,7 @@ function placeCatalogPanel(panel){
   if(last.nextElementSibling!==panel)last.after(panel);
 }
 // Claude, шаг 15: подробная карточка — окно на компьютере, нижний лист на телефоне (ТЗ 8, 9; Miro «Каталог · попап», «Каталог · телефон · итог»)
-const pdDialog=document.createElement('dialog');pdDialog.id='product-dialog';pdDialog.setAttribute('aria-labelledby','detail-title');
+const pdDialog=document.createElement('dialog');pdDialog.id='product-dialog';pdDialog.tabIndex=-1;pdDialog.setAttribute('aria-labelledby','detail-title');
 pdDialog.innerHTML='<div class="pd-handle" aria-hidden="true"><span></span></div><div class="pd-body"></div>';
 $('#catalog').append(pdDialog); // внутри секции — действуют стили #catalog
 const pdPhone=()=>matchMedia('(max-width:700px)').matches;
@@ -6461,7 +6464,7 @@ function renderDetail(){
   panel.addEventListener('click',e=>{const b=e.target.closest('.cd-save');if(!b||b.disabled)return;const items=cdItems(p);if(!items)return;
     if(b.getAttribute('aria-pressed')==='true'){openMySystems();return}const r=sysSave({items,answers:{}},'catalog');cdSaveState(r==='saved'||r==='exists'?'':r)});
   cdSaveState();
-  close.focus({preventScroll:true});
+  pdDialog.focus({preventScroll:true});
 }
 const tabs=$$('.filter');
 function selectTab(value,product=null){
