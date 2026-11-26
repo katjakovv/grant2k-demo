@@ -2192,6 +2192,8 @@ body{background:var(--bg-a)}
 /* карточка товара окном (ТЗ 8) — компьютер, по фрейму Miro «Каталог · попап «Сохранить выбор»» */
 #product-dialog{width:min(1064px,calc(100% - 32px));max-width:none;max-height:calc(100dvh - 48px);padding:0;border-radius:24px;overflow:auto;overscroll-behavior:contain;transition:transform .2s}
 #product-dialog .pd-handle{display:none}
+#product-dialog .cd-photo-frame{display:contents}
+#product-dialog .cd-photo-frame .cd-photo{grid-area:auto}
 #product-dialog #product-detail{margin:0;padding:36px;border-radius:0;box-shadow:none}
 #product-dialog .catalog-close{top:24px;right:24px;width:44px;height:44px}
 /* Катя 26.11: при открытии фокус на самом окне, а не на ✕ — иначе iPhone рисует вокруг крестика тёмное кольцо, обрезанное ручкой; кольцо клавиатурного фокуса — внутри кнопки */
@@ -2216,8 +2218,10 @@ body{background:var(--bg-a)}
   #product-dialog{width:100%;max-width:100%;margin:auto 0 0;max-height:calc(100dvh - 76px);border-radius:24px 24px 0 0}
   #product-dialog .pd-handle{display:flex;justify-content:center;position:sticky;top:0;z-index:3;height:24px;padding-top:8px;background:#fff;touch-action:none;cursor:grab}
   #product-dialog .pd-handle span{width:40px;height:5px;border-radius:3px;background:#e3e5ec}
-  #product-dialog #product-detail{padding:44px 16px 0}
-  #product-dialog .catalog-close{top:0;right:12px;width:44px;height:44px;border:0;background:#f3f4f7;font-size:22px}
+  #product-dialog #product-detail{padding:8px 16px 0}
+  #product-dialog .cd-photo-frame{position:relative;display:block;order:1}
+  #product-dialog .cd-photo-frame .cd-photo{display:block}
+  #product-dialog .catalog-close{top:12px;right:12px;width:44px;height:44px;display:grid;place-items:center;padding:0;border:2px solid #2f385a;background:#f3f4f7;box-shadow:inset 0 0 0 2px #fff;font-size:22px}
   #product-dialog .cd-layout{display:flex;flex-direction:column;align-items:stretch;gap:16px}
   #product-dialog .cd-visual,#product-dialog .cd-info{display:contents}
   #product-dialog .cd-photo{order:1;height:160px;aspect-ratio:auto;padding:12px}
@@ -6460,8 +6464,7 @@ function renderDetail(){
   const panel=document.createElement('article');
   panel.id='product-detail';panel.className='product-detail';panel.dataset.tone=p.id;
   panel.setAttribute('aria-labelledby','detail-title');
-  panel.innerHTML=`<button type="button" class="catalog-close" aria-label="Закрыть">×</button>
-    <div class="cd-layout"><div class="cd-visual"><img class="cd-photo" src="${catalogPhoto(p)}" alt="Упаковка ${esc(title)}">${p.id==='211'?'<div class="cd-colour-info"><strong>Цвет: светло-серый</strong></div>':''}</div>
+  panel.innerHTML=`<div class="cd-layout"><div class="cd-visual"><div class="cd-photo-frame"><button type="button" class="catalog-close" aria-label="Закрыть">×</button><img class="cd-photo" src="${catalogPhoto(p)}" alt="Упаковка ${esc(title)}"></div>${p.id==='211'?'<div class="cd-colour-info"><strong>Цвет: светло-серый</strong></div>':''}</div>
     <div class="cd-info"><header class="cd-head"><small>${kind}</small><h3 id="detail-title">${title}</h3><p>${esc(p.description.split('. ')[0].replace(/\.$/,'')+'.')}</p></header>
     <p class="cd-specline">${esc([p.pack,area,spec.kit&&spec.kit.charAt(0).toLowerCase()+spec.kit.slice(1)].filter(Boolean).join(' · '))}</p>
     <dl class="cd-specs"><div><dt>Фасовка</dt><dd>${esc(p.pack)}</dd></div><div><dt>Площадь</dt><dd>${area?esc(area):'уточняется'}${condition?`<small>${esc(condition)}</small>`:''}</dd></div><div><dt>В комплекте</dt><dd>${esc(spec.kit)}</dd></div></dl>
