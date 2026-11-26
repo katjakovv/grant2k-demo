@@ -739,7 +739,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 
 .cd-buy{grid-area:buy;display:flex;gap:10px;flex-wrap:wrap}
 .cd-buy :is(a,button){display:inline-flex;justify-content:center;align-items:center;height:50px;border-radius:10px;border:1px solid #dfe2ea;background:#f3f4f7;color:inherit;text-decoration:none;font:600 16px/1.2 Okta,Arial,sans-serif;padding:0 14px}
-.cd-buy>a:first-child{color:#fff;background:#2f385a;border-color:#2f385a}
+.cd-buy>.cd-purchase{color:#fff;background:#2f385a;border-color:#2f385a}
 .cd-apply{grid-area:apply;border-top:1px solid #dfe2ea}
 .cd-apply h4{font:500 18px/1.35 Unbounded,Arial,sans-serif;margin:20px 0 4px}
 .cd-apply details{border-bottom:1px solid #dfe2ea}
@@ -761,7 +761,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
  .cd-specs>div{display:grid;grid-template-columns:minmax(78px,110px) minmax(0,1fr);align-items:baseline;gap:8px}
  .cd-specs dd{margin:0}
  .cd-buy{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
- .cd-buy>a:first-child{grid-column:1/-1}
+ .cd-buy>.cd-purchase{grid-column:1/-1}
  .cd-buy :is(a,button){padding:0 4px;font-size:clamp(12px,5cqi,16px)}
  .cd-apply dl>div{grid-template-columns:1fr;gap:4px}
 }
@@ -1096,7 +1096,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 
 
 #product-detail [hidden]{display:none}
-#catalog .cd-buy>a:first-child{background:var(--orange);color:#fff;border-color:var(--orange);border-radius:12px}
+#catalog .cd-buy>.cd-purchase{background:var(--orange);color:#fff;border-color:var(--orange);border-radius:12px}
 
 .catalog-buy-frame{container-type:inline-size;min-width:0}
 #catalog .cd-buy{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
@@ -1108,7 +1108,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 @container(max-width:460px){
  #catalog .cd-buy{display:grid;grid-template-columns:minmax(max-content,0.8fr) minmax(max-content,1.2fr)}
  #catalog .cd-buy a{width:100%;padding-inline:10px}
- #catalog .cd-buy>a:first-child{grid-column:1/-1}
+ #catalog .cd-buy>.cd-purchase{grid-column:1/-1}
 }
 .catalog-pdf{display:inline-flex;align-items:center;min-height:44px;font-weight:600;text-decoration:underline}
 #catalog-mobile-actions{display:none}
@@ -2194,12 +2194,12 @@ body{background:var(--bg-a)}
 #product-detail .cd-saved button{min-height:32px;padding:4px 0;border:0;background:none;color:var(--ink);font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 @container(max-width:460px){
   #catalog .cd-buy:has(.cd-save){grid-template-columns:minmax(0,.8fr) minmax(max-content,1.2fr)}
-  #catalog .cd-buy:has(.cd-save)>a:first-child{grid-column:2;grid-row:1}
+  #catalog .cd-buy:has(.cd-save)>.cd-purchase{grid-column:2;grid-row:1}
   #catalog .cd-buy .cd-save{grid-column:1;grid-row:1;width:100%;min-width:0;padding-inline:8px;font-size:15px}
 }
 @container(max-width:300px){
   #catalog .cd-buy:has(.cd-save){grid-template-columns:minmax(max-content,.8fr) minmax(max-content,1.2fr)}
-  #catalog .cd-buy:has(.cd-save)>a:first-child{grid-column:1/-1;grid-row:1}
+  #catalog .cd-buy:has(.cd-save)>.cd-purchase{grid-column:1/-1;grid-row:1}
   #catalog .cd-buy .cd-save{grid-column:1/-1;grid-row:auto;min-width:0}
 }
 /* карточка товара окном (ТЗ 8) — компьютер, по фрейму Miro «Каталог · попап «Сохранить выбор»» */
@@ -2224,7 +2224,7 @@ body{background:var(--bg-a)}
 @container(min-width:461px){
   #product-dialog .cd-buy .catalog-shop{width:48px;min-width:48px;padding:0;gap:0;font-size:0;line-height:0}
   #product-dialog .cd-buy .catalog-shop img{width:24px;height:24px}
-  #product-dialog .cd-buy .cd-save{flex:0 0 auto;margin-left:auto}
+  #product-dialog .cd-buy .cd-save{flex:0 0 auto;margin-left:0}
 }
 @media (max-width:700px){
   /* телефон — нижний лист (ТЗ 9): ручка и ✕, фото 160, тип и название, строка характеристик, цвет, «Инструкция и тех. описание ›», закреплённая покупка */
@@ -2249,7 +2249,7 @@ body{background:var(--bg-a)}
   /* ТЗ 8.4: на телефоне — подпись «Также на маркетплейсах» и широкие кнопки в фирменных цветах со стрелкой; логотипы-значки на заливке не видны, поэтому название текстом, как во фрейме Miro */
   #product-dialog .cd-buy .cd-also{display:block;grid-column:1/-1;margin:4px 0 -2px;font-size:13px;line-height:1.4;color:#5d6786;text-align:center}
   #product-dialog .cd-buy{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  #product-dialog .cd-buy>a:first-child,#product-dialog .cd-buy:has(.cd-save)>a:first-child{grid-column:2;grid-row:1;width:100%}
+  #product-dialog .cd-buy>.cd-purchase,#product-dialog .cd-buy:has(.cd-save)>.cd-purchase{grid-column:2;grid-row:1;width:100%}
   #product-dialog .cd-buy:has(.cd-save){grid-template-columns:repeat(2,minmax(0,1fr))}
   #product-dialog .cd-buy .cd-save{grid-column:1;grid-row:1;width:100%;margin:0;flex:none}
   #product-dialog .cd-buy .catalog-shop{width:100%;min-width:0;min-height:44px;padding:10px 12px;gap:6px;border:0;color:#fff;font:700 15px/1.3 Okta,Arial,sans-serif}
@@ -2416,7 +2416,12 @@ html body .header .nav-quiz,html body .header .nav-quiz[data-design-id]{padding:
 #catalog .cd-buy .cd-save,#quiz .qz-save-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px}
 #catalog .cd-buy .cd-save.is-saved .fav-ico,#quiz .qz-save-btn.is-saved .fav-ico,#dealer-ask .da-saved .fav-ico{color:#e84a00}
 #dealer-ask .da-saved .fav-ico{display:inline-block;vertical-align:-3px}
-#catalog .cd-buy>a:first-child{min-width:160px}
+#catalog .cd-buy>.cd-purchase{min-width:160px}
+@media(min-width:701px){
+  #product-dialog .cd-buy{display:flex;justify-content:flex-start;gap:8px}
+  #product-dialog .cd-buy .cd-save,#product-dialog .cd-buy>.cd-purchase{flex:0 0 auto;width:auto;margin:0}
+}
+@media(max-width:700px){#product-dialog .cd-buy>.cd-purchase{min-width:0}}
 #dealer-ask .da-part{margin:24px 0 8px;font-size:16px;line-height:1.35;font-weight:700}
 #dealer-ask .da-online{display:grid;gap:8px}
 #dealer-ask .da-online-row+.da-online-row{margin-top:8px}
@@ -2433,9 +2438,9 @@ html body .header .nav-quiz,html body .header .nav-quiz[data-design-id]{padding:
 #dealer-ask .da-online-links a[href*="vseinstrumenti.ru"]:hover{background:#c00510}
 #dealer-ask .da-online+.da-part+.da-city{margin-top:0}
 #my-systems .ms-acts .ms-buy{background:var(--orange);border-color:var(--orange);color:#fff}
-#catalog .cd-buy>a:first-child:hover,
+#catalog .cd-buy>.cd-purchase:hover,
 #my-systems .ms-acts .ms-buy:hover{background:#e64a00;border-color:#e64a00}
-#catalog .cd-buy>a:first-child:active,
+#catalog .cd-buy>.cd-purchase:active,
 #my-systems .ms-acts .ms-buy:active{background:#c93f00;border-color:#c93f00}
 #my-systems .ms-foot:empty{margin:0;padding-bottom:24px}
 #buy .buy-focus{display:inline-flex;align-items:center;gap:12px;margin-top:16px;padding:6px 6px 6px 8px;border-radius:16px;background:#fff;color:var(--ink);font-size:16px;line-height:1.35;box-shadow:0 0 0 1.5px #ff530059}
@@ -7826,7 +7831,7 @@ function productShopLinks(product, className){
 }
 function cdBuy(p){
   // Катя 26.11: одна кнопка «Купить» — в окне сразу и маркетплейсы, и магазины; рядом «В избранное»
-  return `<a href="#buy" role="button" data-dealer-product="${p.id}">Купить</a>${sysOK?`<button type="button" class="cd-save" aria-pressed="false">${favLabel(false)}</button>`:''}`;
+  return `${sysOK?`<button type="button" class="cd-save" aria-pressed="false">${favLabel(false)}</button>`:''}<a class="cd-purchase" href="#buy" role="button" data-dealer-product="${p.id}">Купить</a>`;
 }
 function cdItems(p){return [{product:p.id}]}
 function cdSaveState(msg){
