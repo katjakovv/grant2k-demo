@@ -1610,7 +1610,15 @@ body{background:var(--bg-a)}
 #buy .gk-market{grid-column:1;margin:0 0 16px;padding:8px 24px;border-radius:18px;background:#fff}
 #buy .gk-market .marketplaces{display:block;margin:0}
 #buy .gk-market .marketplace{display:flex;align-items:center;min-height:64px;padding:12px 0;border:0;border-radius:0;background:none;box-shadow:none;color:var(--ink);text-decoration:none}
-#buy .gk-market .marketplace+.marketplace{border-top:1px solid #eceef5}
+#buy .gk-market .marketplace:not([hidden])~.marketplace:not([hidden]){border-top:1px solid #eceef5}
+/* ТЗ «онлайн по товару», вариант В: у системы строка площадки — не ссылка, под названием кнопки товаров */
+#buy .gk-market .mk-set::after{display:none}
+#buy .gk-market .mk-set:hover strong{color:inherit}
+#buy .gk-market .mk-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+#buy .gk-market .mk-pills a{display:inline-flex;align-items:center;gap:4px;padding:4px 11px;border:1.5px solid #c9cdd9;border-radius:999px;background:#fff;color:var(--ink);font:600 13px/1.2 Okta,Arial,sans-serif;text-decoration:none}
+#buy .gk-market .mk-pills a:hover{border-color:var(--ink)}
+#buy .gk-market .mk-pills a:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+#buy .gk-market .mk-pills svg{width:10px;height:10px;flex:none}
 #buy .gk-market .marketplace:hover{transform:none}
 #buy .gk-market .marketplace:hover strong{color:var(--orange)}
 #buy .gk-market .marketplace:focus-visible{outline:2px solid var(--orange);outline-offset:2px;border-radius:8px}
@@ -2100,20 +2108,26 @@ body{background:var(--bg-a)}
 #my-systems #ms-title{font-size:26px;line-height:1.25;outline:none}
 #my-systems .ms-sub{margin-top:4px;font-size:15px;color:#5d6786}
 #my-systems .ms-list{display:grid;gap:12px;margin-top:20px}
-#my-systems .ms-card{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 16px;padding:16px;border:1.5px solid #e3e6ef;border-radius:16px;background:#fff}
+#my-systems .ms-card{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 16px;padding:16px;border:1.5px solid #e3e6ef;border-radius:16px;background:#fff}
 #my-systems .ms-pics{display:flex}
 #my-systems .ms-pics img{width:52px;height:52px;object-fit:contain;padding:4px;border-radius:12px;background:#f3f4f8;box-shadow:0 0 0 2px #fff}
 #my-systems .ms-pics img+img{margin-left:-14px}
 #my-systems .ms-info h3{font-size:16px;line-height:1.35}
 #my-systems .ms-line{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:14px;color:var(--ink)}
+/* Катя 26.11, вариант Б: товары системы — каждый на своей строке, корзина в углу карточки, две кнопки поровну */
+#my-systems .ms-info{padding-right:40px}
+#my-systems .ms-acts button{white-space:nowrap}
+#my-systems .ms-line.ms-items{display:grid;gap:2px}
 
 
 #my-systems .ms-date{margin-top:2px;font-size:13px;color:#5d6786}
-#my-systems .ms-acts{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-top:12px;border-top:1px solid #e3e6ef}
+#my-systems .ms-acts{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:8px;padding-top:12px;border-top:1px solid #e3e6ef}
 #my-systems .ms-acts button{min-height:40px;padding:0 14px;border:1.5px solid #c9ccdb;border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:14px;font-weight:700;cursor:pointer}
 #my-systems .ms-acts button:hover{border-color:var(--ink)}
-#my-systems .ms-acts .ms-del{margin-left:auto;border-color:transparent;color:#5d6786;font-weight:600}
-#my-systems .ms-acts .ms-del:hover{color:#b42318;border-color:transparent}
+#my-systems .ms-acts .ms-del{position:absolute;top:10px;right:10px;display:grid;place-items:center;width:36px;height:36px;min-height:36px;padding:0;border:0;border-radius:8px;background:none;color:#5d6786}
+#my-systems .ms-acts .ms-del svg{width:18px;height:18px}
+#my-systems .ms-acts .ms-del:hover{color:#b42318;background:#f3f4f8}
+#my-systems .ms-acts .ms-del:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 #my-systems .ms-empty{margin-top:24px;padding:28px 20px;border-radius:16px;background:#f3f4f8;text-align:center}
 #my-systems .ms-empty-title{font-size:17px;font-weight:700}
 #my-systems .ms-empty p+p{margin-top:4px;color:#5d6786;font-size:15px}
@@ -2128,11 +2142,10 @@ body{background:var(--bg-a)}
   #my-systems .ms-body{padding:4px 16px 0}
   #my-systems #ms-title{font-size:22px}
   #my-systems .ms-card{padding:12px}
-  #my-systems .ms-acts button{flex:1 1 auto}
-  #my-systems .ms-acts .ms-del{flex:0 0 auto}
   #my-systems .ms-foot{padding-bottom:calc(20px + env(safe-area-inset-bottom))}
   #quiz .qz-act-row{flex-direction:column}
 }
+@media (max-width:360px){#my-systems .ms-body{padding:4px 12px 0}#my-systems .ms-card{padding:12px 10px}#my-systems .ms-acts{gap:6px}#my-systems .ms-acts button{padding:0 4px;font-size:12px}}
 </style><style id="claude-step15">
 
 
@@ -7989,11 +8002,6 @@ function qzTrail(){
   parts.push(a.variant?(a.variant==='mat'?'Матовое':'Полуглянец'):a.finish&&labels[a.finish]);
   return parts.filter(Boolean).join(' · ');
 }
-// Claude, макет 29 (вид В): Ozon и ВсеИнструменты — нижняя полоса рамки товара; правило ссылок — как в purchaseLinks
-function systemShops(p){
-  const links=productMarkets(p).filter(({key})=>p.id!=='211'||p[key]).map(({key,name,storeUrl})=>{const url=p[key]||storeUrl;return url?`<a href="${esc(url)}" target="_blank" rel="noopener" aria-label="${esc(qzName(p.id))} на ${esc(name)}">${esc(name)}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>`:''}).filter(Boolean);
-  return links.length?`<div class="system-shops">${links.join('')}</div>`:'';
-}
 function systemSteps(ids,source){
   const pair=ids.length===2 && ids[0]==='211';
   const glossPair=pair && ids[1]==='232';
@@ -8010,7 +8018,7 @@ function systemSteps(ids,source){
       <article class="system-card"><button type="button" class="system-open" data-${source}-product="${id}" aria-label="Подробнее о материале: ${esc(qzName(id))}">
       <span class="system-pic"><img src="${catalogPhoto(p)}" alt=""></span>
       <span><strong class="system-name">${esc(qzName(id))}</strong><span class="system-meta">${esc(type)} · ${esc(p.pack.replace(' / ','–'))}</span>${area?`<span class="system-area" title="${esc(rawArea)}">${esc(area)}</span>`:''}</span>
-      <svg class="system-next" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>${systemShops(p)}</article></li>`;
+      <svg class="system-next" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button></article></li>`;
   });
   return intro+`<ol class="system-steps${pair?' is-pair':''}">${cards.join('')}</ol>`;
 }
@@ -8020,7 +8028,7 @@ function qzResult(body){
   const fin=qzFinish(),ids=qzAlt()?r.ids.filter(id=>id==='211'||id===answers.variant):r.ids;
   body.innerHTML=`<h2 id="quiz-title">${esc(qzTitle()).replace(/(^|\s)(и|для|в|на|с|по)\s/g,'$1$2&nbsp;')}</h2>
     ${systemSteps(ids,'result')}
-    <div class="qz-foot qz-actions"><div class="qz-act-row"><button type="button" class="btn qz-dealer">${ids.length>1?'Купить комплект в магазине':'Купить в магазине'}</button><div class="qz-save"><button type="button" class="qz-save-btn" aria-pressed="false">В избранное</button></div></div><p class="qz-saved" aria-live="polite"></p></div>
+    <div class="qz-foot qz-actions"><div class="qz-act-row"><button type="button" class="btn qz-dealer">${ids.length>1?'Купить комплект':'Купить'}</button><div class="qz-save"><button type="button" class="qz-save-btn" aria-pressed="false">В избранное</button></div></div><p class="qz-saved" aria-live="polite"></p></div>
     `;
   $('.qz-dealer',body).onclick=()=>goBuy(ids,{...answers});
   qzSaveBind(body);
@@ -8717,11 +8725,30 @@ function openSystemRequest(ids,fin,ans,point=null){
 // Катя 26.11: «Купить» не открывает отдельное окно, а ведёт в раздел «Где купить» с картой.
 // Выбранный товар показан плашкой; Ozon и ВсеИнструменты ведут на этот товар, запрос дилеру — про него
 var buyFocus=null,buyFocusAnswers={};
+// ТЗ «онлайн по товару» (Катя 26.11): один товар — строка площадки ведёт на него, подпись «Купить …»;
+// система — строка площадки не ссылка, под названием кнопки товаров (вариант В); товара нет на площадке — его не показываем
+const notOnMarket={ozon:['211','kovka']};
+function marketFor(p,key){
+  if(!p||(notOnMarket[key]||[]).includes(p.id))return null;
+  const short=productTitles[p.id][1];
+  if(p[key])return {url:p[key],short,verb:'Купить'};
+  if(key==='ozon')return {url:'https://www.ozon.ru/search/?text='+encodeURIComponent('GRANT2K '+short),short,verb:'Найти'};
+  return null;
+}
+const MK_ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>';
 function buyFocusPaint(){
   const chip=$('#buy-focus');
-  marketplaces.forEach(({key,storeUrl})=>{const card=$(`#buy [data-market="${key}"]`);if(!card)return;let url=storeUrl,hide=false;
-    if(buyFocus&&buyFocus.length===1){const p=products.find(x=>x.id===buyFocus[0]);if(!productMarkets(p).some(m=>m.key===key))hide=true;else url=p[key]||storeUrl}
-    if(url)card.href=url;card.hidden=hide});
+  $$('#buy .mk-set').forEach(e=>e.remove());
+  const sel=(buyFocus||[]).map(id=>products.find(x=>x.id===id)).filter(Boolean);
+  marketplaces.forEach(({key,name,storeUrl})=>{const card=$(`#buy [data-market="${key}"]`);if(!card)return;
+    const sub=$('.mk-sub',card);if(sub&&!sub.dataset.base)sub.dataset.base=sub.textContent;
+    let url=storeUrl,text=sub?.dataset.base,hide=false;
+    if(sel.length===1){const m=marketFor(sel[0],key);if(m){url=m.url;text=m.verb+' '+m.short}else hide=true}
+    else if(sel.length>1){hide=true;const ms=sel.map(p=>marketFor(p,key)).filter(Boolean);
+      if(ms.length){const row=document.createElement('div');row.className='marketplace mk-set';
+        row.innerHTML=`<div><strong>${$('strong img',card)?.outerHTML||''}${esc(name)}</strong><span class="mk-sub mk-pills">${ms.map(m=>`<a href="${esc(m.url)}" target="_blank" rel="noopener" aria-label="${esc(m.verb+' '+m.short+' на '+name)}">${esc(m.short)}${MK_ARROW}</a>`).join('')}</span></div>`;
+        card.after(row)}}
+    if(url)card.href=url;if(sub&&text)sub.textContent=text;card.hidden=hide});
   if(!buyFocus){chip.hidden=true;chip.innerHTML='';return}
   const name=buyFocus.map(id=>productTitles[id][1]).join(' + ');
   chip.innerHTML=`<img src="${catalogPhoto({id:buyFocus[buyFocus.length-1]})}" alt=""><span>Вы выбрали: <b>${esc(name)}</b></span><button type="button" class="buy-focus-x" aria-label="Сбросить выбор товара">×</button>`;
@@ -8796,8 +8823,8 @@ function msTitle(s){const a=s.answers||{};return a.object||a.material?[msObj[a.o
 function msCard(s){
   const line=s.items.map(it=>qzName(it.product)).join(' + '),title=msTitle(s);
   return `<article class="ms-card" data-id="${esc(s.id)}"><div class="ms-pics" aria-hidden="true">${s.items.map(it=>`<img src="${catalogPhoto({id:it.product})}" alt="">`).join('')}</div>
-    <div class="ms-info"><h3>${esc(title)}</h3>${line!==title?`<p class="ms-line"><span>${esc(line)}</span></p>`:''}</div>
-    <div class="ms-acts"><button type="button" class="ms-buy">${s.items.length>1?'Купить комплект':'Купить'}</button><button type="button" class="ms-open">Подробнее</button><button type="button" class="ms-del" aria-label="Удалить из избранного: ${esc(title)}">Удалить</button></div></article>`;
+    <div class="ms-info"><h3>${esc(title)}</h3>${line!==title?`<p class="ms-line ms-items">${s.items.map(it=>`<span>${esc(qzName(it.product)).replace(/ (\S+)$/,'&nbsp;$1')}</span>`).join('')}</p>`:''}</div>
+    <div class="ms-acts"><button type="button" class="ms-buy">${s.items.length>1?'Купить комплект':'Купить'}</button><button type="button" class="ms-open">Подробнее</button><button type="button" class="ms-del" aria-label="Удалить из избранного: ${esc(title)}" title="Удалить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/></svg></button></div></article>`;
 }
 function msRender(){
   const body=$('#ms-body'),list=sysVisible().slice().reverse();
@@ -8891,7 +8918,7 @@ function qzLinkRender(){
     const a=L.answers,title=a.material?'Система покрытия для '+(qzMatGen[a.material]||'вашей задачи'):'Система покрытия';
     body.innerHTML=`<span class="qz-badge">По ссылке</span><h2 id="quiz-title" tabindex="-1">${esc(title).replace(/(^|\s)(и|для|в|на|с|по)\s/g,'$1$2&nbsp;')}</h2>
       ${systemSteps(ids,'link')}
-      <div class="qz-foot qz-actions"><div class="qz-act-row"><button type="button" class="btn qz-dealer">${ids.length>1?'Купить комплект в магазине':'Купить в магазине'}</button><div class="qz-save"${sysOK?'':' hidden'}><button type="button" class="qz-save-btn" aria-pressed="false">В избранное</button></div><button type="button" class="qz-share qz-link-quiz">Подобрать свою</button></div><p class="qz-saved" aria-live="polite"></p><p class="qz-link-note">Без регистрации: избранное хранится в этом браузере</p></div>`;
+      <div class="qz-foot qz-actions"><div class="qz-act-row"><button type="button" class="btn qz-dealer">${ids.length>1?'Купить комплект':'Купить'}</button><div class="qz-save"${sysOK?'':' hidden'}><button type="button" class="qz-save-btn" aria-pressed="false">В избранное</button></div><button type="button" class="qz-share qz-link-quiz">Подобрать свою</button></div><p class="qz-saved" aria-live="polite"></p><p class="qz-link-note">Без регистрации: избранное хранится в этом браузере</p></div>`;
     $('.qz-dealer',body).onclick=()=>goBuy(ids,{...a});
     $('.qz-save-btn',body).onclick=()=>{const items=qzLinkItems();if(sysExists(items)){openMySystems();return}const r=sysSave({items,answers:{...a}},'link');qzLinkSave(r==='saved'||r==='exists'?'':r)};
     $$('[data-link-product]',body).forEach(b=>b.onclick=()=>{const id=b.dataset.linkProduct;$('#quiz').close();openProduct(id)});
