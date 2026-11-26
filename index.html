@@ -1097,7 +1097,7 @@ body:has(#product-detail, dialog[open]) .back-top { display:none }
 
 #product-detail [hidden]{display:none}
 #catalog .cd-buy>a:first-child{background:var(--orange);color:#fff;border-color:var(--orange);border-radius:12px}
-#catalog .cd-buy>a:first-child:hover{background:var(--orange);border-color:var(--orange)}
+
 .catalog-buy-frame{container-type:inline-size;min-width:0}
 #catalog .cd-buy{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
 #catalog .cd-buy a{display:inline-flex;align-items:center;justify-content:center;width:auto;height:auto;min-height:48px;padding:10px 16px;border-radius:12px;white-space:nowrap;font:600 16px/24px Okta,Arial,sans-serif}
@@ -2415,8 +2415,11 @@ html body .header .nav-quiz,html body .header .nav-quiz[data-design-id]{padding-
 #dealer-ask .da-online-links a[href*="vseinstrumenti.ru"]{background:#e30613}
 #dealer-ask .da-online-links a[href*="vseinstrumenti.ru"]:hover{background:#c00510}
 #dealer-ask .da-online+.da-part+.da-city{margin-top:0}
-#my-systems .ms-acts .ms-buy{background:#be4000;border-color:#be4000;color:#fff}
-#my-systems .ms-acts .ms-buy:hover{background:#a43700;border-color:#a43700}
+#my-systems .ms-acts .ms-buy{background:var(--orange);border-color:var(--orange);color:#fff}
+#catalog .cd-buy>a:first-child:hover,
+#my-systems .ms-acts .ms-buy:hover{background:#e64a00;border-color:#e64a00}
+#catalog .cd-buy>a:first-child:active,
+#my-systems .ms-acts .ms-buy:active{background:#c93f00;border-color:#c93f00}
 #my-systems .ms-foot:empty{margin:0;padding-bottom:24px}
 #buy .buy-focus{display:inline-flex;align-items:center;gap:12px;margin-top:16px;padding:6px 6px 6px 8px;border-radius:16px;background:#fff;color:var(--ink);font-size:16px;line-height:1.35;box-shadow:0 0 0 1.5px #ff530059}
 #buy .buy-focus[hidden]{display:none}
